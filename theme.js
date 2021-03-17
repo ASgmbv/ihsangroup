@@ -7,6 +7,18 @@ const theme = extendTheme({
     jashyl: "#006754",
     kara: "#444D4A",
   },
+  components: {
+    Link: {
+      baseStyle: {
+        _hover: {
+          textDecoration: "none",
+        },
+        _focus: {
+          boxShadow: "none",
+        },
+      },
+    },
+  },
 });
 
 export default theme;

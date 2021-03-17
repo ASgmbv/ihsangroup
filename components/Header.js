@@ -1,12 +1,35 @@
-import { Box, Container, Flex, Link, Button } from "@chakra-ui/react";
+import { Box, Container, Flex, Link, Button, HStack } from "@chakra-ui/react";
 
 import { useRouter } from "next/router";
 import NextLink from "next/link";
 import Image from "next/image";
 
+const pages = [
+  { title: "ГЛАВНАЯ", pathname: "/" },
+  { title: "О НАС", pathname: "/about" },
+  { title: "ПРОГРАММЫ", pathname: "/plans" },
+  { title: "ГАРАНТИИ", pathname: "/guarantees" },
+  { title: "ОТЗЫВЫ", pathname: "/reviews" },
+  { title: "КОНТАКТЫ", pathname: "/contacts" },
+];
+
+const PageLink = ({ children, pathname, currentPathname }) => {
+  return (
+    <NextLink href={pathname} passHref>
+      <Link
+        fontSize="sm"
+        fontWeight="semibold"
+        color={pathname === currentPathname ? "#D5A022" : "#006754"}
+      >
+        {children}
+      </Link>
+    </NextLink>
+  );
+};
+
 const Header = () => {
   const router = useRouter();
-  const pathname = router.pathname;
+  const currentPathname = router.pathname;
 
   return (
     <Box
@@ -21,73 +44,22 @@ const Header = () => {
         <Container maxW="container.xl" d={["none", null, null, "block"]} py="4">
           <Flex justify="space-between" align="center" h="100%">
             <Image
-              src="/23.png"
+              src="/logo.svg"
               alt="Логотип компании"
               width={80}
               height={50}
             />
-            <Flex>
-              <NextLink href="/" passHref>
-                <Link
-                  px="3"
-                  fontSize="sm"
-                  fontWeight="semibold"
-                  color={pathname === "/" ? "#D5A022" : "#006754"}
+            <HStack align="center" spacing="6">
+              {pages.map(({ title, pathname }, index) => (
+                <PageLink
+                  pathname={pathname}
+                  currentPathname={currentPathname}
+                  key={"page-link-" + index}
                 >
-                  ГЛАВНАЯ
-                </Link>
-              </NextLink>
-              <NextLink href="/about" passHref>
-                <Link
-                  px="3"
-                  fontSize="sm"
-                  fontWeight="semibold"
-                  color={pathname === "/about" ? "#D5A022" : "#006754"}
-                >
-                  О НАС
-                </Link>
-              </NextLink>
-              <NextLink href="/plans" passHref>
-                <Link
-                  px="3"
-                  fontWeight="semibold"
-                  fontSize="sm"
-                  color={pathname === "/plans" ? "#D5A022" : "#006754"}
-                >
-                  ПРОГРАММЫ
-                </Link>
-              </NextLink>
-              <NextLink href="/guarantees" passHref>
-                <Link
-                  px="3"
-                  fontWeight="semibold"
-                  fontSize="sm"
-                  color={pathname === "/guarantees" ? "#D5A022" : "#006754"}
-                >
-                  ГАРАНТИИ
-                </Link>
-              </NextLink>
-              <NextLink href="/reviews" passHref>
-                <Link
-                  px="3"
-                  fontWeight="semibold"
-                  fontSize="sm"
-                  color={pathname === "/reviews" ? "#D5A022" : "#006754"}
-                >
-                  ОТЗЫВЫ
-                </Link>
-              </NextLink>
-              <NextLink href="/contacts" passHref>
-                <Link
-                  px="3"
-                  fontWeight="semibold"
-                  fontSize="sm"
-                  color={pathname === "/contacts" ? "#D5A022" : "#006754"}
-                >
-                  КОНТАКТЫ
-                </Link>
-              </NextLink>
-            </Flex>
+                  {title}
+                </PageLink>
+              ))}
+            </HStack>
             <CustomButton>Личный кабинет</CustomButton>
           </Flex>
         </Container>

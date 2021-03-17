@@ -24,43 +24,13 @@ import {
 import { MdCheck } from "react-icons/md";
 import { FaCaretRight } from "react-icons/fa";
 import Callback from "@/components/Callback";
-import Footer from "@/components/Footer";
+import Slider from "../components/Slider";
 
 export default function Home() {
   return (
     <>
       <Layout>
-        <Flex
-          w="full"
-          backgroundColor="rgba(0, 0, 0, 0.5)"
-          backgroundImage="url('/main.jpg')"
-          backgroundPosition="center"
-          backgroundRepeat="no-repeat"
-          backgroundSize="cover"
-          h="calc(100vh - 100px)"
-        >
-          <Box h="full" w="full" background="rgba(1, 87, 71,0.7)">
-            <Container maxW="container.xl" h="full">
-              <Flex flexDir="column" justify="center" h="full">
-                <Heading
-                  color="white"
-                  size="2xl"
-                  fontWeight="500"
-                  lineHeight="1.3"
-                  mb="6"
-                >
-                  Ихсан Групп — доступное <br />
-                  жилье для каждого
-                </Heading>
-                <Text color="white" fontSize="lg" lineHeight="2" mb="6">
-                  Минимальный пакет документов <br /> с самыми выгодными
-                  программами
-                </Text>
-                <CustomButton>Узнать больше</CustomButton>
-              </Flex>
-            </Container>
-          </Box>
-        </Flex>
+        <Slider />
 
         {/**---------------------- */}
 
@@ -363,7 +333,7 @@ const Card = ({ icon, title, content, ...props }) => {
   );
 };
 
-const CustomButtonGreen = ({ children }) => {
+const CustomButtonGreen = ({ children, ...props }) => {
   return (
     <Button
       size="lg"
@@ -383,32 +353,7 @@ const CustomButtonGreen = ({ children }) => {
       _active={{
         borderColor: "currentColor",
       }}
-    >
-      {children}
-    </Button>
-  );
-};
-
-const CustomButton = ({ children }) => {
-  return (
-    <Button
-      size="lg"
-      w="fit-content"
-      lineHeight="1.2"
-      borderRadius="0"
-      fontSize="14px"
-      fontWeight="semibold"
-      bg="transparent"
-      color="white"
-      border="1px"
-      borderColor="#D5A022"
-      _hover={{
-        bg: "#D5A022",
-        color: "white",
-      }}
-      _active={{
-        borderColor: "currentColor",
-      }}
+      {...props}
     >
       {children}
     </Button>
