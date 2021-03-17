@@ -7,6 +7,11 @@ const theme = extendTheme({
     jashyl: "#006754",
     kara: "#444D4A",
   },
+  sizes: {
+    container: {
+      lg2: "1200px",
+    },
+  },
   components: {
     Link: {
       baseStyle: {

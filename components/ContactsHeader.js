@@ -5,7 +5,7 @@ import { FaPhoneAlt, FaInstagram, FaFacebookSquare } from "react-icons/fa";
 const ContactsHeader = () => {
   return (
     <Box bg="#EFF1ED">
-      <Container maxW="container.xl" py="3">
+      <Container maxW="container.lg2" py="3">
         <Flex
           justify="space-between"
           align="center"

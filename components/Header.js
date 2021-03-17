@@ -41,7 +41,11 @@ const Header = () => {
       borderColor="gray.100"
     >
       <Box bg="white">
-        <Container maxW="container.xl" d={["none", null, null, "block"]} py="4">
+        <Container
+          maxW="container.lg2"
+          d={["none", null, null, "block"]}
+          py="4"
+        >
           <Flex justify="space-between" align="center" h="100%">
             <Image
               src="/logo.svg"

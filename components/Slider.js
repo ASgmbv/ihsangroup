@@ -23,31 +23,15 @@ export const wrap = (min, max, v) => {
 
 const slides = [
   {
-    title: (
-      <>
-        Возможность купить жильё <br /> по самым выгодным ценам
-      </>
-    ),
-    description: (
-      <>
-        Уникальное предложение на рынке недвижимости <br />
-        Рассрочка на 10 лет без %
-      </>
-    ),
+    title: "Возможность купить жильё по самым выгодным ценам",
+    description:
+      "Уникальное предложение на рынке недвижимости Рассрочка на 10 лет без %",
     image: "/back.jpg",
   },
   {
-    title: (
-      <>
-        Возможность купить жильё <br /> по самым выгодным ценам
-      </>
-    ),
-    description: (
-      <>
-        Уникальное предложение на рынке недвижимости <br />
-        Рассрочка на 10 лет без %
-      </>
-    ),
+    title: "Возможность купить жильё по самым выгодным ценам",
+    description:
+      "Уникальное предложение на рынке недвижимости Рассрочка на 10 лет без %",
     image: "/back2.jpg",
   },
 ];
@@ -63,8 +47,11 @@ const Slider = () => {
         <MotionImage
           objectFit="cover"
           width="100%"
-          key={page}
+          key={slides[slideIndex].image}
           src={slides[slideIndex].image}
+          initial={{
+            opacity: 0,
+          }}
           animate={{
             opacity: 1,
           }}
@@ -72,7 +59,7 @@ const Slider = () => {
             opacity: 0,
           }}
           transition={{
-            opacity: { duration: 0.2 },
+            opacity: { duration: 0.5 },
           }}
         />
         <Box
@@ -84,7 +71,7 @@ const Slider = () => {
           left="0"
         >
           <Container
-            maxW="container.xl"
+            maxW="container.lg2"
             height="full"
             justifyContent="center"
             position="relative"
@@ -120,7 +107,7 @@ const Slider = () => {
               </Text>
             </MotionFlex>
 
-            <ButtonGroup position="absolute" bottom="10rem" spacing="3">
+            <ButtonGroup position="absolute" bottom="2rem" spacing="3">
               <IconButton
                 borderRadius="0"
                 variant="outline"
