@@ -12,7 +12,7 @@ const ContactsHeader = () => {
           h="full"
           flexDir={["column", null, "row"]}
         >
-          <Flex align="center">
+          <Flex align="center" flexDir={["column", null, null, "row"]}>
             <Flex align="center">
               <Icon
                 as={MdLocationCity}
@@ -60,14 +60,31 @@ const ContactsHeader = () => {
             </Link>
           </Flex>
           <Flex>
-            <Link _hover={{ color: "jashyl" }}>
-              <Icon as={FaInstagram} boxSize={4} mr="5" />
+            <Link>
+              <Icon
+                as={FaInstagram}
+                _hover={{ color: "jashyl" }}
+                color="#444D49"
+                boxSize={4}
+                mr="5"
+              />
             </Link>
-            <Link _hover={{ color: "jashyl" }}>
-              <Icon as={FaFacebookSquare} boxSize={4} mr="5" />
+            <Link>
+              <Icon
+                _hover={{ color: "jashyl" }}
+                as={FaFacebookSquare}
+                color="#444D49"
+                boxSize={4}
+                mr="5"
+              />
             </Link>
-            <Link _hover={{ color: "jashyl" }}>
-              <Icon as={MdEmail} boxSize={4} />
+            <Link>
+              <Icon
+                as={MdEmail}
+                _hover={{ color: "jashyl" }}
+                color="#444D49"
+                boxSize={4}
+              />
             </Link>
           </Flex>
         </Flex>

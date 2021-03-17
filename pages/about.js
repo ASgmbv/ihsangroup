@@ -16,41 +16,22 @@ import {
 import ReactPlayer from "react-player";
 import { FaCaretRight } from "react-icons/fa";
 import { MdCheck } from "react-icons/md";
+import SectionHeader from "@/components/SectionHeader";
 
 const Plans = () => {
   return (
     <Layout>
-      <Flex
-        w="full"
-        backgroundImage="url('/14.png')"
-        backgroundPosition="center"
-        backgroundRepeat="no-repeat"
-        backgroundSize="cover"
-        h={["300px"]}
-      >
-        <Box h="full" w="full" background="rgba(1, 87, 71,0.8)">
-          <Container maxW="container.xl" h="full">
-            <Flex flexDir="column" justify="center" align="center" h="full">
-              <Heading
-                color="white"
-                size="2xl"
-                fontWeight="500"
-                lineHeight="1.3"
-                mb="6"
-              >
-                О Нас
-              </Heading>
-            </Flex>
-          </Container>
-        </Box>
-      </Flex>
+      <SectionHeader>Об Ихсан Групп</SectionHeader>
       {/**---------------------- */}
-      <Flex py="100px">
-        <Container maxW="container.xl">
-          <Grid templateColumns={["1fr", null, null, "1fr 1fr"]} gap="20">
+      <Flex py={["50px", null, null, "100px"]}>
+        <Container maxW="container.lg2">
+          <Grid
+            templateColumns={["1fr", null, null, "1fr 1fr"]}
+            gap={[0, null, null, 20]}
+          >
             <Flex>
               <Image
-                src="/15.png"
+                src="/gl.jpeg"
                 alt="Ихсан Групп"
                 objectFit="cover"
                 w="full"
@@ -70,23 +51,20 @@ const Plans = () => {
                 Кооператива в недвижимом имуществе и покупке жилья.
               </Text>
               <Text color="jashyl" lineHeight="tall">
-                Жилищный Кооператив Ихсан - это добровольное объединение людей,
-                с целью совместного удовлетворения потребностей членов
-                Кооператива в недвижимом имуществе и покупке жилья.
-              </Text>
-              <Text lineHeight="tall">
-                В нашем офисе Вас ждет полная консультация от наших сотрудников
-                о программах и условиях кооператива. Также, Вы сможете
-                ознакомиться с нашим Уставными документами кооператива в
-                дружеской атмосфере.
+                Наш кооператив осуществляет свою деятельность в соответствии с
+                законами Кыргызской Республики №70 «О кооперативах» от
+                30.04.2004 года и №111 «О некоммерческих организациях» от
+                15.12.1999 года, согласно которым единственным конституционным
+                документом Жилищного кооператива является его Устав,
+                утвержденный на собрании пайщиков.
               </Text>
             </Stack>
           </Grid>
         </Container>
       </Flex>
       {/**---------------------- */}
-      <Box pb="100px">
-        <Container maxW="container.xl">
+      <Box pb={["50px", null, "100px"]}>
+        <Container maxW="container.lg2">
           <ReactPlayer
             url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
             width="100%"
@@ -94,8 +72,8 @@ const Plans = () => {
         </Container>
       </Box>
       {/**---------------------- */}
-      <Box pb="100px">
-        <Container maxW="container.xl">
+      <Box pb={["50px", null, "100px"]}>
+        <Container maxW="container.lg2">
           <Flex flexDir="column" alignItems="center">
             <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
               НАШИ ПРОГРАММЫ
@@ -109,95 +87,60 @@ const Plans = () => {
             >
               Все что нужно знать о нас
             </Heading>
-            <Grid templateColumns="repeat(2, 1fr)" gap="20">
+            <Grid
+              templateColumns={["repeat(1, 1fr)", null, "repeat(2, 1fr)"]}
+              gap={[10, null, 16]}
+            >
               <List spacing="5">
                 <ListItem fontSize="xl" fontWeight="500" color="saryy">
                   <ListIcon as={MdCheck} color="saryy" boxSize="7" />
                   Выгодные условия
                 </ListItem>
-                <ListItem>
-                  <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
-                  рассрочка на 10 лет с 0% на покупку жилья
-                </ListItem>
-                <ListItem>
-                  <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
-                  самый минимальный первоначальный взнос 5%
-                </ListItem>
-                <ListItem>
-                  <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
-                  самый минимальный паевый взнос 25%
-                </ListItem>
-                <ListItem>
-                  <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
+                <GridItem>рассрочка на 10 лет с 0% на покупку жилья</GridItem>
+                <GridItem>самый минимальный первоначальный взнос 5%</GridItem>
+                <GridItem>самый минимальный паевый взнос 25%</GridItem>
+                <GridItem>
                   после погашения основного долга, членский взнос погашается
-                </ListItem>
+                </GridItem>
               </List>
               <List spacing="5">
                 <ListItem fontSize="xl" fontWeight="500" color="saryy">
                   <ListIcon as={MdCheck} color="saryy" boxSize="7" />
                   Гарантированная безопасность
                 </ListItem>
-                <ListItem>
-                  <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
+                <GridItem>
                   финансовая гарантия государственная и юридическая защита
-                </ListItem>
-                <ListItem>
-                  <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
-                  согласованное управление
-                </ListItem>
-                <ListItem>
-                  <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
-                  фиксированный курс
-                </ListItem>
-                <ListItem>
-                  <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
-                  страхование документов
-                </ListItem>
+                </GridItem>
+                <GridItem>согласованное управление</GridItem>
+                <GridItem>фиксированный курс</GridItem>
+                <GridItem>страхование документов</GridItem>
               </List>
               <List spacing="5">
                 <ListItem fontSize="xl" fontWeight="500" color="saryy">
                   <ListIcon as={MdCheck} color="saryy" boxSize="7" />
                   Полный спектр услуг
                 </ListItem>
-                <ListItem>
-                  <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
-                  минимальный пакет документов
-                </ListItem>
-                <ListItem>
-                  <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
-                  легкие этапы приобретения
-                </ListItem>
-                <ListItem>
-                  <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
-                  лучшие программы только для вас
-                </ListItem>
-                <ListItem>
-                  <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
+                <GridItem>минимальный пакет документов</GridItem>
+                <GridItem>легкие этапы приобретения</GridItem>
+                <GridItem>лучшие программы только для вас</GridItem>
+                <GridItem>
                   гибкая система графика оплаты и специальные акции
-                </ListItem>
-                <ListItem>
-                  <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
-                  бесплатная юридическая поддержка
-                </ListItem>
+                </GridItem>
+                <GridItem>бесплатная юридическая поддержка</GridItem>
               </List>
               <List spacing="5">
                 <ListItem fontSize="xl" fontWeight="500" color="saryy">
                   <ListIcon as={MdCheck} color="saryy" boxSize="7" />
                   Уникальные возможности
                 </ListItem>
-                <ListItem>
-                  <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
+                <GridItem>
                   сотрудничество со строительной компанией Эмаком
-                </ListItem>
-                <ListItem>
-                  <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
-                  бартерная форма расчета
-                </ListItem>
-                <ListItem>
-                  <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
+                </GridItem>
+                <GridItem>бартерная форма расчета</GridItem>
+                <GridItem>
                   после паевого взноса, максимум 4 месяца на приобретение
                   квартиры
-                </ListItem>
+                </GridItem>
               </List>
             </Grid>
           </Flex>
@@ -205,11 +148,20 @@ const Plans = () => {
       </Box>
       {/**---------------------- */}
       <Box pb="100px">
-        <Container maxW="container.xl">
+        <Container maxW="container.lg2">
           <Callback />
         </Container>
       </Box>
     </Layout>
+  );
+};
+
+const GridItem = ({ children }) => {
+  return (
+    <ListItem>
+      <ListIcon boxSize="6" color="#59AA6B" as={FaCaretRight} />
+      {children}
+    </ListItem>
   );
 };
 

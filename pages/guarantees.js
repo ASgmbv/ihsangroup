@@ -17,41 +17,22 @@ import {
   AccordionPanel,
 } from "@chakra-ui/react";
 import { BsQuestionCircleFill } from "react-icons/bs";
+import SectionHeader from "../components/SectionHeader";
 
 const Guarantees = () => {
   return (
     <Layout>
-      <Flex
-        w="full"
-        backgroundImage="url('/14.png')"
-        backgroundPosition="center"
-        backgroundRepeat="no-repeat"
-        backgroundSize="cover"
-        h={["300px"]}
-      >
-        <Box h="full" w="full" background="rgba(1, 87, 71,0.8)">
-          <Container maxW="container.xl" h="full">
-            <Flex flexDir="column" justify="center" align="center" h="full">
-              <Heading
-                color="white"
-                size="2xl"
-                fontWeight="500"
-                lineHeight="1.3"
-                mb="6"
-              >
-                Гарантии
-              </Heading>
-            </Flex>
-          </Container>
-        </Box>
-      </Flex>
+      <SectionHeader>Гарантии</SectionHeader>
       {/**---------------------- */}
-      <Flex py="100px">
-        <Container maxW="container.xl">
-          <Grid templateColumns={["1fr", null, null, "1fr 1fr"]} gap="20">
+      <Flex py={["50px", null, "100px"]}>
+        <Container maxW="container.lg2">
+          <Grid
+            templateColumns={["1fr", null, null, "1fr 1fr"]}
+            gap={[0, null, null, "20"]}
+          >
             <Flex>
               <Image
-                src="/21.png"
+                src="/gl2.jpeg"
                 alt="Ихсан Групп"
                 objectFit="cover"
                 w="full"
@@ -104,8 +85,8 @@ const Guarantees = () => {
         </Container>
       </Flex>
       {/**---------------------- */}
-      <Box pb="100px" bg="#F6F8F6">
-        <Container maxW="container.xl" py="100px">
+      <Box bg="#F6F8F6">
+        <Container maxW="container.lg2" py={["50px", null, "100px"]}>
           <Flex flexDir="column" alignItems="center">
             <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
               ГАРАНТИИ
@@ -119,13 +100,13 @@ const Guarantees = () => {
             >
               С нами безопасно!
             </Heading>
-            <CustomGrid mb="30px" />
+            <CustomGrid />
           </Flex>
         </Container>
       </Box>
       {/**---------------------- */}
       <Box>
-        <Container maxW="container.xl" py="100px">
+        <Container maxW="container.lg2" py={["50px", null, "100px"]}>
           <Flex flexDir="column" alignItems="center">
             <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
               ГАРАНТИИ
@@ -149,7 +130,21 @@ const Guarantees = () => {
                 </Flex>
                 <AccordionIcon />
               </AccordionButton>
-              <AccordionPanel>panel</AccordionPanel>
+              <AccordionPanel>
+                <Text lineHeight="taller">
+                  Рынок ипотеки становится все более цивилизованным, а нынешние
+                  клиенты — потенциальные заемщики — это уже не те физические
+                  лица, которые приходили за кредитом на недвижимость года 2
+                  назад.
+                </Text>
+                <Text lineHeight="taller">
+                  И данная ситуация меняется на глазах — наши дети уже с
+                  младенчества привыкают к терминам «ипотека» и «аннуитет», а
+                  также учатся планировать свой бюджет с учетом ежемесячных
+                  платежей. Считаю, что финансовая грамотность не может не иметь
+                  четких границ в своем развитии.
+                </Text>
+              </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
               <AccordionButton justifyContent="space-between" py="4">
@@ -160,7 +155,21 @@ const Guarantees = () => {
 
                 <AccordionIcon />
               </AccordionButton>
-              <AccordionPanel>panel</AccordionPanel>
+              <AccordionPanel>
+                <Text lineHeight="taller">
+                  Рынок ипотеки становится все более цивилизованным, а нынешние
+                  клиенты — потенциальные заемщики — это уже не те физические
+                  лица, которые приходили за кредитом на недвижимость года 2
+                  назад.
+                </Text>
+                <Text lineHeight="taller">
+                  И данная ситуация меняется на глазах — наши дети уже с
+                  младенчества привыкают к терминам «ипотека» и «аннуитет», а
+                  также учатся планировать свой бюджет с учетом ежемесячных
+                  платежей. Считаю, что финансовая грамотность не может не иметь
+                  четких границ в своем развитии.
+                </Text>
+              </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
               <AccordionButton justifyContent="space-between" py="4">
@@ -171,7 +180,21 @@ const Guarantees = () => {
 
                 <AccordionIcon />
               </AccordionButton>
-              <AccordionPanel>panel</AccordionPanel>
+              <AccordionPanel>
+                <Text lineHeight="taller">
+                  Рынок ипотеки становится все более цивилизованным, а нынешние
+                  клиенты — потенциальные заемщики — это уже не те физические
+                  лица, которые приходили за кредитом на недвижимость года 2
+                  назад.
+                </Text>
+                <Text lineHeight="taller">
+                  И данная ситуация меняется на глазах — наши дети уже с
+                  младенчества привыкают к терминам «ипотека» и «аннуитет», а
+                  также учатся планировать свой бюджет с учетом ежемесячных
+                  платежей. Считаю, что финансовая грамотность не может не иметь
+                  четких границ в своем развитии.
+                </Text>
+              </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
               <AccordionButton justifyContent="space-between" py="4">
@@ -246,8 +269,8 @@ const Guarantees = () => {
         </Container>
       </Box>
       {/**---------------------- */}
-      <Box py="100px">
-        <Container maxW="container.xl">
+      <Box py={["50px", null, "100px"]}>
+        <Container maxW="container.lg2">
           <Callback />
         </Container>
       </Box>
@@ -258,8 +281,12 @@ const Guarantees = () => {
 
 const Card = ({ icon, title, content, ...props }) => {
   return (
-    <Flex border="1px solid" borderColor="gray.200" p="6" {...props}>
-      {/* <Image src={icon} boxSize="50px" mr="6" /> */}
+    <Flex
+      border="1px solid"
+      borderColor="gray.200"
+      p={[4, null, null, 6]}
+      {...props}
+    >
       {icon}
       <Flex flexDir="column" ml="6">
         <Heading as="h3" size="md" color="jashyl" mb="3" fontWeight="semibold">
@@ -275,7 +302,16 @@ const Card = ({ icon, title, content, ...props }) => {
 
 const CustomGrid = (props) => {
   return (
-    <Grid templateColumns="repeat(3, 1fr)" gap="10" {...props}>
+    <Grid
+      templateColumns={[
+        "repeat(1, 1fr)",
+        null,
+        "repeat(2, 1fr)",
+        "repeat(3, 1fr)",
+      ]}
+      gap={[4, null, 10]}
+      {...props}
+    >
       <Card
         icon={
           <Icon viewBox="0 0 47.712 47.712" boxSize="12">

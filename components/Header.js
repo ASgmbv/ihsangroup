@@ -18,7 +18,8 @@ const PageLink = ({ children, pathname, currentPathname }) => {
     <NextLink href={pathname} passHref>
       <Link
         fontSize="sm"
-        fontWeight="semibold"
+        fontWeight="bold"
+        fontFamily="Montserrat, sans-serif"
         color={pathname === currentPathname ? "#D5A022" : "#006754"}
       >
         {children}
@@ -47,12 +48,16 @@ const Header = () => {
           py="4"
         >
           <Flex justify="space-between" align="center" h="100%">
-            <Image
-              src="/logo.svg"
-              alt="Логотип компании"
-              width={80}
-              height={50}
-            />
+            <NextLink href={"/"}>
+              <a>
+                <Image
+                  src="/logo.svg"
+                  alt="Логотип компании"
+                  width={80}
+                  height={50}
+                />
+              </a>
+            </NextLink>
             <HStack align="center" spacing="6">
               {pages.map(({ title, pathname }, index) => (
                 <PageLink

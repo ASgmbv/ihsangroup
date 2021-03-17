@@ -2,6 +2,10 @@ import { extendTheme } from "@chakra-ui/react";
 
 // 2. Call `extendTheme` and pass your custom values
 const theme = extendTheme({
+  fonts: {
+    heading: "Montserrat, sans-serif",
+    body: "Open Sans, sans-serif",
+  },
   colors: {
     saryy: "#D5A022",
     jashyl: "#006754",
@@ -13,6 +17,13 @@ const theme = extendTheme({
     },
   },
   components: {
+    Button: {
+      baseStyle: {
+        _focus: {
+          boxShadow: "none",
+        },
+      },
+    },
     Link: {
       baseStyle: {
         _hover: {

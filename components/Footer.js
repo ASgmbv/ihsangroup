@@ -11,132 +11,143 @@ import {
   ListItem,
   ListIcon,
 } from "@chakra-ui/react";
-import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter,
+} from "react-icons/fa";
 import { MdChevronRight } from "react-icons/md";
 import NextLink from "next/link";
-import { useRouter } from "next/router";
+
+const FooterLink = ({ children, href = "/" }) => {
+  return (
+    <ListItem
+      _hover={{
+        color: "white",
+      }}
+      color="#81ADA5"
+    >
+      <NextLink href={href} passHref>
+        <Link>
+          <ListIcon as={MdChevronRight} />
+          {children}
+        </Link>
+      </NextLink>
+    </ListItem>
+  );
+};
 
 const Footer = () => {
-  const router = useRouter();
-  const pathname = router.pathname;
-  const isGreen = pathname === "/";
-
   return (
     <>
-      <Box as="footer" bg={isGreen ? "#006754" : "#EFF1ED"}>
-        <Container maxW="container.xl" py="10">
+      <Box as="footer" bg="jashyl">
+        <Container maxW="container.lg2" py="10">
           <Flex
             justifyContent="space-between"
-            color={isGreen ? "white" : "gray.700"}
+            flexDir={["column", null, null, "row"]}
           >
             <Stack spacing="6">
-              <Image src="23.png" h="68px" w="115px" />
-              <Text maxW="300px">
+              <Image
+                src="/logo-gold.svg"
+                alt="Логотип компании"
+                width={20}
+                height={50}
+              />
+              <Text maxW={["full", null, "300px"]} color="#81ADA5">
                 Жилищный Кооператив Ихсан - это добровольное объединение людей,
                 с целью совместного удовлетворения потребностей членов
                 Кооператива в недвижимом имуществе и покупке жилья.
               </Text>
-              <Stack direction="row" spacing="6">
-                <Link>
-                  <Icon as={FaFacebook} boxSize={4} />
-                </Link>
-                <Link>
-                  <Icon as={FaTwitter} boxSize={4} />
-                </Link>
-                <Link>
-                  <Icon as={FaInstagram} boxSize={4} />
-                </Link>
-                <Link>
-                  <Icon as={FaLinkedin} boxSize={4} />
-                </Link>
-              </Stack>
             </Stack>
-            <Flex color={isGreen ? "white" : "jashyl"} fontSize="lg">
+            <Flex fontSize="lg" mt={[10, null, null, 0]} color="#81ADA5">
               Последние новости
             </Flex>
-            <List spacing="4">
-              <ListItem color={isGreen ? "white" : "jashyl"} fontSize="lg">
+            <List spacing="4" mt={[10, null, null, 0]}>
+              <ListItem fontSize="lg" color="#81ADA5">
                 О кооперативе
               </ListItem>
-              <ListItem>
-                <NextLink href="/about" passHref>
-                  <Link>
-                    <ListIcon as={MdChevronRight} />О Нас
-                  </Link>
-                </NextLink>
-              </ListItem>
-              <ListItem>
-                <ListIcon as={MdChevronRight} />
-                Почему Мы
-              </ListItem>
-              <ListItem>
-                <NextLink href="/reviews" passHref>
-                  <Link>
-                    <ListIcon as={MdChevronRight} />
-                    Отзывы
-                  </Link>
-                </NextLink>
-              </ListItem>
-              <ListItem>
-                <ListIcon as={MdChevronRight} />
-                Новости
-              </ListItem>
-              <ListItem>
-                <ListIcon as={MdChevronRight} />
-                Сертификаты
-              </ListItem>
+              <FooterLink href="/about">О Нас</FooterLink>
+              <FooterLink href="/">Почему Мы</FooterLink>
+              <FooterLink href="/">Отзывы</FooterLink>
+              <FooterLink href="/">Новости</FooterLink>
+              <FooterLink href="/">Сертификаты</FooterLink>
             </List>
-            <List spacing="4">
-              <ListItem color={isGreen ? "white" : "jashyl"} fontSize="lg">
+            <List spacing="4" mt={[10, null, null, 0]}>
+              <ListItem fontSize="lg" color="#81ADA5">
                 Наши Услуги
               </ListItem>
-              <ListItem>
-                <NextLink href="/plans" passHref>
-                  <Link>
-                    <ListIcon as={MdChevronRight} />
-                    Программы
-                  </Link>
-                </NextLink>
-              </ListItem>
-              <ListItem>
-                <NextLink href="/guarantess">
-                  <Link>
-                    <ListIcon as={MdChevronRight} />
-                    Гарантии
-                  </Link>
-                </NextLink>
-              </ListItem>
-              <ListItem>
-                <ListIcon as={MdChevronRight} />
-                Преимущества
-              </ListItem>
-              <ListItem>
-                <ListIcon as={MdChevronRight} />
-                Условия
-              </ListItem>
-              <ListItem>
-                <ListIcon as={MdChevronRight} />
-                Частые Вопросы
-              </ListItem>
+              <FooterLink href="/plans">Программы</FooterLink>
+              <FooterLink href="/guarantess">Гарантии</FooterLink>
+              <FooterLink href="/guarantess">Преимущества</FooterLink>
+              <FooterLink href="/guarantess">Условия</FooterLink>
+              <FooterLink href="/guarantess">Частые Вопросы</FooterLink>
             </List>
           </Flex>
         </Container>
       </Box>
-      {isGreen ? null : (
-        <Box bg="#EEC643">
-          <Container maxW="container.xl" py="4">
-            <Flex justifyContent="space-between" alignItems="center">
-              <Flex alignItems="center">
-                Сделано в
-                <Image src="/24.png" />
-              </Flex>
-              <Text>
-                Ihsangroup © 2020 <br /> все права защищены
-              </Text>
-            </Flex>
-          </Container>
-        </Box>
-      )}
+      <Box bg="jashyl" borderTop="1px solid" borderColor="whiteAlpha.400">
+        <Container maxW="container.lg2" py="4">
+          <Flex
+            justifyContent="space-between"
+            alignItems="center"
+            flexDir={["column", null, "row"]}
+          >
+            <Stack direction="row" spacing="6" my="2">
+              <Link isExternal>
+                <Flex
+                  borderRadius="5000px"
+                  bg="white"
+                  boxSize={7}
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Icon as={FaFacebookF} boxSize={4} color="#007361" />
+                </Flex>
+              </Link>
+              <Link>
+                <Flex
+                  borderRadius="5000px"
+                  bg="white"
+                  boxSize={7}
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Icon as={FaTwitter} boxSize={4} color="#007361" />
+                </Flex>
+              </Link>
+              <Link>
+                <Flex
+                  borderRadius="5000px"
+                  bg="white"
+                  boxSize={7}
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Icon as={FaInstagram} boxSize={4} color="#007361" />
+                </Flex>
+              </Link>
+              <Link>
+                <Flex
+                  borderRadius="5000px"
+                  bg="white"
+                  boxSize={7}
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Icon as={FaLinkedin} boxSize={4} color="#007361" />
+                </Flex>
+              </Link>
+            </Stack>
+            <Text my="2" color="#81ADA5">
+              Ihsangroup © 2020 все права защищены
+            </Text>
+            <Text my="2" color="white" fontSize="lg">
+              +996 700 005 151
+            </Text>
+          </Flex>
+        </Container>
+      </Box>
     </>
   );
 };

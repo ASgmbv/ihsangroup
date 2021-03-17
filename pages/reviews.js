@@ -10,37 +10,16 @@ import {
   Text,
 } from "@chakra-ui/react";
 import ReactPlayer from "react-player";
+import SectionHeader from "../components/SectionHeader";
 
 const Reviews = () => {
   return (
     <Layout>
-      <Flex
-        w="full"
-        backgroundImage="url('/14.png')"
-        backgroundPosition="center"
-        backgroundRepeat="no-repeat"
-        backgroundSize="cover"
-        h={["300px"]}
-      >
-        <Box h="full" w="full" background="rgba(1, 87, 71,0.8)">
-          <Container maxW="container.xl" h="full">
-            <Flex flexDir="column" justify="center" align="center" h="full">
-              <Heading
-                color="white"
-                size="2xl"
-                fontWeight="500"
-                lineHeight="1.3"
-                mb="6"
-              >
-                Отзывы
-              </Heading>
-            </Flex>
-          </Container>
-        </Box>
-      </Flex>
+      <SectionHeader>Отзывы</SectionHeader>
+
       {/**---------------------- */}
-      <Box py="100px">
-        <Container maxW="container.xl">
+      <Box py={["50px", null, "100px"]}>
+        <Container maxW="container.lg2">
           <Flex flexDir="column" alignItems="center">
             <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
               НАШИ ПРОГРАММЫ
@@ -50,11 +29,15 @@ const Reviews = () => {
               fontWeight="500"
               size="xl"
               textAlign="center"
-              mb="100px"
+              mb="50px"
             >
               Мы подберем программу, <br /> которая подойдет именно для вас
             </Heading>
-            <Grid templateColumns="repeat(2, 1fr)" w="full" gap="20">
+            <Grid
+              templateColumns={["repeat(1, 1fr)", null, "repeat(2, 1fr)"]}
+              w="full"
+              gap="20"
+            >
               <Stack spacing="10">
                 <Heading fontWeight="500" color="jashyl">
                   Уютный дом по программе «Популярный» 25 + 5
@@ -115,7 +98,7 @@ const Reviews = () => {
       </Box>
       {/**---------------------- */}
       <Box pb="100px">
-        <Container maxW="container.xl">
+        <Container maxW="container.lg2">
           <Callback />
         </Container>
       </Box>

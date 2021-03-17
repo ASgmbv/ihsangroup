@@ -16,40 +16,17 @@ import {
   Td,
   Tfoot,
 } from "@chakra-ui/react";
+import SectionHeader from "../components/SectionHeader";
 
 const Plans = () => {
   return (
     <Layout>
-      <Flex
-        w="full"
-        backgroundImage="url('/14.png')"
-        backgroundPosition="center"
-        backgroundRepeat="no-repeat"
-        backgroundSize="cover"
-        h={["300px"]}
-        mb="100px"
-      >
-        <Box h="full" w="full" background="rgba(1, 87, 71,0.8)">
-          <Container maxW="container.xl" h="full">
-            <Flex flexDir="column" justify="center" align="center" h="full">
-              <Heading
-                color="white"
-                size="2xl"
-                fontWeight="500"
-                lineHeight="1.3"
-                mb="6"
-              >
-                Программы
-              </Heading>
-            </Flex>
-          </Container>
-        </Box>
-      </Flex>
+      <SectionHeader>Программы</SectionHeader>
 
       {/**---------------------- */}
-      <Box pb="100px">
-        <Container maxW="container.xl">
-          <Flex flexDir="column" alignItems="center">
+      <Box pt={["50px", null, "100px"]}>
+        <Container maxW="container.lg2">
+          <Flex flexDir="column" alignItems="center" overflow="hidden">
             <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
               НАШИ ПРОГРАММЫ
             </Text>
@@ -213,7 +190,7 @@ const Plans = () => {
         </Container>
       </Box>
       {/**---------------------- */}
-      <Box bg="#F6F8F6" py="100px">
+      <Box bg="#F6F8F6" py={["50px", null, "100px"]}>
         <Container maxW="container.xl">
           <Flex flexDir="column" alignItems="center">
             <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
@@ -228,7 +205,15 @@ const Plans = () => {
             >
               Всего 5 шагов к мечте!
             </Heading>
-            <Grid templateColumns="repeat(3, 1fr)" gap="10">
+            <Grid
+              templateColumns={[
+                "repeat(1, 1fr)",
+                null,
+                "repeat(2, 1fr)",
+                "repeat(3, 1fr)",
+              ]}
+              gap="10"
+            >
               <Card
                 title="Заключение договора"
                 content="Менеджер отправляет Вам готовый договор для ознакомления и согласования."

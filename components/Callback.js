@@ -10,8 +10,8 @@ const Callback = (props) => {
       color="white"
       {...props}
     >
-      <Box background="rgba(1, 87, 71,0.8)" px="20" py="8">
-        <Grid templateColumns="70% auto" gap="8">
+      <Box background="rgba(1, 87, 71,0.8)" px={[4, null, 10, 20]} py="8">
+        <Grid templateColumns={["repeat(1, 1fr)", null, "70% auto"]} gap="8">
           <Heading color="white" fontWeight="400" size="xl">
             Заказать обратный звонок
           </Heading>
