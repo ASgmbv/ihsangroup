@@ -42,7 +42,7 @@ const Post = ({ date, title, image, id }) => {
           </AspectRatio>
         </a>
       </NextLink>
-      <Box p="5" border="1px solid" borderColor="gray.200">
+      <Box p="5">
         <Text mb="2" fontWeight="semibold" color="saryy">
           {format(new Date(date), "dd.MM.yyyy")}
         </Text>
@@ -67,7 +67,15 @@ const News = ({ posts }) => {
       <SectionHeader>Новости</SectionHeader>
       <Container maxW="container.lg2">
         <Flex my={["50px", null, "100px"]}>
-          <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+          <Grid
+            templateColumns={[
+              "repeat(1, 1fr)",
+              null,
+              "repeat(2, 1fr)",
+              "repeat(3, 1fr)",
+            ]}
+            gap={6}
+          >
             {posts.map(({ id, date, title, image }) => (
               <Post key={id} id={id} date={date} title={title} image={image} />
             ))}
