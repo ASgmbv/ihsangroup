@@ -17,8 +17,23 @@ import ReactPlayer from "react-player";
 import { FaCaretRight } from "react-icons/fa";
 import { MdCheck } from "react-icons/md";
 import SectionHeader from "@/components/SectionHeader";
+import NextLink from "next/link";
+import { queryNews } from "@/queries";
+import { ButtonGreen } from "@/components/Button";
+import Post from "@/components/Post";
 
-const Plans = () => {
+export async function getStaticProps() {
+  const posts = await queryNews();
+
+  return {
+    props: {
+      posts,
+    },
+    revalidate: 1,
+  };
+}
+
+const Plans = ({ posts }) => {
   return (
     <Layout>
       <SectionHeader>Об Ихсан Групп</SectionHeader>
@@ -72,7 +87,7 @@ const Plans = () => {
         </Container>
       </Box>
       {/**---------------------- */}
-      <Box pb={["50px", null, "100px"]}>
+      <Box py={["50px", null, "100px"]} bg="#F7F8F6">
         <Container maxW="container.lg2">
           <Flex flexDir="column" alignItems="center">
             <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
@@ -143,6 +158,49 @@ const Plans = () => {
                 </GridItem>
               </List>
             </Grid>
+          </Flex>
+        </Container>
+      </Box>
+      {/**---------------------- */}
+      <Box py={["50px", null, "100px"]}>
+        <Container maxW="container.lg2">
+          <Flex flexDir="column" alignItems="center">
+            <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
+              НОВОСТИ
+            </Text>
+            <Heading
+              color="jashyl"
+              fontWeight="500"
+              size="xl"
+              textAlign="center"
+              mb="14"
+            >
+              Следите за всеми обновлениями
+            </Heading>
+            <Grid
+              templateColumns={[
+                "repeat(1, 1fr)",
+                null,
+                null,
+                "repeat(2, 1fr)",
+                "repeat(3, 1fr)",
+              ]}
+              gap="30px"
+              mb="30px"
+            >
+              {posts.map(({ id, title, date, image }) => (
+                <Post
+                  key={id}
+                  id={id}
+                  title={title}
+                  date={date}
+                  image={image}
+                />
+              ))}
+            </Grid>
+            <NextLink href="/news" passHref>
+              <ButtonGreen as="a">Открыть все новости</ButtonGreen>
+            </NextLink>
           </Flex>
         </Container>
       </Box>

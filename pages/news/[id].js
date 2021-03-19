@@ -56,7 +56,7 @@ const News = ({ post, posts }) => {
           gap="50px"
         >
           <Stack direction="column" spacing={[4, null, 6]}>
-            <Text color="saryy" letterSpacing="widest" fontSize="sm">
+            <Text color="saryy" fontSize="sm">
               {format(new Date(date), "dd-MM-yyyy")}
             </Text>
             <Heading color="jashyl" fontWeight="500" size="lg">
