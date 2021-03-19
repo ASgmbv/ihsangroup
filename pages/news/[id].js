@@ -9,7 +9,6 @@ import {
   Stack,
   Img,
   AspectRatio,
-  Box,
 } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { Elements, RichText } from "prismic-reactjs";
@@ -21,6 +20,8 @@ export async function getStaticPaths() {
     params: { id: post.id },
   }));
 
+  console.log({ paths }, { depth: null });
+
   return {
     paths,
     fallback: true,
@@ -29,6 +30,8 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const post = await queryNewsById(params.id);
+
+  console.log({ post }, { depth: null });
 
   return {
     props: {
