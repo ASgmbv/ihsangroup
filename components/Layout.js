@@ -4,18 +4,16 @@ import ContactsHeader from "./ContactsHeader";
 import Footer from "./Footer";
 import NextHead from "next/head";
 
-const Layout = ({ title = "", children }) => {
+const Layout = ({ title = "", children, posts = [] }) => {
   return (
     <>
       <NextHead>
         <title>{title}</title>
       </NextHead>
-      <Box>
-        <ContactsHeader />
-        <Header />
-        <Box>{children}</Box>
-        <Footer />
-      </Box>
+      <ContactsHeader />
+      <Header />
+      {children}
+      <Footer />
     </>
   );
 };

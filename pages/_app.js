@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "../theme";
 

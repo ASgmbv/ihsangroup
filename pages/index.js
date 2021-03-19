@@ -1,16 +1,6 @@
 import Calculator from "@/components/Calculator";
 import Layout from "@/components/Layout";
-import {
-  Button,
-  Container,
-  Flex,
-  Heading,
-  Text,
-  Grid,
-  Icon,
-  Box,
-} from "@chakra-ui/react";
-// import Image from "next/image";
+import { Container, Box } from "@chakra-ui/react";
 
 import Callback from "@/components/Callback";
 import Slider from "../components/Slider";
