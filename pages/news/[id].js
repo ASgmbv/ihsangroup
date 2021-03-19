@@ -37,6 +37,7 @@ export async function getStaticProps({ params }) {
 }
 
 const News = ({ post }) => {
+  if (!post) return null;
   const { date, title, image, text } = post;
 
   return (
