@@ -1,5 +1,6 @@
 import { Client } from "../prismic-configuration";
-import Prismic from "@prismicio/client";
+// import Prismic from "@prismicio/client";
+import Prismic from "prismic-javascript";
 
 const NewsType = (post) => {
   if (!post) return {};
@@ -25,8 +26,6 @@ export async function queryNews() {
         page,
       }
     );
-
-    // console.dir({ response }, { depth: null });
 
     response.results.forEach((post) => {
       posts.push(NewsType(post));
@@ -56,7 +55,7 @@ export async function queryLastTwoNews() {
 }
 
 export async function queryNewsById(id) {
-  const post = await Client().query(Prismic.Predicates.at("document.id", id));
+  let post = await Client().query(Prismic.Predicates.at("document.id", id));
 
-  return NewsType(post?.results[0]);
+  return NewsType(post.results[0]);
 }

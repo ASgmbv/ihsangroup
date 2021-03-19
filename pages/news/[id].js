@@ -15,12 +15,9 @@ import { Elements, RichText } from "prismic-reactjs";
 
 export async function getStaticPaths() {
   const posts = await queryNews();
-
   const paths = posts.map((post) => ({
     params: { id: post.id },
   }));
-
-  console.log({ paths }, { depth: null });
 
   return {
     paths,
@@ -31,8 +28,6 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const post = await queryNewsById(params.id);
 
-  console.log({ post }, { depth: null });
-
   return {
     props: {
       post,
@@ -40,6 +35,32 @@ export async function getStaticProps({ params }) {
     revalidate: 1,
   };
 }
+
+const News = ({ post }) => {
+  const { date, title, image, text } = post;
+
+  return (
+    <Layout>
+      <SectionHeader>Новости</SectionHeader>
+      <Container maxW="container.lg2">
+        <Flex my={["50px", null, "100px"]}>
+          <Stack direction="column" spacing={[4, null, 6]}>
+            <Text color="saryy" letterSpacing="widest" fontSize="sm">
+              {format(new Date(date), "dd-MM-yyyy")}
+            </Text>
+            <Heading color="jashyl" fontWeight="500" size="lg">
+              {title}
+            </Heading>
+            <AspectRatio ratio={3 / 2} width={["100%", null, "50%"]}>
+              <Img src={image} objectFit="cover" />
+            </AspectRatio>
+            <RichText render={text} htmlSerializer={htmlSerializer} />
+          </Stack>
+        </Flex>
+      </Container>
+    </Layout>
+  );
+};
 
 const htmlSerializer = function (type, element, content, children) {
   switch (type) {
@@ -112,30 +133,6 @@ const htmlSerializer = function (type, element, content, children) {
     default:
       return null;
   }
-};
-
-const News = ({ post: { date, title, image, text } }) => {
-  return (
-    <Layout>
-      <SectionHeader>Новости</SectionHeader>
-      <Container maxW="container.lg2">
-        <Flex my={["50px", null, "100px"]}>
-          <Stack direction="column" spacing={[4, null, 6]}>
-            <Text color="saryy" letterSpacing="widest" fontSize="sm">
-              {format(new Date(date), "dd-MM-yyyy")}
-            </Text>
-            <Heading color="jashyl" fontWeight="500" size="lg">
-              {title}
-            </Heading>
-            <AspectRatio ratio={3 / 2} width={["100%", null, "50%"]}>
-              <Img src={image} objectFit="cover" />
-            </AspectRatio>
-            <RichText render={text} htmlSerializer={htmlSerializer} />
-          </Stack>
-        </Flex>
-      </Container>
-    </Layout>
-  );
 };
 
 export default News;

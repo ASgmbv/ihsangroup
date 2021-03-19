@@ -5,7 +5,6 @@ import {
   Container,
   Text,
   Flex,
-  Heading,
   Grid,
   Box,
   Img,
