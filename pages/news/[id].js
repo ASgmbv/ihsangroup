@@ -4,14 +4,18 @@ import SectionHeader from "@/components/SectionHeader";
 import {
   Container,
   Text,
-  Flex,
   Heading,
   Stack,
   Img,
   AspectRatio,
+  Grid,
+  Box,
+  Link as ChakraLink,
+  StackDivider,
 } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { Elements, RichText } from "prismic-reactjs";
+import NextLink from "next/link";
 
 export async function getStaticPaths() {
   const posts = await queryNews();
@@ -27,16 +31,18 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const post = await queryNewsById(params.id);
+  const posts = await queryNews();
 
   return {
     props: {
       post,
+      posts,
     },
     revalidate: 1,
   };
 }
 
-const News = ({ post }) => {
+const News = ({ post, posts }) => {
   if (!post) return null;
   const { date, title, image, text } = post;
 
@@ -44,7 +50,11 @@ const News = ({ post }) => {
     <Layout>
       <SectionHeader>Новости</SectionHeader>
       <Container maxW="container.lg2">
-        <Flex my={["50px", null, "100px"]}>
+        <Grid
+          my={["50px", null, "80px"]}
+          templateColumns={["auto", null, null, "auto 400px"]}
+          gap="50px"
+        >
           <Stack direction="column" spacing={[4, null, 6]}>
             <Text color="saryy" letterSpacing="widest" fontSize="sm">
               {format(new Date(date), "dd-MM-yyyy")}
@@ -52,14 +62,63 @@ const News = ({ post }) => {
             <Heading color="jashyl" fontWeight="500" size="lg">
               {title}
             </Heading>
-            <AspectRatio ratio={3 / 2} width={["100%", null, "50%"]}>
+            <AspectRatio ratio={3 / 2} width={["100%", null, "100%"]}>
               <Img src={image} objectFit="cover" />
             </AspectRatio>
             <RichText render={text} htmlSerializer={htmlSerializer} />
           </Stack>
-        </Flex>
+          <Box>
+            <Heading
+              fontSize={["md", null, "2xl"]}
+              mb="6"
+              color="blackAlpha.800"
+            >
+              Последние новости
+            </Heading>
+            <Stack
+              divider={<StackDivider borderColor="gray.200" />}
+              spacing="4"
+            >
+              {posts.map(({ id, title, date, image }) => (
+                <Post
+                  date={date}
+                  title={title}
+                  image={image}
+                  id={id}
+                  key={id}
+                />
+              ))}
+            </Stack>
+          </Box>
+        </Grid>
       </Container>
     </Layout>
+  );
+};
+
+const Post = ({ id, date, title, image }) => {
+  return (
+    <Stack direction="row" spacing="4">
+      <NextLink href={`/news/${id}`}>
+        <a>
+          <Img src={image} boxSize="90px" />
+        </a>
+      </NextLink>
+      <Stack spacing="1" flex="1">
+        <Text color="saryy" fontSize="xs">
+          {format(new Date(date), "dd.MM.yyyy")}
+        </Text>
+        <NextLink href={`/news/${id}`} passHref>
+          <ChakraLink
+            color="#81ADA5"
+            lineHeight="short"
+            _hover={{ textDecoration: "underline" }}
+          >
+            {title}
+          </ChakraLink>
+        </NextLink>
+      </Stack>
+    </Stack>
   );
 };
 
