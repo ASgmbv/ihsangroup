@@ -12,6 +12,7 @@ import {
   List,
   ListItem,
   ListIcon,
+  AspectRatio,
 } from "@chakra-ui/react";
 import ReactPlayer from "react-player";
 import { FaCaretRight } from "react-icons/fa";
@@ -32,6 +33,27 @@ export async function getStaticProps() {
     revalidate: 1,
   };
 }
+
+const members = [
+  {
+    id: "1234",
+    name: "Бабыров Тольбай",
+    description: "Генеральный Директор",
+    image: "m1.png",
+  },
+  {
+    id: "2345",
+    name: "Бабыров Тольбай",
+    description: "Консультант по кредиту",
+    image: "m2.png",
+  },
+  {
+    id: "3456",
+    name: "Тимуров Фаизбек ",
+    description: "Консультант по недвижимости",
+    image: "m3.png",
+  },
+];
 
 const Plans = ({ posts }) => {
   return (
@@ -205,6 +227,44 @@ const Plans = ({ posts }) => {
         </Container>
       </Box>
       {/**---------------------- */}
+      <Box pb={["50px", null, "100px"]}>
+        <Container maxW="container.lg2">
+          <Flex flexDir="column" alignItems="center">
+            <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
+              НАШИ СПЕЦИАЛИСТЫ
+            </Text>
+            <Heading
+              color="jashyl"
+              fontWeight="500"
+              size="xl"
+              textAlign="center"
+              mb="14"
+            >
+              Команда Ихсан Групп, <br /> команда специалистов
+            </Heading>
+            <Grid
+              templateColumns={[
+                "repeat(1, 1fr)",
+                null,
+                null,
+                "repeat(2, 1fr)",
+                "repeat(3, 1fr)",
+              ]}
+              gap="50px"
+            >
+              {members.map(({ id, name, description, image }) => (
+                <Member
+                  key={id}
+                  name={name}
+                  description={description}
+                  image={image}
+                />
+              ))}
+            </Grid>
+          </Flex>
+        </Container>
+      </Box>
+      {/**---------------------- */}
       <Box pb="100px">
         <Container maxW="container.lg2">
           <Callback />
@@ -213,6 +273,20 @@ const Plans = ({ posts }) => {
     </Layout>
   );
 };
+
+const Member = ({ image, name, description }) => (
+  <Flex flexDirection="column">
+    <AspectRatio ratio={3 / 2} w="full">
+      <Image src={image} />
+    </AspectRatio>
+    <Flex flexDirection="column" p="4" bg="jashyl">
+      <Heading color="white" fontWeight="semibold" size="lg">
+        {name}
+      </Heading>
+      <Text color="white">{description}</Text>
+    </Flex>
+  </Flex>
+);
 
 const GridItem = ({ children }) => {
   return (
