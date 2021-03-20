@@ -11,6 +11,7 @@ const theme = extendTheme({
     jashyl: "#006754",
     kara: "#444D4A",
     boz: "#EFF1ED",
+    text: "#444D49",
   },
   sizes: {
     container: {
@@ -32,6 +33,15 @@ const theme = extendTheme({
         },
         _focus: {
           boxShadow: "none",
+        },
+      },
+    },
+    Accordion: {
+      baseStyle: {
+        button: {
+          _focus: {
+            boxShadow: "none",
+          },
         },
       },
     },

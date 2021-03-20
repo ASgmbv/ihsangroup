@@ -22,6 +22,7 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
+  Divider,
 } from "@chakra-ui/react";
 import { BsQuestionCircleFill } from "react-icons/bs";
 import SectionHeader from "../components/SectionHeader";
@@ -129,149 +130,30 @@ const Guarantees = () => {
             </Heading>
           </Flex>
           <Accordion allowToggle={true}>
-            <AccordionItem>
-              <AccordionButton justifyContent="space-between" py="4">
-                <Flex alignItems="center">
-                  <Icon as={BsQuestionCircleFill} mr="3" color="saryy" />
-                  Что такое кооператив «Ихсан Групп»?
-                </Flex>
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel>
-                <Text lineHeight="taller">
-                  Рынок ипотеки становится все более цивилизованным, а нынешние
-                  клиенты — потенциальные заемщики — это уже не те физические
-                  лица, которые приходили за кредитом на недвижимость года 2
-                  назад.
-                </Text>
-                <Text lineHeight="taller">
-                  И данная ситуация меняется на глазах — наши дети уже с
-                  младенчества привыкают к терминам «ипотека» и «аннуитет», а
-                  также учатся планировать свой бюджет с учетом ежемесячных
-                  платежей. Считаю, что финансовая грамотность не может не иметь
-                  четких границ в своем развитии.
-                </Text>
-              </AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <AccordionButton justifyContent="space-between" py="4">
-                <Flex alignItems="center">
-                  <Icon as={BsQuestionCircleFill} mr="3" color="saryy" />
-                  Если у меня нет денег для первоначального взноса?
-                </Flex>
-
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel>
-                <Text lineHeight="taller">
-                  Рынок ипотеки становится все более цивилизованным, а нынешние
-                  клиенты — потенциальные заемщики — это уже не те физические
-                  лица, которые приходили за кредитом на недвижимость года 2
-                  назад.
-                </Text>
-                <Text lineHeight="taller">
-                  И данная ситуация меняется на глазах — наши дети уже с
-                  младенчества привыкают к терминам «ипотека» и «аннуитет», а
-                  также учатся планировать свой бюджет с учетом ежемесячных
-                  платежей. Считаю, что финансовая грамотность не может не иметь
-                  четких границ в своем развитии.
-                </Text>
-              </AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <AccordionButton justifyContent="space-between" py="4">
-                <Flex alignItems="center">
-                  <Icon as={BsQuestionCircleFill} mr="3" color="saryy" />У меня
-                  есть 25% от стоимости жилья, как скоро я заеду в квартиру?
-                </Flex>
-
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel>
-                <Text lineHeight="taller">
-                  Рынок ипотеки становится все более цивилизованным, а нынешние
-                  клиенты — потенциальные заемщики — это уже не те физические
-                  лица, которые приходили за кредитом на недвижимость года 2
-                  назад.
-                </Text>
-                <Text lineHeight="taller">
-                  И данная ситуация меняется на глазах — наши дети уже с
-                  младенчества привыкают к терминам «ипотека» и «аннуитет», а
-                  также учатся планировать свой бюджет с учетом ежемесячных
-                  платежей. Считаю, что финансовая грамотность не может не иметь
-                  четких границ в своем развитии.
-                </Text>
-              </AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <AccordionButton justifyContent="space-between" py="4">
-                <Flex alignItems="center">
-                  <Icon as={BsQuestionCircleFill} mr="3" color="saryy" />В какой
-                  срок приобретается недвижимость для пайщика?
-                </Flex>
-
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel>panel</AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <AccordionButton justifyContent="space-between" py="4">
-                <Flex alignItems="center">
-                  <Icon as={BsQuestionCircleFill} mr="3" color="saryy" />
-                  Могу ли я получить жилье, если я работаю неофициально?
-                </Flex>
-
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel>panel</AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <AccordionButton justifyContent="space-between" py="4">
-                <Flex alignItems="center">
-                  <Icon as={BsQuestionCircleFill} mr="3" color="saryy" />
-                  Кто такой пайщик?
-                </Flex>
-
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel>panel</AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <AccordionButton justifyContent="space-between" py="4">
-                <Flex alignItems="center">
-                  <Icon as={BsQuestionCircleFill} mr="3" color="saryy" />
-                  Можете ли Вы выселить пайщика и продать квартиру без его
-                  ведома?
-                </Flex>
-
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel>panel</AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <AccordionButton justifyContent="space-between" py="4">
-                <Flex alignItems="center">
-                  <Icon as={BsQuestionCircleFill} mr="3" color="saryy" />
-                  Могу ли я продать невыкупленную квартиру, являясь пайщиком
-                  кооператива?
-                </Flex>
-
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel>panel</AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <AccordionButton justifyContent="space-between" py="4">
-                <Flex alignItems="center">
-                  <Icon as={BsQuestionCircleFill} mr="3" color="saryy" />
-                  Могу ли я досрочно закрыть долг перед кооперативом за
-                  выкупаемую, в рассрочку, квартиру?
-                </Flex>
-
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel>panel</AccordionPanel>
-            </AccordionItem>
+            {faqs.map(({ question, answer }, id) => (
+              <AccordionItem key={"faq-" + id}>
+                <AccordionButton
+                  justifyContent="space-between"
+                  py="4"
+                  color="text"
+                  _expanded={{
+                    color: "jashyl",
+                  }}
+                >
+                  <Flex alignItems="center" justifyContent="flex-start">
+                    <Icon as={BsQuestionCircleFill} mr="3" color="saryy" />
+                    <Text textAlign="start">{question}</Text>
+                  </Flex>
+                  <AccordionIcon />
+                </AccordionButton>
+                <AccordionPanel pt="0">
+                  <Divider variant="dashed" />
+                  <Text lineHeight="taller" color="text">
+                    {answer}
+                  </Text>
+                </AccordionPanel>
+              </AccordionItem>
+            ))}
           </Accordion>
         </Container>
       </Box>
@@ -315,6 +197,51 @@ const Guarantees = () => {
     </Layout>
   );
 };
+
+const faqs = [
+  {
+    question: "Что такое кооператив «Ихсан Групп»?",
+    answer:
+      "Рынок ипотеки становится все более цивилизованным, а нынешние клиенты — потенциальные заемщики — это уже не те физические лица, которые приходили за кредитом на недвижимость года 2 назад. И данная ситуация меняется на глазах — наши дети уже с младенчества привыкают к терминам «ипотека» и «аннуитет», а также учатся планировать свой бюджет с учетом ежемесячных платежей. Считаю, что финансовая грамотность не может не иметь четких границ в своем развитии.",
+  },
+  {
+    question: "Если у меня нет денег для первоначального взноса?",
+    answer:
+      "Рынок ипотеки становится все более цивилизованным, а нынешние клиенты — потенциальные заемщики — это уже не те физические лица, которые приходили за кредитом на недвижимость года 2 назад. И данная ситуация меняется на глазах — наши дети уже с младенчества привыкают к терминам «ипотека» и «аннуитет», а также учатся планировать свой бюджет с учетом ежемесячных платежей. Считаю, что финансовая грамотность не может не иметь четких границ в своем развитии.",
+  },
+  {
+    question:
+      "У меня есть 25% от стоимости жилья, как скоро я заеду в квартиру?",
+    answer: "panel",
+  },
+  {
+    question: "В какой срок приобретается недвижимость для пайщика?",
+    answer: "panel",
+  },
+  {
+    question: "Могу ли я получить жилье, если я работаю неофициально?",
+    answer: "panel",
+  },
+  {
+    question: "Кто такой пайщик?",
+    answer: "panel",
+  },
+  {
+    question:
+      "Можете ли Вы выселить пайщика и продать квартиру без его ведома?",
+    answer: "panel",
+  },
+  {
+    question:
+      "Могу ли я продать невыкупленную квартиру, являясь пайщиком кооператива?",
+    answer: "panel",
+  },
+  {
+    question:
+      "Могу ли я досрочно закрыть долг перед кооперативом за выкупаемую, в рассрочку, квартиру?",
+    answer: "panel",
+  },
+];
 
 const certificates = [
   {
