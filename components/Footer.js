@@ -47,7 +47,7 @@ const Post = ({ id, date, title, image }) => {
     <Flex>
       <NextLink href={`/news/${id}`}>
         <a>
-          <Img src={image} boxSize="90px" mr="4" />
+          <Img src={image} objectFit="cover" boxSize="90px" mr="4" />
         </a>
       </NextLink>
       <Stack width="300px" spacing="1">
@@ -79,6 +79,7 @@ const useDataApi = () => {
         const res = await queryLastTwoNews();
         setData(res);
       } catch (error) {
+        console.log({ error });
         setIsError(true);
       }
       setIsLoading(false);
@@ -106,6 +107,7 @@ const Footer = () => {
                 alt="Логотип компании"
                 width={20}
                 height={50}
+                objectFit="cover"
               />
               <Text maxW={["full", null, "300px"]} color="#81ADA5">
                 Жилищный Кооператив Ихсан - это добровольное объединение людей,

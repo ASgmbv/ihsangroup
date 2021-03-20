@@ -3,31 +3,8 @@ import { Box, Container, Flex, Link, Button, HStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
 import Image from "next/image";
-
-const pages = [
-  { title: "ГЛАВНАЯ", pathname: "/" },
-  { title: "О НАС", pathname: "/about" },
-  { title: "НОВОСТИ", pathname: "/news" },
-  { title: "ПРОГРАММЫ", pathname: "/plans" },
-  { title: "ГАРАНТИИ", pathname: "/guarantees" },
-  { title: "ОТЗЫВЫ", pathname: "/reviews" },
-  { title: "КОНТАКТЫ", pathname: "/contacts" },
-];
-
-const PageLink = ({ children, pathname, currentPathname }) => {
-  return (
-    <NextLink href={pathname} passHref>
-      <Link
-        fontSize="sm"
-        fontWeight="bold"
-        fontFamily="Montserrat, sans-serif"
-        color={pathname === currentPathname ? "#D5A022" : "#006754"}
-      >
-        {children}
-      </Link>
-    </NextLink>
-  );
-};
+import { pages } from "@/utils/website-config";
+import PageLink from "@/components/PageLink";
 
 const Header = () => {
   const router = useRouter();

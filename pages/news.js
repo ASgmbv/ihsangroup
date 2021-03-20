@@ -22,6 +22,7 @@ const News = ({ posts }) => {
       <Container maxW="container.lg2">
         <Flex my={["50px", null, "100px"]}>
           <Grid
+            w="full"
             templateColumns={[
               "repeat(1, 1fr)",
               null,
