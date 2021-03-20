@@ -280,7 +280,7 @@ const Member = ({ image, name, description }) => (
       <Image src={image} />
     </AspectRatio>
     <Flex flexDirection="column" p="4" bg="jashyl">
-      <Heading color="white" fontWeight="semibold" size="lg">
+      <Heading color="white" fontWeight="semibold" size="md">
         {name}
       </Heading>
       <Text color="white">{description}</Text>
