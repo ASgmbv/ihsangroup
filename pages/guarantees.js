@@ -15,9 +15,17 @@ import {
   AccordionButton,
   AccordionIcon,
   AccordionPanel,
+  Modal,
+  useDisclosure,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
 } from "@chakra-ui/react";
 import { BsQuestionCircleFill } from "react-icons/bs";
 import SectionHeader from "../components/SectionHeader";
+import NextImage from "next/image";
 
 const Guarantees = () => {
   return (
@@ -269,6 +277,36 @@ const Guarantees = () => {
         </Container>
       </Box>
       {/**---------------------- */}
+      <Box>
+        <Container maxW="container.lg2" pb={["50px", null, "100px"]}>
+          <Heading
+            color="jashyl"
+            fontWeight="500"
+            size="xl"
+            textAlign="center"
+            mb="14"
+          >
+            Награды и Сертификаты
+          </Heading>
+          <Grid
+            templateColumns={[
+              "repeat(2, 1fr)",
+              null,
+              "repeat(3, 1fr)",
+              "repeat(4, 1fr)",
+            ]}
+            w="full"
+            bg="boz"
+            gap={[5, null, 10]}
+            p={["20px", null, "50px"]}
+          >
+            {certificates.map(({ image, title }) => (
+              <Certificate key={image} image={image} title={title} />
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+      {/**---------------------- */}
       <Box py={["50px", null, "100px"]}>
         <Container maxW="container.lg2">
           <Callback />
@@ -279,12 +317,42 @@ const Guarantees = () => {
   );
 };
 
+const certificates = [
+  {
+    image: "/certificate.png",
+    title: "Свидетельство о Государственной регистрации юридического лица",
+  },
+];
+
+const Certificate = ({ image, title }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  return (
+    <Box position="relative" w="full">
+      <Image src={image} w="full" objectFit="cover" onClick={onOpen} />
+      <Modal isOpen={isOpen} onClose={onClose} size="lg">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>{title}</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Image src={image} w="full" objectFit="cover" />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </Box>
+  );
+};
+
 const Card = ({ icon, title, content, ...props }) => {
   return (
     <Flex
       border="1px solid"
       borderColor="gray.200"
       p={[4, null, null, 6]}
+      _hover={{
+        bg: "white",
+      }}
       {...props}
     >
       {icon}

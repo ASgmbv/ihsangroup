@@ -10,6 +10,7 @@ const theme = extendTheme({
     saryy: "#D5A022",
     jashyl: "#006754",
     kara: "#444D4A",
+    boz: "#EFF1ED",
   },
   sizes: {
     container: {
