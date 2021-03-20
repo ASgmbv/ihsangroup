@@ -25,7 +25,6 @@ import {
 } from "@chakra-ui/react";
 import { BsQuestionCircleFill } from "react-icons/bs";
 import SectionHeader from "../components/SectionHeader";
-import NextImage from "next/image";
 
 const Guarantees = () => {
   return (
@@ -329,8 +328,20 @@ const Certificate = ({ image, title }) => {
 
   return (
     <Box position="relative" w="full">
-      <Image src={image} w="full" objectFit="cover" onClick={onOpen} />
-      <Modal isOpen={isOpen} onClose={onClose} size="lg">
+      <Image
+        src={image}
+        w="full"
+        objectFit="cover"
+        onClick={onOpen}
+        alt={title}
+      />
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        size="lg"
+        scrollBehavior="inside"
+        isCentered
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{title}</ModalHeader>

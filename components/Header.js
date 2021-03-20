@@ -15,7 +15,7 @@ const Header = () => {
       as="header"
       position="sticky"
       top={0}
-      zIndex="1"
+      zIndex="2"
       borderBottom="1px solid"
       borderColor="gray.100"
     >
