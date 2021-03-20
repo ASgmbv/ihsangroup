@@ -8,7 +8,7 @@ const NewsType = (post) => {
     title: post.data.title,
     image: post.data.image.url,
     text: post.data.text,
-    date: post.last_publication_date,
+    date: post.last_publication_date.substring(0, 19),
   };
 };
 

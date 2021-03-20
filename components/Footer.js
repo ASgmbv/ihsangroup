@@ -65,9 +65,7 @@ const Post = ({ id, date, title, image }) => {
             {title}
           </Link>
         </NextLink>
-        <Text color="saryy">
-          {format(new Date(date.substring(0, 19)), "dd.MM.yyyy")}
-        </Text>
+        <Text color="saryy">{format(new Date(date), "dd.MM.yyyy")}</Text>
       </Stack>
     </Flex>
   );

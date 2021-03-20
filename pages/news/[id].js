@@ -57,7 +57,7 @@ const News = ({ post, posts }) => {
         >
           <Stack direction="column" spacing={[4, null, 6]}>
             <Text color="saryy" fontSize="sm">
-              {format(new Date(date), "dd-MM-yyyy")}
+              {format(new Date(date, "dd-MM-yyyy")}
             </Text>
             <Heading color="jashyl" fontWeight="500" size="lg">
               {title}
@@ -101,7 +101,7 @@ const Post = ({ id, date, title, image }) => {
     <Stack direction="row" spacing="4">
       <NextLink href={`/news/${id}`}>
         <a>
-          <Img src={image} boxSize="90px" />
+          <Img src={image} objectFit="cover" boxSize="90px" />
         </a>
       </NextLink>
       <Stack spacing="1" flex="1">
