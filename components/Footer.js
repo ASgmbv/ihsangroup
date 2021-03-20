@@ -47,7 +47,12 @@ const Post = ({ id, date, title, image }) => {
     <Flex>
       <NextLink href={`/news/${id}`}>
         <a>
-          <Img src={image} objectFit="cover" boxSize="90px" mr="4" />
+          <Img
+            src={image}
+            objectFit="cover"
+            boxSize={["70px", null, "90px"]}
+            mr="4"
+          />
         </a>
       </NextLink>
       <Stack width="300px" spacing="1">
@@ -60,7 +65,9 @@ const Post = ({ id, date, title, image }) => {
             {title}
           </Link>
         </NextLink>
-        <Text color="saryy">{format(new Date(date), "dd.MM.yyyy")}</Text>
+        <Text color="saryy">
+          {format(new Date(date.substring(0, 19)), "dd.MM.yyyy")}
+        </Text>
       </Stack>
     </Flex>
   );
@@ -102,13 +109,13 @@ const Footer = () => {
             flexDir={["column", null, null, "row"]}
           >
             <Stack spacing="6">
-              <Image
-                src="/logo-gold.svg"
-                alt="Логотип компании"
-                width={20}
-                height={50}
-                objectFit="cover"
-              />
+              <Box width="80px">
+                <Image
+                  src="/logo-gold.svg"
+                  alt="Логотип компании"
+                  objectFit="cover"
+                />
+              </Box>
               <Text maxW={["full", null, "300px"]} color="#81ADA5">
                 Жилищный Кооператив Ихсан - это добровольное объединение людей,
                 с целью совместного удовлетворения потребностей членов
