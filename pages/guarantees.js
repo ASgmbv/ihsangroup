@@ -265,7 +265,7 @@ const Certificate = ({ image, title }) => {
       <Modal
         isOpen={isOpen}
         onClose={onClose}
-        size="lg"
+        size="3xl"
         scrollBehavior="inside"
         isCentered
       >
@@ -290,7 +290,9 @@ const Card = ({ icon, title, content, ...props }) => {
       p={[4, null, null, 6]}
       _hover={{
         bg: "white",
+        transform: "scale(1.05)",
       }}
+      transition="transform 0.1s"
       {...props}
     >
       {icon}

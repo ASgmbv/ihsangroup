@@ -14,6 +14,7 @@
     "@prismicio/client": "^4.0.0",
     "date-fns": "^2.19.0",
     "framer-motion": "^3.10.0",
+    "isomorphic-fetch": "^3.0.0",
     "keen-slider": "^5.4.0",
     "next": "10.0.7",
     "next-google-fonts": "^2.1.0",

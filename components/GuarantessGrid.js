@@ -190,7 +190,9 @@ const Card = ({ icon, title, content, ...props }) => {
       p={[3, null, 5]}
       _hover={{
         bg: "#F7F8F6",
+        transform: "scale(1.05)",
       }}
+      transition="transform 0.1s"
       {...props}
     >
       {icon}
