@@ -14,6 +14,9 @@ import {
   List,
   ListItem,
   DrawerHeader,
+  Stack,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react";
 import { MdLocationCity, MdEmail } from "react-icons/md";
 import {
@@ -42,34 +45,17 @@ const ContactsHeader = () => {
             w="full"
             flexDir={["column", null, null, "row"]}
           >
-            <Flex align="flex-start" flexDir={["column", null, null, "row"]}>
-              <Flex align="center">
-                <Icon
-                  as={MdLocationCity}
-                  boxSize={4}
-                  color="#444D4A"
-                  mr="2"
-                  _hover={{
-                    color: "jashyl",
-                  }}
-                />
-                <Text
-                  fontSize="sm"
-                  mr="5"
-                  fontWeight="semibold"
-                  color="#444D4A"
-                  _hover={{
-                    color: "jashyl",
-                  }}
-                >
-                  г.Бишкек, ул.Боконбаева, 113. 5 этаж.
-                </Text>
-              </Flex>
-              <Link href="tel:+996700005151">
+            <Wrap
+              align="flex-start"
+              // direction={["column", null, null, "row"]}
+              spacing={[2, null, 4]}
+              // mr="4"
+            >
+              <WrapItem>
                 <Flex align="center">
                   <Icon
-                    as={FaPhoneAlt}
-                    boxSize={3}
+                    as={MdLocationCity}
+                    boxSize={4}
                     color="#444D4A"
                     mr="2"
                     _hover={{
@@ -84,11 +70,87 @@ const ContactsHeader = () => {
                       color: "jashyl",
                     }}
                   >
-                    +996 700 005 151
+                    Бишкек ш., Чүй/ Кулиева, БЦ “Жан-Сали”, 5-кабат.
                   </Text>
                 </Flex>
-              </Link>
-            </Flex>
+              </WrapItem>
+              <WrapItem>
+                <Link href="tel:+996700005151">
+                  <Flex align="center">
+                    <Icon
+                      as={FaPhoneAlt}
+                      boxSize={3}
+                      color="#444D4A"
+                      mr="2"
+                      _hover={{
+                        color: "jashyl",
+                      }}
+                    />
+                    <Text
+                      fontSize="sm"
+                      fontWeight="semibold"
+                      color="#444D4A"
+                      _hover={{
+                        color: "jashyl",
+                      }}
+                    >
+                      +996 700 005 151
+                    </Text>
+                  </Flex>
+                </Link>
+              </WrapItem>
+              <WrapItem>
+                <Link href="tel:+996700005151">
+                  <Flex align="center">
+                    <Icon
+                      as={FaPhoneAlt}
+                      boxSize={3}
+                      color="#444D4A"
+                      mr="2"
+                      _hover={{
+                        color: "jashyl",
+                      }}
+                    />
+                    <Text
+                      fontSize="sm"
+                      fontWeight="semibold"
+                      color="#444D4A"
+                      _hover={{
+                        color: "jashyl",
+                      }}
+                    >
+                      +996 707 00 51 51
+                    </Text>
+                  </Flex>
+                </Link>
+              </WrapItem>
+              <WrapItem>
+                <Link href="tel:+996700005151">
+                  <Flex align="center">
+                    <Icon
+                      as={FaPhoneAlt}
+                      boxSize={3}
+                      color="#444D4A"
+                      mr="2"
+                      _hover={{
+                        color: "jashyl",
+                      }}
+                    />
+                    <Text
+                      fontSize="sm"
+                      fontWeight="semibold"
+                      color="#444D4A"
+                      _hover={{
+                        color: "jashyl",
+                      }}
+                    >
+                      +996 558 00 53 53
+                    </Text>
+                  </Flex>
+                </Link>
+              </WrapItem>
+            </Wrap>
+
             <Flex display={["none", null, null, "flex"]}>
               <Link>
                 <Icon

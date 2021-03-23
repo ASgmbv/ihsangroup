@@ -219,9 +219,6 @@ const Footer = () => {
             <Text my="2" color="#81ADA5">
               Ihsangroup © {new Date().getFullYear()} все права защищены
             </Text>
-            <Text my="2" color="white" fontSize="lg">
-              +996 700 005 151
-            </Text>
           </Flex>
         </Container>
       </Box>

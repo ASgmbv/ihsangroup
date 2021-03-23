@@ -15,6 +15,7 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { FaCaretRight } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const PlansTabs = () => {
   return (
@@ -40,6 +41,8 @@ const PlansTabs = () => {
     </Box>
   );
 };
+
+const MotionText = motion(Text);
 
 const CustomTabs = () => {
   const variant = useBreakpointValue({ base: "horizontal", md: "vertical" });

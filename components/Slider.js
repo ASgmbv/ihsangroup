@@ -8,10 +8,12 @@ import {
   IconButton,
   Icon,
   ButtonGroup,
+  Stack,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { GoTriangleLeft, GoTriangleRight } from "react-icons/go";
+import NextImage from "next/image";
 
 const MotionImage = motion(Image);
 const MotionFlex = motion(Flex);
@@ -29,9 +31,9 @@ const slides = [
     image: "/back.jpg",
   },
   {
-    title: "Жильё по самым выгодным ценам возможность купить",
+    title: "Приобретение жилья сегодня с рассрочкой на 10 лет 0%",
     description:
-      "Недвижимости Рассрочка на 10 лет без % Уникальное предложение на рынке ",
+      "Уникальное предложение на рынке недвижимости Рассрочка на 10 лет без %",
     image: "/back2.jpg",
   },
 ];
@@ -73,11 +75,12 @@ const Slider = () => {
       position="relative"
       overflow="hidden"
     >
-      <MotionImage
-        objectFit="cover"
+      <MotionFlex
+        // objectFit="cover"
         width="100%"
+        position="relative"
         key={slides[slideIndex].image}
-        src={slides[slideIndex].image}
+        // src={slides[slideIndex].image}
         initial={{
           opacity: 0.5,
         }}
@@ -89,7 +92,13 @@ const Slider = () => {
           opacity: { duration: 0.7 },
           scale: { duration: 10 },
         }}
-      />
+      >
+        <NextImage
+          layout="fill"
+          objectFit="cover"
+          src={slides[slideIndex].image}
+        />
+      </MotionFlex>
       <Box
         height="full"
         width="full"
@@ -140,6 +149,21 @@ const Slider = () => {
             <SliderButton icon={GoTriangleLeft} onClick={swipeLeft} />
             <SliderButton icon={GoTriangleRight} onClick={swipeRight} />
           </ButtonGroup>
+          <Stack
+            direction="row"
+            position="absolute"
+            bottom="1rem"
+            left={`calc(50% - ${slides.length - 0.5}rem)`}
+          >
+            {slides.map((el, idx) => (
+              <Box
+                key={"bb-" + idx}
+                boxSize="2"
+                borderRadius="50%"
+                bg={slideIndex === idx ? "green.400" : "whiteAlpha.800"}
+              ></Box>
+            ))}
+          </Stack>
         </Container>
       </Box>
     </Flex>

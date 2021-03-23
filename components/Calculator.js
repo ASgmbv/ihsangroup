@@ -290,8 +290,6 @@ const Calculator = () => {
     }
   }, []);
 
-  console.log({ rates });
-
   return (
     <Stack direction={["column", null, null, "row"]} spacing="8">
       <Flex
@@ -546,7 +544,7 @@ const Calculator = () => {
               </Text>
             </Flex>
             <Flex justifyContent="space-between">
-              <Text>Взнос:</Text>
+              <Text>Взнос (5%): </Text>
               <Text color="jashyl" fontWeight="bold">
                 {fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
                   ` ${currency === "usd" ? "$" : "Сом"}`}
