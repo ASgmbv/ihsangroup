@@ -3,7 +3,7 @@ import { Box, Button, Grid, Heading, Input, Stack } from "@chakra-ui/react";
 const Callback = (props) => {
   return (
     <Box
-      backgroundImage="url('/13.jpg')"
+      backgroundImage="url('/callback.jpg')"
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
       backgroundSize="cover"
