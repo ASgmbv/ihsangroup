@@ -101,10 +101,11 @@ const Plans = ({ posts }) => {
       </Flex>
       {/**---------------------- */}
       <Box pb={["50px", null, "100px"]}>
-        <Container maxW="container.lg2">
+        <Container maxW="container.lg2" d="flex" justifyContent="center">
           <ReactPlayer
-            url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
-            width="100%"
+            url="https://www.youtube.com/watch?v=J1A35wtWBac&ab_channel=IHSANGroupLtd%D0%9D%D0%96%D0%9A"
+            width="50%"
+            height="500px"
           />
         </Container>
       </Box>

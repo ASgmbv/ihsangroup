@@ -15,9 +15,7 @@ const Callback = (props) => {
           <Heading color="white" fontWeight="400" size="xl">
             Заказать обратный звонок
           </Heading>
-          <Heading color="white" fontWeight="400" size="md">
-            +996 700 005 151
-          </Heading>
+          <Heading color="white" fontWeight="400" size="md"></Heading>
           <Stack direction="row" spacing="10">
             <Input variant="flushed" placeholder="Ваше имя" />
             <Input variant="flushed" placeholder="Ваш Номер" />

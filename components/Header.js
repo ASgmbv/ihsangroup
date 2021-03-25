@@ -47,7 +47,7 @@ const Header = () => {
                 </PageLink>
               ))}
             </HStack>
-            <Link isExternal href="http://f02079ed.beget.tech/ihsan/">
+            <Link isExternal href="http://lk.ihsan.kg">
               <CustomButton as="link">Личный кабинет</CustomButton>
             </Link>
           </Flex>

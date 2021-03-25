@@ -119,7 +119,7 @@ const ContactsHeader = () => {
                         color: "jashyl",
                       }}
                     >
-                      +996 707 00 51 51
+                      +996 778 00 51 51
                     </Text>
                   </Flex>
                 </Link>

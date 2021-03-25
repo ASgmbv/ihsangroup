@@ -69,7 +69,7 @@ function reducer(state, { type, payload }) {
             ? 10000
             : minInSomsForEstate
           : isUsd
-          ? 1000
+          ? 5000
           : minInSomsForAuto,
         deposit: isEstate ? "25%" : "50%",
         min: isEstate
@@ -77,51 +77,51 @@ function reducer(state, { type, payload }) {
             ? 10000
             : minInSomsForEstate
           : isUsd
-          ? 1000
+          ? 5000
           : minInSomsForAuto,
         max: isEstate
           ? isUsd
             ? 45000
             : maxInSomsForEstate
           : isUsd
-          ? 5000
+          ? 20000
           : maxInSomsForAuto,
       };
     }
     case types.setCurrency: {
       const isUsd = payload === "usd";
       const isEstate = state.calculator === "estate";
-      const newPrice = isUsd ? 10000 : Math.round(10000 * state.rate);
+
+      const currPrice = state.price;
+      const currRate = state.rate;
+
+      const newPrice = isUsd
+        ? Math.round(currPrice / currRate)
+        : Math.round(currPrice * currRate);
 
       const minInSomsForEstate = Math.round(10000 * state.rate);
-      const minInSomsForAuto = Math.round(1000 * state.rate);
+      const minInSomsForAuto = Math.round(5000 * state.rate);
       const maxInSomsForEstate = Math.round(45000 * state.rate);
-      const maxInSomsForAuto = Math.round(5000 * state.rate);
+      const maxInSomsForAuto = Math.round(20000 * state.rate);
 
       return {
         ...state,
         currency: payload,
-        price: isEstate
-          ? isUsd
-            ? 10000
-            : minInSomsForEstate
-          : isUsd
-          ? 1000
-          : minInSomsForAuto,
+        price: newPrice,
         depositAmount: Math.round((newPrice * parseInt(state.deposit)) / 100),
         min: isEstate
           ? isUsd
             ? 10000
             : minInSomsForEstate
           : isUsd
-          ? 1000
+          ? 5000
           : minInSomsForAuto,
         max: isEstate
           ? isUsd
             ? 45000
             : maxInSomsForEstate
           : isUsd
-          ? 5000
+          ? 20000
           : maxInSomsForAuto,
       };
     }
@@ -135,30 +135,37 @@ function reducer(state, { type, payload }) {
     case types.setDeposit: {
       const isUsd = state.currency === "usd";
       const isEstate = state.calculator === "estate";
+      const {price, rate} = state;
 
-      const minInSomsForEstate = Math.round(10000 * state.rate);
-      const minInSomsForAuto = Math.round(1000 * state.rate);
-      const maxInSomsForEstate = Math.round(max[payload] * state.rate);
+      const minInSomsForEstate = Math.round(10000 * rate);
+      const minInSomsForAuto = Math.round(5000 * rate);
+      const maxInSomsForEstate = Math.round(max[payload] * rate);
+
+      let newPrice = price;
+
+      if (isEstate) {
+        if (isUsd) {
+          if (price > max[payload]) {
+            newPrice = max[payload]
+          }
+        } else {
+          newPrice = Math.round(max[payload] * rate)
+        }
+      }
 
       return {
         ...state,
         deposit: payload,
-        price: isEstate
-          ? isUsd
-            ? 10000
-            : minInSomsForEstate
-          : isUsd
-          ? 1000
-          : minInSomsForAuto,
+        price: newPrice,
         min: isEstate
           ? isUsd
             ? 10000
             : minInSomsForEstate
           : isUsd
-          ? 1000
+          ? 5000
           : minInSomsForAuto,
         max: isEstate ? (isUsd ? max[payload] : maxInSomsForEstate) : state.max,
-        depositAmount: Math.round((state.price * parseInt(payload)) / 100),
+        depositAmount: Math.round((price * parseInt(payload)) / 100),
       };
     }
     case types.setPeriod: {
@@ -169,7 +176,7 @@ function reducer(state, { type, payload }) {
     }
     case types.calculateDetails: {
       const { price, depositAmount, period } = state;
-      const fee = Math.round((price * 5) / 100);
+      const fee = Math.round((price * 4) / 100);
 
       return {
         ...state,
@@ -177,6 +184,9 @@ function reducer(state, { type, payload }) {
         loan: price - depositAmount,
         fee,
         total: fee + price - depositAmount,
+        finalPrice: price,
+        finalDepositAmount: depositAmount,
+        finalCurrency: state.currency,
       };
     }
     case types.startRatesFetching: {
@@ -223,6 +233,9 @@ const initialState = {
   rate: null,
   isFetching: false,
   isError: false,
+  finalPrice: 0,
+  finalDepositAmount: 0,
+  finalCurrency: "usd",
 };
 
 const types = {
@@ -249,7 +262,6 @@ const calculators = {
 // CNY: (2) ["13.0397", "down"]
 // EUR: (2) ["101.1113", "down"]
 // GBP: (2) ["118.3045", "down"]
-// KZT: (2) ["0.2014", "down"]
 // RUB: (2) ["1.1438", "down"]
 // USD: (2) ["84.8000", "down"]
 // UZS: (2) ["0.0081", "down"]
@@ -268,11 +280,14 @@ const Calculator = () => {
     monthlyPayment,
     loan,
     fee,
-    total,
     rate,
     rates,
     isFetching,
     isError,
+
+    finalPrice,
+    finalDepositAmount,
+    finalCurrency,
   } = state;
 
   useEffect(async () => {
@@ -414,7 +429,7 @@ const Calculator = () => {
                   });
                 }}
               >
-                {(calculator === "estate" ? years : years.slice(0, 5)).map(
+                {(calculator === "estate" ? years : years.slice(0, 3)).map(
                   (el, idx) => {
                     return (
                       <option value={(idx + 1) * 12} key={idx}>
@@ -490,11 +505,6 @@ const Calculator = () => {
                   isDown={rates?.rates?.RUB[1] === "down"}
                   value={rates?.rates?.RUB[0]}
                 />
-                <Currency
-                  currency="KZT"
-                  isDown={rates?.rates?.KZT[1] === "down"}
-                  value={rates?.rates?.KZT[0]}
-                />
               </Tbody>
             </Table>
           )}
@@ -528,33 +538,46 @@ const Calculator = () => {
           </Text>
           <Stack spacing="6">
             <Flex justifyContent="space-between">
+              <Text>Стоимость недвижимости:</Text>
+              <Text color="jashyl" fontWeight="bold">
+                {finalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+                  ` ${finalCurrency === "usd" ? "$" : "Сом"}`}
+              </Text>
+            </Flex>
+
+            <Flex justifyContent="space-between">
+              <Text>Первоначальный взнос:</Text>
+              <Text color="jashyl" fontWeight="bold">
+                {finalDepositAmount
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+                  ` ${finalCurrency === "usd" ? "$" : "Сом"}`}
+              </Text>
+            </Flex>
+
+            <Flex justifyContent="space-between">
+              <Text>Вступительный взнос: </Text>
+              <Text color="jashyl" fontWeight="bold">
+                {fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+                  ` ${finalCurrency === "usd" ? "$" : "Сом"}`}
+              </Text>
+            </Flex>
+
+            <Flex justifyContent="space-between">
+              <Text>Сумма финансирования:</Text>
+              <Text color="jashyl" fontWeight="bold">
+                {loan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+                  ` ${finalCurrency === "usd" ? "$" : "Сом"}`}
+              </Text>
+            </Flex>
+
+            <Flex justifyContent="space-between">
               <Text>Ежемесячный платеж:</Text>
               <Text color="jashyl" fontWeight="bold">
                 {monthlyPayment
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
-                  ` ${currency === "usd" ? "$" : "Сом"}`}
-              </Text>
-            </Flex>
-            <Flex justifyContent="space-between">
-              <Text>Сумма займа:</Text>
-              <Text color="jashyl" fontWeight="bold">
-                {loan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
-                  ` ${currency === "usd" ? "$" : "Сом"}`}
-              </Text>
-            </Flex>
-            <Flex justifyContent="space-between">
-              <Text>Взнос (5%): </Text>
-              <Text color="jashyl" fontWeight="bold">
-                {fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
-                  ` ${currency === "usd" ? "$" : "Сом"}`}
-              </Text>
-            </Flex>
-            <Flex justifyContent="space-between">
-              <Text>Общая выплата:</Text>
-              <Text color="jashyl" fontWeight="bold">
-                {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
-                  ` ${currency === "usd" ? "$" : "Сом"}`}
+                  ` ${finalCurrency === "usd" ? "$" : "Сом"}`}
               </Text>
             </Flex>
           </Stack>
