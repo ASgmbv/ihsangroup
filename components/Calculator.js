@@ -21,6 +21,8 @@ import {
   Td,
   Spinner,
   Link,
+  NumberInput,
+  NumberInputField,
 } from "@chakra-ui/react";
 import { useEffect, useReducer, useState } from "react";
 import {
@@ -135,7 +137,7 @@ function reducer(state, { type, payload }) {
     case types.setDeposit: {
       const isUsd = state.currency === "usd";
       const isEstate = state.calculator === "estate";
-      const {price, rate} = state;
+      const { price, rate } = state;
 
       const minInSomsForEstate = Math.round(10000 * rate);
       const minInSomsForAuto = Math.round(5000 * rate);
@@ -146,10 +148,10 @@ function reducer(state, { type, payload }) {
       if (isEstate) {
         if (isUsd) {
           if (price > max[payload]) {
-            newPrice = max[payload]
+            newPrice = max[payload];
           }
         } else {
-          newPrice = Math.round(max[payload] * rate)
+          newPrice = Math.round(max[payload] * rate);
         }
       }
 
@@ -335,14 +337,26 @@ const Calculator = () => {
 
         <Flex flexDir="column" mt="4">
           <Text w="230px" mb="4" fontWeight="semibold">
-            Стоимость Квартиры
+            {calculator === "estate" ? "Стоимость Квартиры" : "Стоимость Авто"}
           </Text>
 
           <Box border="2px solid" p="3" mb="3" borderColor="saryy">
-            <Text color="jashyl" fontWeight="bold">
+            <Text color="jashyl" fontWeight="bold" mb="3">
               {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
                 ` ${currency === "usd" ? "$" : "Сом"}`}
             </Text>
+
+            {/* <NumberInput
+              value={price}
+              onChange={(e) => {
+                dispatch({ type: types.setPrice, payload: e });
+              }}
+              min={min}
+              max={max}
+            >
+              <NumberInputField />
+            </NumberInput> */}
+
             <Slider
               min={min}
               max={max}
@@ -412,7 +426,7 @@ const Calculator = () => {
           </Flex>
 
           <Flex mt="6" mb="8" flexDir={["column", "row"]}>
-            <Box flex="1" mr={[0, 3]}>
+            <Box flex="1">
               <Text mb="4" fontWeight="semibold">
                 Срок договора
               </Text>
