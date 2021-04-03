@@ -12,6 +12,16 @@ const NewsType = (post) => {
   };
 };
 
+const TeamMember = (post) => {
+  if (!post) return {};
+  return {
+    id: post.id,
+    name: post.data.name,
+    position: post.data.position,
+    image: post.data.image?.url,
+  };
+};
+
 export async function queryNews() {
   let response;
   let posts = [];
@@ -57,4 +67,25 @@ export async function queryNewsById(id) {
   let post = await Client().query(Prismic.Predicates.at("document.id", id));
 
   return NewsType(post.results[0]);
+}
+
+export async function queryTeamMembers() {
+  let response;
+  let members = [];
+  let page = 1;
+
+  do {
+    response = await Client().query(
+      Prismic.Predicates.at("document.type", "member"),
+      { page }
+    );
+
+    response.results.forEach((post) => {
+      members.push(TeamMember(post));
+    });
+
+    page++;
+  } while (response.next_page);
+
+  return members;
 }

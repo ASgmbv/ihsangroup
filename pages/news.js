@@ -14,17 +14,6 @@ import {
 import Post from "@/components/Post";
 import { useEffect, useState } from "react";
 
-// export async function getStaticProps() {
-//   const posts = await queryNews();
-
-//   return {
-//     props: {
-//       posts,
-//     },
-//     revalidate: 1,
-//   };
-// }
-
 const SkeletonPost = () => (
   <Flex flexDir="column">
     <AspectRatio ratio={3 / 2} w="full">
@@ -67,7 +56,7 @@ const News = () => {
       <Container maxW="container.lg2">
         <Flex my={["50px", null, "100px"]}>
           {isError ? (
-            <Alert status="error">
+            <Alert status="warning" mx="auto" maxW="400px">
               <AlertIcon />
               Ошибка при загрузке
             </Alert>

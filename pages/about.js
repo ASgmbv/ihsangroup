@@ -13,49 +13,45 @@ import {
   ListItem,
   ListIcon,
   AspectRatio,
+  Skeleton,
+  SkeletonText,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import ReactPlayer from "react-player";
 import { FaCaretRight } from "react-icons/fa";
 import { MdCheck } from "react-icons/md";
 import SectionHeader from "@/components/SectionHeader";
-import NextLink from "next/link";
-import { queryNews } from "@/queries";
-import { ButtonGreen } from "@/components/Button";
-import Post from "@/components/Post";
+import { useEffect, useState } from "react";
+import { queryTeamMembers } from "@/queries";
 
-// export async function getStaticProps() {
-//   const posts = await queryNews();
+const useMembersApi = () => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
-//   return {
-//     props: {
-//       posts,
-//     },
-//     revalidate: 1,
-//   };
-// }
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsError(false);
+      setIsLoading(true);
+      try {
+        const res = await queryTeamMembers();
+        setData(res);
+      } catch (error) {
+        console.log({ error });
+        setIsError(true);
+      }
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
 
-const members = [
-  {
-    id: "1234",
-    name: "Бабыров Тольбай",
-    description: "Генеральный Директор",
-    image: "m1.png",
-  },
-  {
-    id: "2345",
-    name: "Бабыров Тольбай",
-    description: "Консультант по кредиту",
-    image: "m2.png",
-  },
-  {
-    id: "3456",
-    name: "Тимуров Фаизбек ",
-    description: "Консультант по недвижимости",
-    image: "m3.png",
-  },
-];
+  return { data, isLoading, isError };
+};
 
-const Plans = ({ posts }) => {
+const Plans = () => {
+  const { data: teamMembers, isLoading, isError } = useMembersApi();
+
   return (
     <Layout>
       <SectionHeader>Об Ихсан Групп</SectionHeader>
@@ -185,50 +181,7 @@ const Plans = ({ posts }) => {
         </Container>
       </Box>
       {/**---------------------- */}
-      {/* <Box py={["50px", null, "100px"]}>
-        <Container maxW="container.lg2">
-          <Flex flexDir="column" alignItems="center">
-            <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
-              НОВОСТИ
-            </Text>
-            <Heading
-              color="jashyl"
-              fontWeight="500"
-              size="xl"
-              textAlign="center"
-              mb="14"
-            >
-              Следите за всеми обновлениями
-            </Heading>
-            <Grid
-              templateColumns={[
-                "repeat(1, 1fr)",
-                null,
-                null,
-                "repeat(2, 1fr)",
-                "repeat(3, 1fr)",
-              ]}
-              gap="30px"
-              mb="30px"
-            >
-              {posts.map(({ id, title, date, image }) => (
-                <Post
-                  key={id}
-                  id={id}
-                  title={title}
-                  date={date}
-                  image={image}
-                />
-              ))}
-            </Grid>
-            <NextLink href="/news" passHref>
-              <ButtonGreen as="a">Открыть все новости</ButtonGreen>
-            </NextLink>
-          </Flex>
-        </Container>
-      </Box> */}
-      {/**---------------------- */}
-      <Box pb={["50px", null, "100px"]}>
+      <Box py={["50px", null, "100px"]}>
         <Container maxW="container.lg2">
           <Flex flexDir="column" alignItems="center">
             <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
@@ -243,6 +196,13 @@ const Plans = ({ posts }) => {
             >
               Команда Ихсан Групп, <br /> команда специалистов
             </Heading>
+          </Flex>
+          {isError ? (
+            <Alert status="warning" mx="auto" maxW="400px">
+              <AlertIcon />
+              Ошибка при загрузке
+            </Alert>
+          ) : (
             <Grid
               templateColumns={[
                 "repeat(1, 1fr)",
@@ -253,16 +213,24 @@ const Plans = ({ posts }) => {
               ]}
               gap="50px"
             >
-              {members.map(({ id, name, description, image }) => (
-                <Member
-                  key={id}
-                  name={name}
-                  description={description}
-                  image={image}
-                />
-              ))}
+              {isLoading ? (
+                <>
+                  <SkeletonTeamMember />
+                  <SkeletonTeamMember />
+                  <SkeletonTeamMember />
+                </>
+              ) : (
+                teamMembers.map(({ id, name, position, image }) => (
+                  <Member
+                    key={id}
+                    name={name}
+                    position={position}
+                    image={image}
+                  />
+                ))
+              )}
             </Grid>
-          </Flex>
+          )}
         </Container>
       </Box>
       {/**---------------------- */}
@@ -275,7 +243,7 @@ const Plans = ({ posts }) => {
   );
 };
 
-const Member = ({ image, name, description }) => (
+const Member = ({ image, name, position }) => (
   <Flex flexDirection="column">
     <AspectRatio ratio={3 / 2} w="full">
       <Image src={image} />
@@ -284,7 +252,7 @@ const Member = ({ image, name, description }) => (
       <Heading color="white" fontWeight="semibold" size="md">
         {name}
       </Heading>
-      <Text color="white">{description}</Text>
+      <Text color="white">{position}</Text>
     </Flex>
   </Flex>
 );
@@ -297,5 +265,14 @@ const GridItem = ({ children }) => {
     </ListItem>
   );
 };
+
+const SkeletonTeamMember = () => (
+  <Flex flexDir="column">
+    <AspectRatio ratio={3 / 2} w="full">
+      <Skeleton width="100%" height="100%" />
+    </AspectRatio>
+    <SkeletonText mt="4" noOfLines={2} spacing="4" />
+  </Flex>
+);
 
 export default Plans;
