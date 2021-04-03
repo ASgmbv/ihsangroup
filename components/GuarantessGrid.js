@@ -126,7 +126,7 @@ const CustomGrid = (props) => {
 };
 
 const SkeletonGuarantee = () => (
-  <AspectRatio width="100%" ratio={3 / 2}>
+  <AspectRatio width="100%" ratio={7 / 4}>
     <Skeleton />
   </AspectRatio>
 );

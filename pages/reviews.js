@@ -6,7 +6,6 @@ import {
   Flex,
   Grid,
   Heading,
-  Stack,
   Text,
   Image,
   Modal,
@@ -16,22 +15,22 @@ import {
   ModalCloseButton,
   ModalBody,
   useDisclosure,
+  useBreakpointValue,
+  Icon,
+  IconButton,
 } from "@chakra-ui/react";
 import ReactPlayer from "react-player";
 import SectionHeader from "../components/SectionHeader";
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 const Review = ({ image, title }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box position="relative" w="full">
-      <Image
-        src={image}
-        w="full"
-        objectFit="cover"
-        onClick={onOpen}
-        alt={title}
-      />
+    <Box position="relative" className="keen-slider__slide">
+      <Image src={image} objectFit="cover" onClick={onOpen} alt={title} />
       <Modal
         isOpen={isOpen}
         onClose={onClose}
@@ -49,6 +48,51 @@ const Review = ({ image, title }) => {
         </ModalContent>
       </Modal>
     </Box>
+  );
+};
+
+const ReviewsSlider = () => {
+  const slidesCount = useBreakpointValue({ base: 2, sm: 3, md: 4 });
+
+  const [sliderRef, slider] = useKeenSlider({
+    slidesPerView: slidesCount,
+    spacing: 20,
+  });
+
+  return (
+    <Flex bg="boz" p="10" width="100%" ref={sliderRef} className="keen-slider">
+      <Review image="/review1.jpeg" title="Гуля эже" />
+      <Review image="/review2.jpeg" title="Гуля эже" />
+      <Review image="/review1.jpeg" title="Гуля эже" />
+      <Review image="/review2.jpeg" title="Гуля эже" />
+      <Review image="/review2.jpeg" title="Гуля эже" />
+      <Review image="/review1.jpeg" title="Гуля эже" />
+      <Review image="/review2.jpeg" title="Гуля эже" />
+      <IconButton
+        position="absolute"
+        top="calc(50% - 20px)"
+        left="20px"
+        _hover={{
+          transform: "scale(1.1)",
+        }}
+        icon={<Icon as={FaAngleLeft} boxSize="20px" />}
+        onClick={() => {
+          slider.prev(1);
+        }}
+      />
+      <IconButton
+        position="absolute"
+        top="calc(50% - 20px)"
+        right="20px"
+        _hover={{
+          transform: "scale(1.1)",
+        }}
+        icon={<Icon as={FaAngleRight} boxSize="20px" />}
+        onClick={() => {
+          slider.next(1);
+        }}
+      />
+    </Flex>
   );
 };
 
@@ -73,74 +117,7 @@ const Reviews = () => {
             >
               Мы подберем программу, <br /> которая подойдет именно для вас
             </Heading>
-            <Grid
-              templateColumns={["repeat(1, 1fr)", null, "repeat(4, 1fr)"]}
-              w="full"
-              gap="10"
-              bg="boz"
-              p="10"
-            >
-              {/* <Stack spacing="10">
-                <Heading fontWeight="500" color="jashyl">
-                  Уютный дом по программе «Популярный» 25 + 5
-                </Heading>
-                <Text lineHeight="taller"></Text>
-                <Text color="saryy" fontWeight="xl">
-                  Программа: 25 + 5
-                </Text>
-              </Stack> */}
-              {/* <ReactPlayer
-                url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
-                width="100%"
-              /> */}
-              {/* <Image src="/review1.jpeg" objectFit="contain" width="200px" />
-              <Image src="/review1.jpeg" objectFit="contain" width="200px" />
-              <Image src="/review1.jpeg" objectFit="contain" width="200px" />
-              <Image src="/review1.jpeg" objectFit="contain" width="200px" /> */}
-              <Review image="/review1.jpeg" title="Гуля эже" />
-              <Review image="/review2.jpeg" title="Гуля эже" />
-              <Review image="/review1.jpeg" title="Гуля эже" />
-              <Review image="/review2.jpeg" title="Гуля эже" />
-
-              {/* <ReactPlayer
-                url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
-                width="100%"
-              />
-              <Stack spacing="10">
-                <Heading fontWeight="500" color="jashyl">
-                  Уютный дом по программе «Популярный» 25 + 5
-                </Heading>
-                <Text lineHeight="taller">
-                  Excepteur sint occaecat cupidatat non proident sunt iculpa qui
-                  officia deserunt mollit anim est. laborum sed perspiciatis
-                  unde omnis natus error sit voluptatem accusantium dolore mque
-                  laudantium totam rem aperiam.
-                </Text>
-                <Text color="saryy" fontWeight="xl">
-                  Программа: 25 + 5
-                </Text>
-              </Stack>
-              <Stack spacing="10">
-                <Heading fontWeight="500" color="jashyl">
-                  Уютный дом по программе «Популярный» 25 + 5
-                </Heading>
-                <Text lineHeight="taller">
-                  Excepteur sint occaecat cupidatat non proident sunt iculpa qui
-                  officia deserunt mollit anim est. laborum sed perspiciatis
-                  unde omnis natus error sit voluptatem accusantium dolore mque
-                  laudantium totam rem aperiam.
-                </Text>
-                <Text color="saryy" fontWeight="xl">
-                  Программа: 25 + 5
-                </Text>
-              </Stack>
-              <ReactPlayer
-                url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
-                width="100%"
-              /> 
-              
-              */}
-            </Grid>
+            <ReviewsSlider />
             <Grid
               mt="10"
               templateColumns={["repeat(1, 1fr)", null, "repeat(2, 1fr)"]}

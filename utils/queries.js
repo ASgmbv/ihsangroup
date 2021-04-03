@@ -15,10 +15,9 @@ const NewsType = (post) => {
 const TeamMember = (post) => {
   if (!post) return {};
   return {
-    id: post.id,
-    name: post.data.name,
-    position: post.data.position,
-    image: post.data.image?.url,
+    name: post.name,
+    description: post.description,
+    photo: post.photo?.url,
   };
 };
 
@@ -41,6 +40,14 @@ const Guarantee = (post) => {
     title: post.title,
     description: post.description,
     icon: post.icon?.url,
+  };
+};
+
+const FAQ = (post) => {
+  if (!post) return {};
+  return {
+    question: post.question,
+    answer: post.answer,
   };
 };
 
@@ -92,22 +99,15 @@ export async function queryNewsById(id) {
 }
 
 export async function queryTeamMembers() {
-  let response;
-  let members = [];
-  let page = 1;
+  const members = [];
 
-  do {
-    response = await Client().query(
-      Prismic.Predicates.at("document.type", "member"),
-      { page }
-    );
+  const result = await Client().query(
+    Prismic.Predicates.at("document.type", "team")
+  );
 
-    response.results.forEach((post) => {
-      members.push(TeamMember(post));
-    });
-
-    page++;
-  } while (response.next_page);
+  result.results[0]?.data?.team?.map((post) => {
+    members.push(TeamMember(post));
+  });
 
   return members;
 }
@@ -138,4 +138,18 @@ export async function queryGuarantees() {
   });
 
   return guarantees;
+}
+
+export async function queryFAQs() {
+  const questions = [];
+
+  const result = await Client().query(
+    Prismic.Predicates.at("document.type", "questions")
+  );
+
+  result.results[0]?.data?.questions?.map((post) => {
+    questions.push(FAQ(post));
+  });
+
+  return questions;
 }

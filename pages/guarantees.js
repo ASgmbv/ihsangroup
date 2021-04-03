@@ -1,7 +1,7 @@
 import Callback from "@/components/Callback";
 import Layout from "@/components/Layout";
 import LoadingError from "@/components/LoadingError";
-import { queryGuarantees } from "@/utils/queries";
+import { queryFAQs, queryGuarantees } from "@/utils/queries";
 import {
   Box,
   Image,
@@ -27,6 +27,7 @@ import {
   Divider,
   AspectRatio,
   Skeleton,
+  Spinner,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { BsQuestionCircleFill } from "react-icons/bs";
@@ -134,32 +135,7 @@ const Guarantees = () => {
               С нами вы инвестируете с свою <br /> финансовую безопасность
             </Heading>
           </Flex>
-          <Accordion allowToggle={true}>
-            {faqs.map(({ question, answer }, id) => (
-              <AccordionItem key={"faq-" + id}>
-                <AccordionButton
-                  justifyContent="space-between"
-                  py="4"
-                  color="text"
-                  _expanded={{
-                    color: "jashyl",
-                  }}
-                >
-                  <Flex alignItems="center" justifyContent="flex-start">
-                    <Icon as={BsQuestionCircleFill} mr="3" color="saryy" />
-                    <Text textAlign="start">{question}</Text>
-                  </Flex>
-                  <AccordionIcon />
-                </AccordionButton>
-                <AccordionPanel pt="0">
-                  <Divider variant="dashed" />
-                  <Text lineHeight="taller" color="text">
-                    {answer}
-                  </Text>
-                </AccordionPanel>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <FAQs />
         </Container>
       </Box>
       {/**---------------------- */}
@@ -203,50 +179,74 @@ const Guarantees = () => {
   );
 };
 
-const faqs = [
-  {
-    question: "Что такое кооператив «Ихсан Групп»?",
-    answer:
-      "Рынок ипотеки становится все более цивилизованным, а нынешние клиенты — потенциальные заемщики — это уже не те физические лица, которые приходили за кредитом на недвижимость года 2 назад. И данная ситуация меняется на глазах — наши дети уже с младенчества привыкают к терминам «ипотека» и «аннуитет», а также учатся планировать свой бюджет с учетом ежемесячных платежей. Считаю, что финансовая грамотность не может не иметь четких границ в своем развитии.",
-  },
-  {
-    question: "Если у меня нет денег для первоначального взноса?",
-    answer:
-      "Рынок ипотеки становится все более цивилизованным, а нынешние клиенты — потенциальные заемщики — это уже не те физические лица, которые приходили за кредитом на недвижимость года 2 назад. И данная ситуация меняется на глазах — наши дети уже с младенчества привыкают к терминам «ипотека» и «аннуитет», а также учатся планировать свой бюджет с учетом ежемесячных платежей. Считаю, что финансовая грамотность не может не иметь четких границ в своем развитии.",
-  },
-  {
-    question:
-      "У меня есть 25% от стоимости жилья, как скоро я заеду в квартиру?",
-    answer: "panel",
-  },
-  {
-    question: "В какой срок приобретается недвижимость для пайщика?",
-    answer: "panel",
-  },
-  {
-    question: "Могу ли я получить жилье, если я работаю неофициально?",
-    answer: "panel",
-  },
-  {
-    question: "Кто такой пайщик?",
-    answer: "panel",
-  },
-  {
-    question:
-      "Можете ли Вы выселить пайщика и продать квартиру без его ведома?",
-    answer: "panel",
-  },
-  {
-    question:
-      "Могу ли я продать невыкупленную квартиру, являясь пайщиком кооператива?",
-    answer: "panel",
-  },
-  {
-    question:
-      "Могу ли я досрочно закрыть долг перед кооперативом за выкупаемую, в рассрочку, квартиру?",
-    answer: "panel",
-  },
-];
+const useFAQsApi = () => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsError(false);
+      setIsLoading(true);
+      try {
+        const res = await queryFAQs();
+        setData(res);
+      } catch (error) {
+        console.log({ error });
+        setIsError(true);
+      }
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  return { data, isLoading, isError };
+};
+
+const FAQs = () => {
+  const { data: faqs, isError, isLoading } = useFAQsApi();
+
+  if (isError) {
+    return <LoadingError />;
+  }
+
+  if (isLoading) {
+    return (
+      <Flex justifyContent="center">
+        <Spinner mx="auto" />
+      </Flex>
+    );
+  }
+
+  return (
+    <Accordion allowToggle={true}>
+      {faqs.map(({ question, answer }) => (
+        <AccordionItem key={question}>
+          <AccordionButton
+            justifyContent="space-between"
+            py="4"
+            color="text"
+            _expanded={{
+              color: "jashyl",
+            }}
+          >
+            <Flex alignItems="center" justifyContent="flex-start">
+              <Icon as={BsQuestionCircleFill} mr="3" color="saryy" />
+              <Text textAlign="start">{question}</Text>
+            </Flex>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel pt="0">
+            <Divider variant="dashed" />
+            <Text lineHeight="taller" color="text">
+              {answer}
+            </Text>
+          </AccordionPanel>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  );
+};
 
 const certificates = [
   {
@@ -295,7 +295,7 @@ const Card = ({ icon, title, content, ...props }) => {
       borderColor="gray.200"
       p={[3, null, 5]}
       _hover={{
-        bg: "#F7F8F6",
+        bg: "white",
         transform: "scale(1.05)",
       }}
       transition="transform 0.1s"
@@ -374,7 +374,7 @@ const CustomGrid = (props) => {
 };
 
 const SkeletonGuarantee = () => (
-  <AspectRatio width="100%" ratio={3 / 2}>
+  <AspectRatio width="100%" ratio={7 / 4}>
     <Skeleton />
   </AspectRatio>
 );

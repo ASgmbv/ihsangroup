@@ -220,12 +220,12 @@ const Plans = () => {
                   <SkeletonTeamMember />
                 </>
               ) : (
-                teamMembers.map(({ id, name, position, image }) => (
+                teamMembers.map(({ name, description, photo }) => (
                   <Member
-                    key={id}
+                    key={name}
                     name={name}
-                    position={position}
-                    image={image}
+                    description={description}
+                    photo={photo}
                   />
                 ))
               )}
@@ -243,16 +243,16 @@ const Plans = () => {
   );
 };
 
-const Member = ({ image, name, position }) => (
+const Member = ({ photo, name, description }) => (
   <Flex flexDirection="column">
     <AspectRatio ratio={3 / 2} w="full">
-      <Image src={image} />
+      <Image src={photo} />
     </AspectRatio>
     <Flex flexDirection="column" p="4" bg="jashyl">
       <Heading color="white" fontWeight="semibold" size="md">
         {name}
       </Heading>
-      <Text color="white">{position}</Text>
+      <Text color="white">{description}</Text>
     </Flex>
   </Flex>
 );
