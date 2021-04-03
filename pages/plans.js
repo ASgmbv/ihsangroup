@@ -22,6 +22,7 @@ import {
 import { useEffect, useState } from "react";
 import SectionHeader from "../components/SectionHeader";
 import { queryPrograms } from "@/queries";
+import AnimatingHeading from "@/components/AnimatingHeading";
 
 const useProgramsApi = () => {
   const [data, setData] = useState([]);
@@ -56,18 +57,14 @@ const Plans = () => {
       <Box py={["50px", null, "100px"]}>
         <Container maxW="container.lg2">
           <Flex flexDir="column" alignItems="center" overflow="hidden">
-            <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
-              НАШИ ПРОГРАММЫ
-            </Text>
-            <Heading
-              color="jashyl"
-              fontWeight="500"
-              size="xl"
-              textAlign="center"
-              mb="14"
-            >
-              Мы подберем программу, <br /> которая подойдет именно для вас
-            </Heading>
+            <AnimatingHeading
+              subtitle="НАШИ ПРОГРАММЫ"
+              title={
+                <>
+                  Мы подберем программу, <br /> которая подойдет именно для вас
+                </>
+              }
+            />
 
             <ProgramsTable />
           </Flex>
@@ -77,18 +74,10 @@ const Plans = () => {
       <Box bg="#F6F8F6" py={["50px", null, "100px"]}>
         <Container maxW="container.xl">
           <Flex flexDir="column" alignItems="center">
-            <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
-              ЭТАПЫ ПОКУПКИ
-            </Text>
-            <Heading
-              color="jashyl"
-              fontWeight="500"
-              size="xl"
-              textAlign="center"
-              mb="20"
-            >
-              Всего 5 шагов к мечте!
-            </Heading>
+            <AnimatingHeading
+              subtitle="ЭТАПЫ ПОКУПКИ"
+              title={<>Всего 5 шагов к мечте!</>}
+            />
             <Grid
               templateColumns={[
                 "repeat(1, 1fr)",
@@ -274,8 +263,8 @@ const ProgramsTable = () => {
       <Tfoot>
         <Tr>
           <Th color="saryy">Примечания</Th>
-          <Th colspan="2">Частный дом постройки выше 2000-года. </Th>
-          <Th colspan="2">Квартира постройки выше 1965-года.</Th>
+          <Th colSpan="2">Частный дом постройки выше 2000-года. </Th>
+          <Th colSpan="2">Квартира постройки выше 1965-года.</Th>
         </Tr>
       </Tfoot>
     </Table>

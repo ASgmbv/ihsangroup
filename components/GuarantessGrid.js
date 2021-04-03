@@ -14,6 +14,7 @@ import NextLink from "next/link";
 import { useEffect, useState } from "react";
 import { queryGuarantees } from "@/utils/queries";
 import LoadingError from "@/components/LoadingError";
+import AnimatingHeading from "@/components/AnimatingHeading";
 
 const useGuaranteesApi = () => {
   const [data, setData] = useState([]);
@@ -44,18 +45,7 @@ const GuarantessCard = () => {
     <Box pb="100px">
       <Container maxW="container.lg2">
         <Flex flexDir="column" alignItems="center">
-          <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
-            ГАРАНТИИ
-          </Text>
-          <Heading
-            color="jashyl"
-            fontWeight="500"
-            size="xl"
-            textAlign="center"
-            mb="14"
-          >
-            С нами безопасно!
-          </Heading>
+          <AnimatingHeading title="С нами безопасно!" subtitle="ГАРАНТИИ" />
           <CustomGrid mb="30px" />
           <NextLink href="/guarantees" passHref>
             <CustomButtonGreen as="a">

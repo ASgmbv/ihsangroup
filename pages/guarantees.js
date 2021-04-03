@@ -1,3 +1,4 @@
+import AnimatingHeading from "@/components/AnimatingHeading";
 import Callback from "@/components/Callback";
 import Layout from "@/components/Layout";
 import LoadingError from "@/components/LoadingError";
@@ -102,18 +103,10 @@ const Guarantees = () => {
       <Box bg="#F6F8F6">
         <Container maxW="container.lg2" py={["50px", null, "100px"]}>
           <Flex flexDir="column" alignItems="center">
-            <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
-              ГАРАНТИИ
-            </Text>
-            <Heading
-              color="jashyl"
-              fontWeight="500"
-              size="xl"
-              textAlign="center"
-              mb="14"
-            >
-              С нами безопасно!
-            </Heading>
+            <AnimatingHeading
+              subtitle="ГАРАНТИИ"
+              title={<>С нами безопасно!</>}
+            />
             <CustomGrid />
           </Flex>
         </Container>
@@ -122,18 +115,14 @@ const Guarantees = () => {
       <Box>
         <Container maxW="container.lg2" py={["50px", null, "100px"]}>
           <Flex flexDir="column" alignItems="center">
-            <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
-              ГАРАНТИИ
-            </Text>
-            <Heading
-              color="jashyl"
-              fontWeight="500"
-              size="xl"
-              textAlign="center"
-              mb="14"
-            >
-              С нами вы инвестируете с свою <br /> финансовую безопасность
-            </Heading>
+            <AnimatingHeading
+              subtitle="ГАРАНТИИ"
+              title={
+                <>
+                  С нами вы инвестируете с свою <br /> финансовую безопасность
+                </>
+              }
+            />
           </Flex>
           <FAQs />
         </Container>
@@ -340,8 +329,6 @@ const useGuaranteesApi = () => {
 
 const CustomGrid = (props) => {
   const { data: guarantees, isError, isLoading } = useGuaranteesApi();
-
-  console.log(guarantees);
 
   if (isError) {
     return <LoadingError mb="50px" />;

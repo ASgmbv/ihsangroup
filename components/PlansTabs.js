@@ -2,7 +2,6 @@ import {
   Container,
   Box,
   Flex,
-  Heading,
   Text,
   Tabs,
   TabList,
@@ -20,14 +19,10 @@ import {
   Alert,
   AlertIcon,
 } from "@chakra-ui/react";
-import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FaCaretRight } from "react-icons/fa";
-import { useInView } from "react-intersection-observer";
 import { queryPrograms } from "@/queries";
-
-const MotionText = motion(Text);
-const MotionHeading = motion(Heading);
+import AnimatingHeading from "@/components/AnimatingHeading";
 
 const useProgramsApi = () => {
   const [data, setData] = useState([]);
@@ -54,56 +49,18 @@ const useProgramsApi = () => {
 };
 
 const PlansTabs = () => {
-  const { ref, inView } = useInView();
-  const animation = useAnimation();
-
-  const variants = {
-    visible: {
-      opacity: 1,
-    },
-    hidden: {
-      opacity: 0,
-    },
-  };
-
-  useEffect(() => {
-    if (inView) {
-      animation.start("visible");
-    } else {
-      animation.start("hidden");
-    }
-  }, [animation, inView]);
-
   return (
     <Box py={["50px", null, "100px"]}>
       <Container maxW="container.lg2">
         <Flex flexDir="column" alignItems="center">
-          <MotionText
-            variants={variants}
-            animate={animation}
-            transition={{ duration: 1.5 }}
-            ref={ref}
-            color="saryy"
-            letterSpacing="widest"
-            fontSize="sm"
-            mb="10"
-          >
-            НАШИ ПРОГРАММЫ
-          </MotionText>
-
-          <MotionHeading
-            variants={variants}
-            animate={animation}
-            transition={{ duration: 1.5, delay: 0.5 }}
-            color="jashyl"
-            fontWeight="500"
-            size="xl"
-            textAlign="center"
-            mb="14"
-          >
-            Мы подберем программу, <br /> которая подойдет именно для вас
-          </MotionHeading>
-
+          <AnimatingHeading
+            title={
+              <>
+                Мы подберем программу, <br /> которая подойдет именно для вас
+              </>
+            }
+            subtitle="НАШИ ПРОГРАММЫ"
+          />
           <CustomTabs />
         </Flex>
       </Container>

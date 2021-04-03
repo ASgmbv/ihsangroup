@@ -28,6 +28,7 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { queryReviews } from "@/utils/queries";
 import LoadingError from "@/components/LoadingError";
+import AnimatingHeading from "@/components/AnimatingHeading";
 
 const useReviewsApi = () => {
   const [data, setData] = useState([]);
@@ -130,18 +131,6 @@ const ReviewsSlider = ({ reviews = [] }) => {
 const Reviews = () => {
   const { data: reviews, isLoading, isError } = useReviewsApi();
 
-  if (isError) {
-    return <LoadingError />;
-  }
-
-  if (isLoading) {
-    return (
-      <Flex alignItems="center" justifyContent="center" height="200px">
-        <Spinner color="saryy" />
-      </Flex>
-    );
-  }
-
   return (
     <Layout title="Отзывы">
       <SectionHeader>Отзывы</SectionHeader>
@@ -150,19 +139,23 @@ const Reviews = () => {
       <Box py={["50px", null, "100px"]}>
         <Container maxW="container.lg2">
           <Flex flexDir="column" alignItems="center">
-            <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
-              НАШИ ПРОГРАММЫ
-            </Text>
-            <Heading
-              color="jashyl"
-              fontWeight="500"
-              size="xl"
-              textAlign="center"
-              mb="50px"
-            >
-              Мы подберем программу, <br /> которая подойдет именно для вас
-            </Heading>
-            <ReviewsSlider reviews={reviews} />
+            <AnimatingHeading
+              subtitle="НАШИ ПРОГРАММЫ"
+              title={
+                <>
+                  Мы подберем программу, <br /> которая подойдет именно для вас
+                </>
+              }
+            />
+            {isError ? (
+              <LoadingError />
+            ) : isLoading ? (
+              <Flex alignItems="center" justifyContent="center" height="200px">
+                <Spinner color="saryy" />
+              </Flex>
+            ) : (
+              <ReviewsSlider reviews={reviews} />
+            )}
             <Grid
               mt="10"
               templateColumns={["repeat(1, 1fr)", null, "repeat(2, 1fr)"]}

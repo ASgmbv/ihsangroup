@@ -24,6 +24,7 @@ import { MdCheck } from "react-icons/md";
 import SectionHeader from "@/components/SectionHeader";
 import { useEffect, useState } from "react";
 import { queryTeamMembers } from "@/queries";
+import AnimatingHeading from "@/components/AnimatingHeading";
 
 const useMembersApi = () => {
   const [data, setData] = useState([]);
@@ -109,18 +110,11 @@ const Plans = () => {
       <Box py={["50px", null, "100px"]} bg="#F7F8F6">
         <Container maxW="container.lg2">
           <Flex flexDir="column" alignItems="center">
-            <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
-              НАШИ ПРОГРАММЫ
-            </Text>
-            <Heading
-              color="jashyl"
-              fontWeight="500"
-              size="xl"
-              textAlign="center"
-              mb="14"
-            >
-              Все что нужно знать о нас
-            </Heading>
+            <AnimatingHeading
+              subtitle="НАШИ ПРОГРАММЫ"
+              title={<>Все что нужно знать о нас</>}
+            />
+
             <Grid
               templateColumns={["repeat(1, 1fr)", null, "repeat(2, 1fr)"]}
               gap={[10, null, 16]}
@@ -184,18 +178,14 @@ const Plans = () => {
       <Box py={["50px", null, "100px"]}>
         <Container maxW="container.lg2">
           <Flex flexDir="column" alignItems="center">
-            <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
-              НАШИ СПЕЦИАЛИСТЫ
-            </Text>
-            <Heading
-              color="jashyl"
-              fontWeight="500"
-              size="xl"
-              textAlign="center"
-              mb="14"
-            >
-              Команда Ихсан Групп, <br /> команда специалистов
-            </Heading>
+            <AnimatingHeading
+              subtitle="НАШИ СПЕЦИАЛИСТЫ"
+              title={
+                <>
+                  Команда Ихсан Групп, <br /> команда специалистов
+                </>
+              }
+            />
           </Flex>
           {isError ? (
             <Alert status="warning" mx="auto" maxW="400px">
