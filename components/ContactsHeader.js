@@ -188,8 +188,31 @@ const ContactsHeader = () => {
                   </DrawerBody>
 
                   <DrawerFooter>
-                    <Stack spacing="4">
-                      <Flex align="center">
+                    <Wrap>
+                      <WrapItem>
+                        <Text fontSize="xs">
+                          Бишкек ш., Чүй/ Кулиева, БЦ “Жан-Сали”, 5-кабат.
+                        </Text>
+                      </WrapItem>
+                    </Wrap>
+                    {/* <Wrap>
+                        <WrapItem>
+                          <Link fontSize="xs" href={"tel:+996700005151"}>
+                            +996 700 005 151
+                          </Link>
+                        </WrapItem>
+                        <WrapItem>
+                          <Link fontSize="xs" href={"tel:+996700005151"}>
+                            +996 700 005 151
+                          </Link>
+                        </WrapItem>
+                        <WrapItem>
+                          <Link fontSize="xs" href={"tel:+996700005151"}>
+                            +996 700 005 151
+                          </Link>
+                        </WrapItem>
+                      </Wrap> */}
+                    {/* <Flex align="center">
                         <Icon
                           as={MdLocationCity}
                           boxSize={4}
@@ -209,8 +232,9 @@ const ContactsHeader = () => {
                         >
                           Бишкек ш., Чүй/ Кулиева, БЦ “Жан-Сали”, 5-кабат.
                         </Text>
-                      </Flex>
-                      <PhoneLink phoneNumber="+996700005151">
+                      </Flex> */}
+
+                    {/* <PhoneLink phoneNumber="+996700005151">
                         +996 700 005 151
                       </PhoneLink>
                       <PhoneLink phoneNumber="+996778005151">
@@ -218,8 +242,7 @@ const ContactsHeader = () => {
                       </PhoneLink>
                       <PhoneLink phoneNumber="+996558005353">
                         +996 558 00 53 53{" "}
-                      </PhoneLink>
-                    </Stack>
+                      </PhoneLink> */}
                   </DrawerFooter>
                 </DrawerContent>
               </DrawerOverlay>
