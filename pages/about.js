@@ -53,7 +53,7 @@ const Plans = () => {
   const { data: teamMembers, isLoading, isError } = useMembersApi();
 
   return (
-    <Layout>
+    <Layout title="Об Ихсан Групп">
       <SectionHeader>Об Ихсан Групп</SectionHeader>
       {/**---------------------- */}
       <Flex py={["50px", null, null, "100px"]}>

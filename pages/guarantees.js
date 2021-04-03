@@ -29,7 +29,7 @@ import SectionHeader from "../components/SectionHeader";
 
 const Guarantees = () => {
   return (
-    <Layout>
+    <Layout title="Гарантии">
       <SectionHeader>Гарантии</SectionHeader>
       {/**---------------------- */}
       <Flex py={["50px", null, "100px"]}>

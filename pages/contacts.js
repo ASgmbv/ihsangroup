@@ -57,7 +57,7 @@ const branches = [
 
 const Contacts = () => {
   return (
-    <Layout>
+    <Layout title="Контакты">
       <Flex
         w="full"
         backgroundImage="url('/14.png')"

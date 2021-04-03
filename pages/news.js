@@ -51,7 +51,7 @@ const News = () => {
   const { data: posts, isLoading, isError } = useDataApi();
 
   return (
-    <Layout>
+    <Layout title="Новости">
       <SectionHeader>Новости</SectionHeader>
       <Container maxW="container.lg2">
         <Flex my={["50px", null, "100px"]}>

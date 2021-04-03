@@ -20,7 +20,7 @@ import SectionHeader from "../components/SectionHeader";
 
 const Plans = () => {
   return (
-    <Layout>
+    <Layout title="Программы">
       <SectionHeader>Программы</SectionHeader>
 
       {/**---------------------- */}

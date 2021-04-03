@@ -54,7 +54,7 @@ const Review = ({ image, title }) => {
 
 const Reviews = () => {
   return (
-    <Layout>
+    <Layout title="Отзывы">
       <SectionHeader>Отзывы</SectionHeader>
 
       {/**---------------------- */}
