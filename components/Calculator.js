@@ -185,7 +185,7 @@ function reducer(state, { type, payload }) {
 
     case types.calculateDetails: {
       const { price, depositAmount, period, calculator } = state;
-      const PERCENTS = calculator === "estate" ? 5 : 7;
+      const PERCENTS = calculator === "estate" ? 4 : 7;
       const fee = Math.round((price * PERCENTS) / 100);
       const monthlyPayment = Math.round((price - depositAmount) / period);
 

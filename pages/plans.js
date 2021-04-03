@@ -15,8 +15,37 @@ import {
   Tbody,
   Td,
   Tfoot,
+  Alert,
+  AlertIcon,
+  Spinner,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import SectionHeader from "../components/SectionHeader";
+import { queryPrograms } from "@/queries";
+
+const useProgramsApi = () => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsError(false);
+      setIsLoading(true);
+      try {
+        const res = await queryPrograms();
+        setData(res);
+      } catch (error) {
+        console.log({ error });
+        setIsError(true);
+      }
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  return { data, isLoading, isError };
+};
 
 const Plans = () => {
   return (
@@ -24,7 +53,7 @@ const Plans = () => {
       <SectionHeader>Программы</SectionHeader>
 
       {/**---------------------- */}
-      <Box pt={["50px", null, "100px"]}>
+      <Box py={["50px", null, "100px"]}>
         <Container maxW="container.lg2">
           <Flex flexDir="column" alignItems="center" overflow="hidden">
             <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
@@ -40,152 +69,7 @@ const Plans = () => {
               Мы подберем программу, <br /> которая подойдет именно для вас
             </Heading>
 
-            <Table
-              variant="unstyled"
-              sx={{
-                td: {
-                  border: "1px solid #CBD0CD",
-                },
-                th: {
-                  border: "1px solid #CBD0CD",
-                },
-              }}
-            >
-              <Thead>
-                <Tr>
-                  <Th
-                    textAlign="center"
-                    fontSize="md"
-                    textTransform="none"
-                    bg="jashyl"
-                    color="white"
-                  >
-                    Программы
-                  </Th>
-                  <Th
-                    textAlign="center"
-                    bg="jashyl"
-                    color="white"
-                    lineHeight="tall"
-                    fontSize="md"
-                    textTransform="none"
-                  >
-                    «Популярный» <br />{" "}
-                    <Text as="span" fontWeight="bold" fontSize="xl">
-                      25 + 5
-                    </Text>
-                  </Th>
-                  <Th
-                    textAlign="center"
-                    bg="jashyl"
-                    color="white"
-                    lineHeight="tall"
-                    fontSize="md"
-                    textTransform="none"
-                  >
-                    «Удобный» <br />
-                    <Text as="span" fontWeight="bold" fontSize="xl">
-                      35 + 5
-                    </Text>
-                  </Th>
-                  <Th
-                    textAlign="center"
-                    bg="jashyl"
-                    color="white"
-                    lineHeight="tall"
-                    fontSize="md"
-                    textTransform="none"
-                  >
-                    «Выгодный» <br />
-                    <Text as="span" fontWeight="bold" fontSize="xl">
-                      50 + 5
-                    </Text>
-                  </Th>
-                  <Th
-                    textAlign="center"
-                    bg="jashyl"
-                    color="white"
-                    lineHeight="tall"
-                    fontSize="md"
-                    textTransform="none"
-                  >
-                    «Без взноса» <br />
-                    <Text as="span" fontWeight="bold" fontSize="xl">
-                      0 + 5
-                    </Text>
-                  </Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                <Tr>
-                  <Td bg="#F6F8F6" color="jashyl" fontWeight="500">
-                    Вступительный взнос
-                  </Td>
-                  <Td bg="#F6F8F6">25%</Td>
-                  <Td bg="#F6F8F6">35%</Td>
-                  <Td bg="#F6F8F6">50%</Td>
-                  <Td bg="#F6F8F6">5%</Td>
-                </Tr>
-                <Tr>
-                  <Td bg="#F6F8F6" color="jashyl" fontWeight="500">
-                    Паевый взнос
-                  </Td>
-                  <Td bg="#F6F8F6">5%</Td>
-                  <Td bg="#F6F8F6">5%</Td>
-                  <Td bg="#F6F8F6">5%</Td>
-                  <Td bg="#F6F8F6">25% / 35% / 50% путем паенакопления</Td>
-                </Tr>
-                <Tr>
-                  <Td bg="#F6F8F6" color="jashyl" fontWeight="500">
-                    Варианты недвижимости
-                  </Td>
-                  <Td bg="#F6F8F6">Квартиры, частные дома</Td>
-                  <Td bg="#F6F8F6">
-                    Квартиры, частные дома, строительство, авто
-                  </Td>
-                  <Td bg="#F6F8F6">
-                    Квартиры, частные дома, строительство, авто
-                  </Td>
-                  <Td bg="#F6F8F6">Квартиры, частные дома</Td>
-                </Tr>
-                <Tr>
-                  <Td bg="#F6F8F6" color="jashyl" fontWeight="500">
-                    Сумма финансирования
-                  </Td>
-                  <Td bg="#F6F8F6">от $15000 до $65000</Td>
-                  <Td bg="#F6F8F6">от $15000 до $65000</Td>
-                  <Td bg="#F6F8F6">от $15000 до $65000</Td>
-                  <Td bg="#F6F8F6">от $15000 до $65000</Td>
-                </Tr>
-                <Tr>
-                  <Td bg="#F6F8F6" color="jashyl" fontWeight="500">
-                    Срок ожидания
-                  </Td>
-                  <Td bg="#F6F8F6">от 8 до 12 месяцев</Td>
-                  <Td bg="#F6F8F6">от 4 до 6 месяцев</Td>
-                  <Td bg="#F6F8F6">от 1 до 2 месяцев</Td>
-                  <Td bg="#F6F8F6">
-                    до паенакопления в размере 25% / 35% / 50%
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td bg="#F6F8F6" color="jashyl" fontWeight="500">
-                    Срок финансирования
-                  </Td>
-                  <Td bg="#F6F8F6">до 10 лет</Td>
-                  <Td bg="#F6F8F6">до 10 лет</Td>
-                  <Td bg="#F6F8F6">до 10 лет</Td>
-                  <Td bg="#F6F8F6">до 10 лет</Td>
-                </Tr>
-              </Tbody>
-              <Tfoot>
-                <Tr>
-                  <Th color="saryy">Примечания</Th>
-                  <Th colspan="2">Частный дом постройки выше 2000-года. </Th>
-                  <Th colspan="2">Квартира постройки выше 1965-года.</Th>
-                </Tr>
-              </Tfoot>
-            </Table>
+            <ProgramsTable />
           </Flex>
         </Container>
       </Box>
@@ -268,6 +152,133 @@ const Card = ({ title, image, content, ...props }) => {
       </Text>
       <Text zIndex="1">{content}</Text>
     </Flex>
+  );
+};
+
+const ProgramsTable = () => {
+  const { data: programs, isLoading, isError } = useProgramsApi();
+
+  if (isError) {
+    return (
+      <Alert status="warning" mx="auto" maxW="400px">
+        <AlertIcon />
+        Ошибка при загрузке
+      </Alert>
+    );
+  }
+
+  if (isLoading) {
+    return <Spinner color="saryy" my="100px" />;
+  }
+
+  return (
+    <Table
+      variant="unstyled"
+      sx={{
+        td: {
+          border: "1px solid #CBD0CD",
+        },
+        th: {
+          border: "1px solid #CBD0CD",
+        },
+      }}
+    >
+      <Thead>
+        <Tr>
+          <Th
+            textAlign="center"
+            fontSize="md"
+            textTransform="none"
+            bg="jashyl"
+            color="white"
+          >
+            Программы
+          </Th>
+          {programs.map((program) => (
+            <Th
+              key={program.name}
+              textAlign="center"
+              bg="jashyl"
+              color="white"
+              lineHeight="tall"
+              fontSize="md"
+              textTransform="none"
+            >
+              {program.name}
+            </Th>
+          ))}
+        </Tr>
+      </Thead>
+      <Tbody>
+        <Tr>
+          <Td bg="#F6F8F6" color="jashyl" fontWeight="500">
+            Вступительный взнос
+          </Td>
+          {programs.map((program) => (
+            <Td bg="#F6F8F6" key={program.name}>
+              {program.deposit}
+            </Td>
+          ))}
+        </Tr>
+        <Tr>
+          <Td bg="#F6F8F6" color="jashyl" fontWeight="500">
+            Паевый взнос
+          </Td>
+          {programs.map((program) => (
+            <Td bg="#F6F8F6" key={program.name}>
+              {program.fee}
+            </Td>
+          ))}
+        </Tr>
+        <Tr>
+          <Td bg="#F6F8F6" color="jashyl" fontWeight="500">
+            Варианты недвижимости
+          </Td>
+          {programs.map((program) => (
+            <Td bg="#F6F8F6" key={program.name}>
+              {program.realEstateTypes}
+            </Td>
+          ))}
+        </Tr>
+        <Tr>
+          <Td bg="#F6F8F6" color="jashyl" fontWeight="500">
+            Сумма финансирования
+          </Td>
+          {programs.map((program) => (
+            <Td bg="#F6F8F6" key={program.name}>
+              {program.fundingAmount}
+            </Td>
+          ))}
+        </Tr>
+        <Tr>
+          <Td bg="#F6F8F6" color="jashyl" fontWeight="500">
+            Срок ожидания
+          </Td>
+          {programs.map((program) => (
+            <Td bg="#F6F8F6" key={program.name}>
+              {program.waitingPeriod}
+            </Td>
+          ))}
+        </Tr>
+        <Tr>
+          <Td bg="#F6F8F6" color="jashyl" fontWeight="500">
+            Срок финансирования
+          </Td>
+          {programs.map((program) => (
+            <Td bg="#F6F8F6" key={program.name}>
+              {program.financingPeriod}
+            </Td>
+          ))}
+        </Tr>
+      </Tbody>
+      <Tfoot>
+        <Tr>
+          <Th color="saryy">Примечания</Th>
+          <Th colspan="2">Частный дом постройки выше 2000-года. </Th>
+          <Th colspan="2">Квартира постройки выше 1965-года.</Th>
+        </Tr>
+      </Tfoot>
+    </Table>
   );
 };
 

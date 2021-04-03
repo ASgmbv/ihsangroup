@@ -45,8 +45,8 @@ const ContactsHeader = () => {
               <Image
                 src="/logo.svg"
                 alt="Логотип компании"
-                width="50px"
-                height="30px"
+                width="60px"
+                height="40px"
                 display={["block", null, null, "none"]}
               />
             </a>

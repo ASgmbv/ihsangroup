@@ -1,6 +1,5 @@
 import Layout from "@/components/Layout";
 import {
-  Box,
   Container,
   Text,
   Flex,
@@ -10,6 +9,7 @@ import {
   Button,
   Image,
 } from "@chakra-ui/react";
+import SectionHeader from "@/components/SectionHeader";
 
 const branches = [
   {
@@ -58,30 +58,7 @@ const branches = [
 const Contacts = () => {
   return (
     <Layout title="Контакты">
-      <Flex
-        w="full"
-        backgroundImage="url('/14.png')"
-        backgroundPosition="center"
-        backgroundRepeat="no-repeat"
-        backgroundSize="cover"
-        h={["300px"]}
-      >
-        <Box h="full" w="full" background="rgba(1, 87, 71,0.8)">
-          <Container maxW="container.xl" h="full">
-            <Flex flexDir="column" justify="center" align="center" h="full">
-              <Heading
-                color="white"
-                size="2xl"
-                fontWeight="500"
-                lineHeight="1.3"
-                mb="6"
-              >
-                Контакты
-              </Heading>
-            </Flex>
-          </Container>
-        </Box>
-      </Flex>
+      <SectionHeader>Контакты</SectionHeader>
       {/**---------------------- */}
       <Container maxW="container.xl" py={["50px", null, "100px"]}>
         <Stack spacing="10">

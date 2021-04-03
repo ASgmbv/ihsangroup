@@ -22,6 +22,28 @@ const TeamMember = (post) => {
   };
 };
 
+const Program = (post) => {
+  if (!post) return {};
+  return {
+    name: post.name,
+    deposit: post.deposit,
+    fee: post.fee,
+    financingPeriod: post.financing_period,
+    fundingAmount: post.funding_amount,
+    realEstateTypes: post.real_estate_types,
+    waitingPeriod: post.waiting_period,
+  };
+};
+
+const Guarantee = (post) => {
+  if (!post) return {};
+  return {
+    title: post.title,
+    description: post.description,
+    icon: post.icon?.url,
+  };
+};
+
 export async function queryNews() {
   let response;
   let posts = [];
@@ -88,4 +110,32 @@ export async function queryTeamMembers() {
   } while (response.next_page);
 
   return members;
+}
+
+export async function queryPrograms() {
+  const programs = [];
+
+  const result = await Client().query(
+    Prismic.Predicates.at("document.type", "programs")
+  );
+
+  result.results[0]?.data?.programs?.map((post) => {
+    programs.push(Program(post));
+  });
+
+  return programs;
+}
+
+export async function queryGuarantees() {
+  const guarantees = [];
+
+  const result = await Client().query(
+    Prismic.Predicates.at("document.type", "guarantees")
+  );
+
+  result.results[0]?.data?.guarantees?.map((post) => {
+    guarantees.push(Guarantee(post));
+  });
+
+  return guarantees;
 }
