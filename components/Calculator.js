@@ -21,24 +21,14 @@ import {
   Td,
   Spinner,
   Link,
-  NumberInput,
-  NumberInputField,
 } from "@chakra-ui/react";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import {
   FaCar,
   FaHome,
   FaLongArrowAltDown,
   FaLongArrowAltUp,
 } from "react-icons/fa";
-
-const options = ["25%", "35%", "50%"];
-
-const max = {
-  [options[0]]: 45000,
-  [options[1]]: 55000,
-  [options[2]]: 65000,
-};
 
 const years = [
   "1 год",
@@ -53,136 +43,155 @@ const years = [
   "10 лет",
 ];
 
+// data:
+// last_update: "23.03.2021"
+// rates:
+// CNY: (2) ["13.0397", "down"]
+// EUR: (2) ["101.1113", "down"]
+// GBP: (2) ["118.3045", "down"]
+// RUB: (2) ["1.1438", "down"]
+// USD: (2) ["84.8000", "down"]
+// UZS: (2) ["0.0081", "down"]
+
+const MINIMUM_ESTATE = 10000;
+const MINIMUM_AUTO = 1000;
+const MAXIMUM_AUTO = 20000;
+
+const options = ["25%", "35%", "50%"];
+
+const max = {
+  [options[0]]: 45000,
+  [options[1]]: 55000,
+  [options[2]]: 65000,
+};
+
+function getMinPrice({ isEstate, currency, currencyRates }) {
+  if (isEstate) {
+    return Math.round(MINIMUM_ESTATE * currencyRates[currency]);
+  }
+  return Math.round(MINIMUM_AUTO * currencyRates[currency]);
+}
+
+function getMaxPrice({ isEstate, currency, currencyRates, deposit }) {
+  if (isEstate) {
+    return Math.round(max[deposit] * currencyRates[currency]);
+  }
+  return Math.round(MAXIMUM_AUTO * currencyRates[currency]);
+}
+
 function reducer(state, { type, payload }) {
   switch (type) {
     case types.setCalculator: {
+      const { currency, currencyRates } = state;
+      const deposit = payload === "estate" ? "25%" : "50%";
       const isEstate = payload === "estate";
-      const isUsd = state.currency === "usd";
-      const minInSomsForEstate = Math.round(10000 * state.rate);
-      const minInSomsForAuto = Math.round(1000 * state.rate);
-      const maxInSomsForEstate = Math.round(45000 * state.rate);
-      const maxInSomsForAuto = Math.round(5000 * state.rate);
 
       return {
         ...state,
         calculator: payload,
-        price: isEstate
-          ? isUsd
-            ? 10000
-            : minInSomsForEstate
-          : isUsd
-          ? 5000
-          : minInSomsForAuto,
-        deposit: isEstate ? "25%" : "50%",
-        min: isEstate
-          ? isUsd
-            ? 10000
-            : minInSomsForEstate
-          : isUsd
-          ? 5000
-          : minInSomsForAuto,
-        max: isEstate
-          ? isUsd
-            ? 45000
-            : maxInSomsForEstate
-          : isUsd
-          ? 20000
-          : maxInSomsForAuto,
+        price: getMinPrice({
+          isEstate,
+          currency: currency,
+          currencyRates: currencyRates,
+        }),
+        deposit,
+        min: getMinPrice({
+          isEstate,
+          currency: currency,
+          currencyRates: currencyRates,
+        }),
+        max: getMaxPrice({
+          isEstate,
+          currency: currency,
+          currencyRates: currencyRates,
+          deposit: deposit,
+        }),
       };
     }
+
     case types.setCurrency: {
-      const isUsd = payload === "usd";
-      const isEstate = state.calculator === "estate";
-
-      const currPrice = state.price;
-      const currRate = state.rate;
-
-      const newPrice = isUsd
-        ? Math.round(currPrice / currRate)
-        : Math.round(currPrice * currRate);
-
-      const minInSomsForEstate = Math.round(10000 * state.rate);
-      const minInSomsForAuto = Math.round(5000 * state.rate);
-      const maxInSomsForEstate = Math.round(45000 * state.rate);
-      const maxInSomsForAuto = Math.round(20000 * state.rate);
+      const { price, currency, currencyRates, deposit, calculator } = state;
+      const newPrice = Math.round(
+        (price * currencyRates[payload]) / currencyRates[currency]
+      );
+      const isEstate = calculator === "estate";
+      const depositAmount = Math.round((newPrice * parseInt(deposit)) / 100);
 
       return {
         ...state,
         currency: payload,
         price: newPrice,
-        depositAmount: Math.round((newPrice * parseInt(state.deposit)) / 100),
-        min: isEstate
-          ? isUsd
-            ? 10000
-            : minInSomsForEstate
-          : isUsd
-          ? 5000
-          : minInSomsForAuto,
-        max: isEstate
-          ? isUsd
-            ? 45000
-            : maxInSomsForEstate
-          : isUsd
-          ? 20000
-          : maxInSomsForAuto,
+        depositAmount,
+        min: getMinPrice({
+          isEstate,
+          currency: payload,
+          currencyRates,
+        }),
+        max: getMaxPrice({
+          isEstate,
+          currency: payload,
+          currencyRates,
+          deposit,
+        }),
       };
     }
+
     case types.setPrice: {
+      const { deposit } = state;
+      const depositAmount = Math.round((payload * parseInt(deposit)) / 100);
+
       return {
         ...state,
         price: payload,
-        depositAmount: Math.round((payload * parseInt(state.deposit)) / 100),
+        depositAmount,
       };
     }
-    case types.setDeposit: {
-      const isUsd = state.currency === "usd";
-      const isEstate = state.calculator === "estate";
-      const { price, rate } = state;
 
-      const minInSomsForEstate = Math.round(10000 * rate);
-      const minInSomsForAuto = Math.round(5000 * rate);
-      const maxInSomsForEstate = Math.round(max[payload] * rate);
+    case types.setDeposit: {
+      const { price, calculator, currency, currencyRates } = state;
+      const isEstate = calculator === "estate";
+      const depositAmount = Math.round((price * parseInt(payload)) / 100);
 
       let newPrice = price;
-
-      if (isEstate) {
-        if (isUsd) {
-          if (price > max[payload]) {
-            newPrice = max[payload];
-          }
-        } else {
-          newPrice = Math.round(max[payload] * rate);
-        }
+      if (price > Math.round(max[payload] * currencyRates[currency])) {
+        newPrice = Math.round(max[payload] * currencyRates[currency]);
       }
 
       return {
         ...state,
         deposit: payload,
         price: newPrice,
-        min: isEstate
-          ? isUsd
-            ? 10000
-            : minInSomsForEstate
-          : isUsd
-          ? 5000
-          : minInSomsForAuto,
-        max: isEstate ? (isUsd ? max[payload] : maxInSomsForEstate) : state.max,
-        depositAmount: Math.round((price * parseInt(payload)) / 100),
+        min: getMinPrice({
+          isEstate,
+          currency,
+          currencyRates,
+        }),
+        max: getMaxPrice({
+          isEstate,
+          currency,
+          currencyRates,
+          deposit: payload,
+        }),
+        depositAmount,
       };
     }
+
     case types.setPeriod: {
       return {
         ...state,
         period: payload,
       };
     }
+
     case types.calculateDetails: {
-      const { price, depositAmount, period } = state;
-      const fee = Math.round((price * 4) / 100);
+      const { price, depositAmount, period, calculator } = state;
+      const PERCENTS = calculator === "estate" ? 5 : 7;
+      const fee = Math.round((price * PERCENTS) / 100);
+      const monthlyPayment = Math.round((price - depositAmount) / period);
 
       return {
         ...state,
-        monthlyPayment: Math.round((price - depositAmount) / period),
+        monthlyPayment,
         loan: price - depositAmount,
         fee,
         total: fee + price - depositAmount,
@@ -191,6 +200,7 @@ function reducer(state, { type, payload }) {
         finalCurrency: state.currency,
       };
     }
+
     case types.startRatesFetching: {
       return {
         ...state,
@@ -198,15 +208,27 @@ function reducer(state, { type, payload }) {
         isError: false,
       };
     }
+
     case types.successRatesFetching: {
+      // RUB: (2) ["1.1438", "down"]
+      const kgs = payload.rates.USD[0] * 1;
+      const rub = payload.rates.RUB[0] * 1;
+
       return {
         ...state,
         isFetching: false,
         isError: false,
         rates: payload,
         rate: payload.rates.USD[0] * 1,
+        currencyRates: {
+          USD: 1,
+          KGS: kgs,
+          // round to 4 zeroes
+          RUB: (kgs / rub).toFixed(4),
+        },
       };
     }
+
     case types.failureRatesFetching: {
       return {
         ...state,
@@ -214,6 +236,7 @@ function reducer(state, { type, payload }) {
         isError: true,
       };
     }
+
     default:
       throw new Error("wrong type!");
   }
@@ -221,7 +244,7 @@ function reducer(state, { type, payload }) {
 
 const initialState = {
   calculator: "estate",
-  currency: "usd",
+  currency: "USD",
   price: 10000,
   deposit: "25%",
   period: 12,
@@ -237,7 +260,7 @@ const initialState = {
   isError: false,
   finalPrice: 0,
   finalDepositAmount: 0,
-  finalCurrency: "usd",
+  finalCurrency: "USD",
 };
 
 const types = {
@@ -258,15 +281,13 @@ const calculators = {
   auto: "Автомобиль",
 };
 
-// data:
-// last_update: "23.03.2021"
-// rates:
-// CNY: (2) ["13.0397", "down"]
-// EUR: (2) ["101.1113", "down"]
-// GBP: (2) ["118.3045", "down"]
-// RUB: (2) ["1.1438", "down"]
-// USD: (2) ["84.8000", "down"]
-// UZS: (2) ["0.0081", "down"]
+function currencyToString(currency) {
+  return {
+    USD: "$",
+    KGS: "Сом",
+    RUB: "Руб",
+  }[currency];
+}
 
 const Calculator = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -286,7 +307,6 @@ const Calculator = () => {
     rates,
     isFetching,
     isError,
-
     finalPrice,
     finalDepositAmount,
     finalCurrency,
@@ -343,24 +363,13 @@ const Calculator = () => {
           <Box border="2px solid" p="3" mb="3" borderColor="saryy">
             <Text color="jashyl" fontWeight="bold" mb="3">
               {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
-                ` ${currency === "usd" ? "$" : "Сом"}`}
+                ` ${currencyToString(currency)}`}
             </Text>
-
-            {/* <NumberInput
-              value={price}
-              onChange={(e) => {
-                dispatch({ type: types.setPrice, payload: e });
-              }}
-              min={min}
-              max={max}
-            >
-              <NumberInputField />
-            </NumberInput> */}
 
             <Slider
               min={min}
               max={max}
-              step={currency === "usd" ? 100 : 1000}
+              step={currency === "USD" ? 100 : 1000}
               onChange={(e) => {
                 dispatch({ type: types.setPrice, payload: e });
               }}
@@ -389,9 +398,12 @@ const Calculator = () => {
               }}
             >
               <Stack direction="row" justifyContent="flex-end" spacing="6">
-                <CurrencyRadio value={"usd"}>USD</CurrencyRadio>
-                <CurrencyRadio value={"som"} isDisabled={rate === null}>
+                <CurrencyRadio value={"USD"}>USD</CurrencyRadio>
+                <CurrencyRadio value={"KGS"} isDisabled={rate === null}>
                   СОМ
+                </CurrencyRadio>
+                <CurrencyRadio value={"RUB"} isDisabled={rate === null}>
+                  РУБ
                 </CurrencyRadio>
               </Stack>
             </RadioGroup>
@@ -421,7 +433,7 @@ const Calculator = () => {
               py={[3, 0]}
             >
               {depositAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
-                ` ${currency === "usd" ? "$" : "Сом"}`}
+                ` ${currencyToString(currency)}`}
             </Flex>
           </Flex>
 
@@ -555,7 +567,7 @@ const Calculator = () => {
               <Text>Стоимость недвижимости:</Text>
               <Text color="jashyl" fontWeight="bold">
                 {finalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
-                  ` ${finalCurrency === "usd" ? "$" : "Сом"}`}
+                  ` ${currencyToString(finalCurrency)}`}
               </Text>
             </Flex>
 
@@ -565,7 +577,7 @@ const Calculator = () => {
                 {finalDepositAmount
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
-                  ` ${finalCurrency === "usd" ? "$" : "Сом"}`}
+                  ` ${currencyToString(finalCurrency)}`}
               </Text>
             </Flex>
 
@@ -573,7 +585,7 @@ const Calculator = () => {
               <Text>Вступительный взнос: </Text>
               <Text color="jashyl" fontWeight="bold">
                 {fee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
-                  ` ${finalCurrency === "usd" ? "$" : "Сом"}`}
+                  ` ${currencyToString(finalCurrency)}`}
               </Text>
             </Flex>
 
@@ -581,7 +593,7 @@ const Calculator = () => {
               <Text>Сумма финансирования:</Text>
               <Text color="jashyl" fontWeight="bold">
                 {loan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
-                  ` ${finalCurrency === "usd" ? "$" : "Сом"}`}
+                  ` ${currencyToString(finalCurrency)}`}
               </Text>
             </Flex>
 
@@ -591,7 +603,7 @@ const Calculator = () => {
                 {monthlyPayment
                   .toString()
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
-                  ` ${finalCurrency === "usd" ? "$" : "Сом"}`}
+                  ` ${currencyToString(finalCurrency)}`}
               </Text>
             </Flex>
           </Stack>

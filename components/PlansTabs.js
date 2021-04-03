@@ -14,18 +14,56 @@ import {
   ListIcon,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import { motion, useAnimation } from "framer-motion";
+import { useEffect } from "react";
 import { FaCaretRight } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+
+const MotionText = motion(Text);
+const MotionHeading = motion(Heading);
 
 const PlansTabs = () => {
+  const { ref, inView } = useInView();
+  const animation = useAnimation();
+
+  const variants = {
+    visible: {
+      opacity: 1,
+    },
+    hidden: {
+      opacity: 0,
+    },
+  };
+
+  useEffect(() => {
+    if (inView) {
+      animation.start("visible");
+    } else {
+      animation.start("hidden");
+    }
+  }, [animation, inView]);
+
   return (
     <Box py={["50px", null, "100px"]}>
       <Container maxW="container.lg2">
         <Flex flexDir="column" alignItems="center">
-          <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
+          <MotionText
+            variants={variants}
+            animate={animation}
+            transition={{ duration: 1.5 }}
+            ref={ref}
+            color="saryy"
+            letterSpacing="widest"
+            fontSize="sm"
+            mb="10"
+          >
             НАШИ ПРОГРАММЫ
-          </Text>
-          <Heading
+          </MotionText>
+
+          <MotionHeading
+            variants={variants}
+            animate={animation}
+            transition={{ duration: 1.5, delay: 0.5 }}
             color="jashyl"
             fontWeight="500"
             size="xl"
@@ -33,7 +71,7 @@ const PlansTabs = () => {
             mb="14"
           >
             Мы подберем программу, <br /> которая подойдет именно для вас
-          </Heading>
+          </MotionHeading>
 
           <CustomTabs />
         </Flex>
@@ -41,8 +79,6 @@ const PlansTabs = () => {
     </Box>
   );
 };
-
-const MotionText = motion(Text);
 
 const CustomTabs = () => {
   const variant = useBreakpointValue({ base: "horizontal", md: "vertical" });
@@ -70,6 +106,7 @@ const CustomTabs = () => {
               <ListIcon as={FaCaretRight} color="jashyl" />
               Вступительный взнос – 5% от стоимости недвижимости
             </ListItem>
+
             <ListItem fontSize="lg">
               <ListIcon as={FaCaretRight} color="jashyl" />
               Паевый взнос – 35% от стоимости недвижимости

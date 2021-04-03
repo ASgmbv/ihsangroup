@@ -10,7 +10,6 @@ import {
   Icon,
   Link as CLink,
 } from "@chakra-ui/react";
-import NextImage from "next/image";
 import { MdCheck } from "react-icons/md";
 import LinkIcon from "../assets/icons/LinkIcon";
 
@@ -50,14 +49,12 @@ const Mission = () => {
     <Box bg="#F6F8F6" py={["50px", null, "100px"]}>
       <Container maxW="container.lg2">
         <Grid templateColumns={["1fr", null, null, "40% auto"]} gap="50px">
-          <Box display={["none", null, null, "block"]} position="relative">
-            <NextImage
-              src="/main-mission.png"
-              layout="fill"
-              alt="Ихсан Групп"
-              objectFit="cover"
-            />
-          </Box>
+          <Image
+            w="full"
+            src="/main-mission.png"
+            alt="Ихсан Групп"
+            objectFit="cover"
+          />
           <Stack direction="column" spacing="6">
             <Text color="saryy" letterSpacing="widest" fontSize="sm">
               МИССИЯ КООПЕРАТИВА

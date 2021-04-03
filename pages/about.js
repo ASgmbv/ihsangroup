@@ -23,16 +23,16 @@ import { queryNews } from "@/queries";
 import { ButtonGreen } from "@/components/Button";
 import Post from "@/components/Post";
 
-export async function getStaticProps() {
-  const posts = await queryNews();
+// export async function getStaticProps() {
+//   const posts = await queryNews();
 
-  return {
-    props: {
-      posts,
-    },
-    revalidate: 1,
-  };
-}
+//   return {
+//     props: {
+//       posts,
+//     },
+//     revalidate: 1,
+//   };
+// }
 
 const members = [
   {
@@ -185,7 +185,7 @@ const Plans = ({ posts }) => {
         </Container>
       </Box>
       {/**---------------------- */}
-      <Box py={["50px", null, "100px"]}>
+      {/* <Box py={["50px", null, "100px"]}>
         <Container maxW="container.lg2">
           <Flex flexDir="column" alignItems="center">
             <Text color="saryy" letterSpacing="widest" fontSize="sm" mb="10">
@@ -226,7 +226,7 @@ const Plans = ({ posts }) => {
             </NextLink>
           </Flex>
         </Container>
-      </Box>
+      </Box> */}
       {/**---------------------- */}
       <Box pb={["50px", null, "100px"]}>
         <Container maxW="container.lg2">

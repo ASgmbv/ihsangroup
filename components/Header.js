@@ -1,8 +1,15 @@
-import { Box, Container, Flex, Link, Button, HStack } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  Link,
+  Image,
+  Button,
+  HStack,
+} from "@chakra-ui/react";
 
 import { useRouter } from "next/router";
 import NextLink from "next/link";
-import Image from "next/image";
 import { pages } from "@/utils/website-config";
 import PageLink from "@/components/PageLink";
 
@@ -31,8 +38,8 @@ const Header = () => {
                 <Image
                   src="/logo.svg"
                   alt="Логотип компании"
-                  width={80}
-                  height={50}
+                  width="80px"
+                  height="50px"
                 />
               </a>
             </NextLink>

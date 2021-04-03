@@ -13,7 +13,6 @@ import {
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { GoTriangleLeft, GoTriangleRight } from "react-icons/go";
-import NextImage from "next/image";
 
 const MotionImage = motion(Image);
 const MotionFlex = motion(Flex);
@@ -93,11 +92,7 @@ const Slider = () => {
           scale: { duration: 10 },
         }}
       >
-        <NextImage
-          layout="fill"
-          objectFit="cover"
-          src={slides[slideIndex].image}
-        />
+        <Image objectFit="cover" src={slides[slideIndex].image} w="full" />
       </MotionFlex>
       <Box
         height="full"

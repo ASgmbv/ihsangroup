@@ -12,38 +12,105 @@ import {
   Box,
   Link as ChakraLink,
   StackDivider,
+  Spinner,
+  Skeleton,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { Elements, RichText } from "prismic-reactjs";
 import NextLink from "next/link";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-export async function getStaticPaths() {
-  const posts = await queryNews();
-  const paths = posts.map((post) => ({
-    params: { id: post.id },
-  }));
+// export async function getStaticPaths() {
+//   const posts = await queryNews();
+//   const paths = posts.map((post) => ({
+//     params: { id: post.id },
+//   }));
 
-  return {
-    paths,
-    fallback: true,
-  };
-}
+//   return {
+//     paths,
+//     fallback: true,
+//   };
+// }
 
-export async function getStaticProps({ params }) {
-  const post = await queryNewsById(params.id);
-  const posts = await queryNews();
+// export async function getStaticProps({ params }) {
+//   const post = await queryNewsById(params.id);
+//   const posts = await queryNews();
 
-  return {
-    props: {
-      post,
-      posts,
-    },
-    revalidate: 1,
-  };
-}
+//   return {
+//     props: {
+//       post,
+//       posts,
+//     },
+//     revalidate: 1,
+//   };
+// }
 
-const News = ({ post, posts }) => {
-  if (!post) return null;
+const useFetchPost = (id) => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsError(false);
+      setIsLoading(true);
+      try {
+        const res = await queryNewsById(id);
+        setData(res);
+      } catch (error) {
+        console.log({ error });
+        setIsError(true);
+      }
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [id]);
+
+  return { data, isLoading, isError };
+};
+
+const useFetchNews = () => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsError(false);
+      setIsLoading(true);
+      try {
+        const res = await queryNews();
+        setData(res);
+      } catch (error) {
+        console.log({ error });
+        setIsError(true);
+      }
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  return { data, isLoading, isError };
+};
+
+const News = () => {
+  const router = useRouter();
+  const { id } = router.query;
+
+  const {
+    data: post,
+    isLoading: postFetching,
+    isError: postError,
+  } = useFetchPost(id);
+  const {
+    data: newsPosts,
+    isLoading: newsFetching,
+    isError: newsError,
+  } = useFetchNews();
+
   const { date, title, image, text } = post;
 
   return (
@@ -55,18 +122,27 @@ const News = ({ post, posts }) => {
           templateColumns={["auto", null, null, "auto 400px"]}
           gap="50px"
         >
-          <Stack direction="column" spacing={[4, null, 6]}>
-            <Text color="saryy" fontSize="sm">
-              {format(new Date(date), "dd-MM-yyyy")}
-            </Text>
-            <Heading color="jashyl" fontWeight="500" size="lg">
-              {title}
-            </Heading>
-            <AspectRatio ratio={3 / 2} width={["100%", null, "100%"]}>
-              <Img src={image} objectFit="cover" />
-            </AspectRatio>
-            <RichText render={text} htmlSerializer={htmlSerializer} />
-          </Stack>
+          {postError ? (
+            <Alert status="error">
+              <AlertIcon />
+              Ошибка при загрузке
+            </Alert>
+          ) : postFetching ? (
+            <Spinner mx="auto" my="100px" color="jashyl" />
+          ) : (
+            <Stack direction="column" spacing={[4, null, 6]}>
+              <Text color="saryy" fontSize="sm">
+                {date ? format(new Date(date), "dd-MM-yyyy") : ""}
+              </Text>
+              <Heading color="jashyl" fontWeight="500" size="lg">
+                {title}
+              </Heading>
+              <AspectRatio ratio={3 / 2} width={["100%", null, "100%"]}>
+                <Img src={image} objectFit="cover" />
+              </AspectRatio>
+              <RichText render={text} htmlSerializer={htmlSerializer} />
+            </Stack>
+          )}
           <Box>
             <Heading
               fontSize={["md", null, "2xl"]}
@@ -75,26 +151,46 @@ const News = ({ post, posts }) => {
             >
               Последние новости
             </Heading>
-            <Stack
-              divider={<StackDivider borderColor="gray.200" />}
-              spacing="4"
-            >
-              {posts.map(({ id, title, date, image }) => (
-                <Post
-                  date={date}
-                  title={title}
-                  image={image}
-                  id={id}
-                  key={id}
-                />
-              ))}
-            </Stack>
+            {newsError ? (
+              <Alert status="error">
+                <AlertIcon />
+                Ошибка при загрузке
+              </Alert>
+            ) : (
+              <Stack
+                divider={<StackDivider borderColor="gray.200" />}
+                spacing="4"
+              >
+                {newsFetching
+                  ? [0, 1, 2].map((el) => <SkeletonPost key={el} />)
+                  : newsPosts.map(({ id, title, date, image }) => (
+                      <Post
+                        date={date}
+                        title={title}
+                        image={image}
+                        id={id}
+                        key={id}
+                      />
+                    ))}
+              </Stack>
+            )}
           </Box>
         </Grid>
       </Container>
     </Layout>
   );
 };
+
+const SkeletonPost = () => (
+  <Stack direction="row" spacing="4" w="full">
+    <Skeleton boxSize="90px" />
+    <Stack flex="1" spacing="3">
+      <Skeleton height="10px" w="60px" />
+      <Skeleton height="10px" w="full" />
+      <Skeleton height="10px" w="full" />
+    </Stack>
+  </Stack>
+);
 
 const Post = ({ id, date, title, image }) => {
   return (

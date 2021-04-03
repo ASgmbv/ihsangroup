@@ -11,6 +11,9 @@ import {
   ListItem,
   ListIcon,
   Img,
+  Alert,
+  AlertIcon,
+  Spinner,
 } from "@chakra-ui/react";
 import {
   FaFacebookF,
@@ -125,9 +128,12 @@ const Footer = () => {
                 Последние новости
               </Flex>
               {isError ? (
-                <Text>Ошибка</Text>
+                <Alert status="error">
+                  <AlertIcon />
+                  Ошибка при загрузке
+                </Alert>
               ) : isLoading ? (
-                <Text>Загрузка</Text>
+                <Spinner color="saryy" mx="auto" />
               ) : (
                 posts.map(({ title, date, image, id }) => (
                   <Post
@@ -145,10 +151,10 @@ const Footer = () => {
                 О кооперативе
               </ListItem>
               <FooterLink href="/about">О Нас</FooterLink>
-              <FooterLink href="/">Почему Мы</FooterLink>
-              <FooterLink href="/">Отзывы</FooterLink>
-              <FooterLink href="/">Новости</FooterLink>
-              <FooterLink href="/">Сертификаты</FooterLink>
+              <FooterLink href="/guarantees">Почему Мы</FooterLink>
+              <FooterLink href="/reviews">Отзывы</FooterLink>
+              <FooterLink href="/news">Новости</FooterLink>
+              <FooterLink href="/guarantees">Сертификаты</FooterLink>
             </List>
             <List spacing="4" mt={[10, null, null, 0]}>
               <ListItem fontSize="lg" color="#81ADA5">
@@ -156,8 +162,8 @@ const Footer = () => {
               </ListItem>
               <FooterLink href="/plans">Программы</FooterLink>
               <FooterLink href="/guarantess">Гарантии</FooterLink>
-              <FooterLink href="/guarantess">Преимущества</FooterLink>
-              <FooterLink href="/guarantess">Условия</FooterLink>
+              <FooterLink href="/about">Преимущества</FooterLink>
+              <FooterLink href="/plans">Условия</FooterLink>
               <FooterLink href="/guarantess">Частые Вопросы</FooterLink>
             </List>
           </Flex>

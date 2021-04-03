@@ -8,7 +8,7 @@ const PageLink = ({ children, pathname, currentPathname }) => {
         fontSize="sm"
         fontWeight="bold"
         fontFamily="Montserrat, sans-serif"
-        color={pathname === currentPathname ? "#D5A022" : "#006754"}
+        color={pathname === currentPathname ? "#D5A022" : "jashyl"}
       >
         {children}
       </Link>

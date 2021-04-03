@@ -8,7 +8,8 @@ const theme = extendTheme({
   },
   colors: {
     saryy: "#D5A022",
-    jashyl: "#006754",
+    jashyl: "#044d2c",
+    achykJashyl: "#269344",
     kara: "#444D4A",
     boz: "#EFF1ED",
     text: "#444D49",

@@ -14,9 +14,11 @@ import {
   List,
   ListItem,
   DrawerHeader,
-  Stack,
   Wrap,
   WrapItem,
+  Image,
+  DrawerFooter,
+  Stack,
 } from "@chakra-ui/react";
 import { MdLocationCity, MdEmail } from "react-icons/md";
 import {
@@ -28,6 +30,7 @@ import {
 import { pages } from "@/utils/website-config.js";
 import PageLink from "@/components/PageLink";
 import { useRouter } from "next/router";
+import NextLink from "next/link";
 
 const ContactsHeader = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -38,19 +41,26 @@ const ContactsHeader = () => {
     <Box bg="#EFF1ED" pos="relative">
       <Container maxW="container.lg2" py="3">
         <Flex w="full" justifyContent="space-between" alignItems="center">
+          <NextLink href="/">
+            <a>
+              <Image
+                src="/logo.svg"
+                alt="Логотип компании"
+                width="50px"
+                height="30px"
+                display={["block", null, null, "none"]}
+              />
+            </a>
+          </NextLink>
+
           <Flex
             justify="space-between"
             align="flex-start"
             h="full"
             w="full"
-            flexDir={["column", null, null, "row"]}
+            display={["none", null, null, "flex"]}
           >
-            <Wrap
-              align="flex-start"
-              // direction={["column", null, null, "row"]}
-              spacing={[2, null, 4]}
-              // mr="4"
-            >
+            <Wrap align="flex-start" spacing={[2, null, 4]}>
               <WrapItem>
                 <Flex align="center">
                   <Icon
@@ -74,80 +84,21 @@ const ContactsHeader = () => {
                   </Text>
                 </Flex>
               </WrapItem>
+
               <WrapItem>
-                <Link href="tel:+996700005151">
-                  <Flex align="center">
-                    <Icon
-                      as={FaPhoneAlt}
-                      boxSize={3}
-                      color="#444D4A"
-                      mr="2"
-                      _hover={{
-                        color: "jashyl",
-                      }}
-                    />
-                    <Text
-                      fontSize="sm"
-                      fontWeight="semibold"
-                      color="#444D4A"
-                      _hover={{
-                        color: "jashyl",
-                      }}
-                    >
-                      +996 700 005 151
-                    </Text>
-                  </Flex>
-                </Link>
+                <PhoneLink phoneNumber="+996700005151">
+                  +996 700 005 151
+                </PhoneLink>
               </WrapItem>
               <WrapItem>
-                <Link href="tel:+996700005151">
-                  <Flex align="center">
-                    <Icon
-                      as={FaPhoneAlt}
-                      boxSize={3}
-                      color="#444D4A"
-                      mr="2"
-                      _hover={{
-                        color: "jashyl",
-                      }}
-                    />
-                    <Text
-                      fontSize="sm"
-                      fontWeight="semibold"
-                      color="#444D4A"
-                      _hover={{
-                        color: "jashyl",
-                      }}
-                    >
-                      +996 778 00 51 51
-                    </Text>
-                  </Flex>
-                </Link>
+                <PhoneLink phoneNumber="+996778005151">
+                  +996 778 00 51 51
+                </PhoneLink>
               </WrapItem>
               <WrapItem>
-                <Link href="tel:+996700005151">
-                  <Flex align="center">
-                    <Icon
-                      as={FaPhoneAlt}
-                      boxSize={3}
-                      color="#444D4A"
-                      mr="2"
-                      _hover={{
-                        color: "jashyl",
-                      }}
-                    />
-                    <Text
-                      fontSize="sm"
-                      fontWeight="semibold"
-                      color="#444D4A"
-                      _hover={{
-                        color: "jashyl",
-                      }}
-                    >
-                      +996 558 00 53 53
-                    </Text>
-                  </Flex>
-                </Link>
+                <PhoneLink phoneNumber="+996558005353">
+                  +996 558 00 53 53{" "}
+                </PhoneLink>
               </WrapItem>
             </Wrap>
 
@@ -235,6 +186,41 @@ const ContactsHeader = () => {
                       ))}
                     </List>
                   </DrawerBody>
+
+                  <DrawerFooter>
+                    <Stack spacing="4">
+                      <Flex align="center">
+                        <Icon
+                          as={MdLocationCity}
+                          boxSize={4}
+                          color="#444D4A"
+                          mr="2"
+                          _hover={{
+                            color: "jashyl",
+                          }}
+                        />
+                        <Text
+                          fontSize="sm"
+                          fontWeight="semibold"
+                          color="#444D4A"
+                          _hover={{
+                            color: "jashyl",
+                          }}
+                        >
+                          Бишкек ш., Чүй/ Кулиева, БЦ “Жан-Сали”, 5-кабат.
+                        </Text>
+                      </Flex>
+                      <PhoneLink phoneNumber="+996700005151">
+                        +996 700 005 151
+                      </PhoneLink>
+                      <PhoneLink phoneNumber="+996778005151">
+                        +996 778 00 51 51
+                      </PhoneLink>
+                      <PhoneLink phoneNumber="+996558005353">
+                        +996 558 00 53 53{" "}
+                      </PhoneLink>
+                    </Stack>
+                  </DrawerFooter>
                 </DrawerContent>
               </DrawerOverlay>
             </Drawer>
@@ -242,6 +228,34 @@ const ContactsHeader = () => {
         </Flex>
       </Container>
     </Box>
+  );
+};
+
+const PhoneLink = ({ phoneNumber, children }) => {
+  return (
+    <Link href={"tel:" + phoneNumber}>
+      <Flex align="center">
+        <Icon
+          as={FaPhoneAlt}
+          boxSize={3}
+          color="#444D4A"
+          mr="2"
+          _hover={{
+            color: "jashyl",
+          }}
+        />
+        <Text
+          fontSize="sm"
+          fontWeight="semibold"
+          color="#444D4A"
+          _hover={{
+            color: "jashyl",
+          }}
+        >
+          {children}
+        </Text>
+      </Flex>
+    </Link>
   );
 };
 
