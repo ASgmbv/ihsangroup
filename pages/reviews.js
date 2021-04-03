@@ -18,18 +18,46 @@ import {
   useBreakpointValue,
   Icon,
   IconButton,
+  Spinner,
 } from "@chakra-ui/react";
 import ReactPlayer from "react-player";
 import SectionHeader from "../components/SectionHeader";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { queryReviews } from "@/utils/queries";
+import LoadingError from "@/components/LoadingError";
+
+const useReviewsApi = () => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsError(false);
+      setIsLoading(true);
+      try {
+        const res = await queryReviews();
+        setData(res);
+      } catch (error) {
+        console.log({ error });
+        setIsError(true);
+      }
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  return { data, isLoading, isError };
+};
 
 const Review = ({ image, title }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box position="relative" className="keen-slider__slide">
+    <Box className="keen-slider__slide">
       <Image src={image} objectFit="cover" onClick={onOpen} alt={title} />
       <Modal
         isOpen={isOpen}
@@ -51,7 +79,7 @@ const Review = ({ image, title }) => {
   );
 };
 
-const ReviewsSlider = () => {
+const ReviewsSlider = ({ reviews = [] }) => {
   const slidesCount = useBreakpointValue({ base: 2, sm: 3, md: 4 });
 
   const [sliderRef, slider] = useKeenSlider({
@@ -59,15 +87,18 @@ const ReviewsSlider = () => {
     spacing: 20,
   });
 
+  useEffect(() => {
+    if (slider) {
+      slider.resize();
+    }
+  }, [reviews, slider]);
+
   return (
     <Flex bg="boz" p="10" width="100%" ref={sliderRef} className="keen-slider">
-      <Review image="/review1.jpeg" title="Гуля эже" />
-      <Review image="/review2.jpeg" title="Гуля эже" />
-      <Review image="/review1.jpeg" title="Гуля эже" />
-      <Review image="/review2.jpeg" title="Гуля эже" />
-      <Review image="/review2.jpeg" title="Гуля эже" />
-      <Review image="/review1.jpeg" title="Гуля эже" />
-      <Review image="/review2.jpeg" title="Гуля эже" />
+      {reviews.map(({ image, description }, index) => (
+        <Review image={image} title={description} key={"review-" + index} />
+      ))}
+
       <IconButton
         position="absolute"
         top="calc(50% - 20px)"
@@ -97,6 +128,20 @@ const ReviewsSlider = () => {
 };
 
 const Reviews = () => {
+  const { data: reviews, isLoading, isError } = useReviewsApi();
+
+  if (isError) {
+    return <LoadingError />;
+  }
+
+  if (isLoading) {
+    return (
+      <Flex alignItems="center" justifyContent="center" height="200px">
+        <Spinner color="saryy" />
+      </Flex>
+    );
+  }
+
   return (
     <Layout title="Отзывы">
       <SectionHeader>Отзывы</SectionHeader>
@@ -117,7 +162,7 @@ const Reviews = () => {
             >
               Мы подберем программу, <br /> которая подойдет именно для вас
             </Heading>
-            <ReviewsSlider />
+            <ReviewsSlider reviews={reviews} />
             <Grid
               mt="10"
               templateColumns={["repeat(1, 1fr)", null, "repeat(2, 1fr)"]}

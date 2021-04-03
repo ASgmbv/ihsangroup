@@ -51,6 +51,14 @@ const FAQ = (post) => {
   };
 };
 
+const Review = (post) => {
+  if (!post) return {};
+  return {
+    image: post.image?.url,
+    description: post.description,
+  };
+};
+
 export async function queryNews() {
   let response;
   let posts = [];
@@ -152,4 +160,18 @@ export async function queryFAQs() {
   });
 
   return questions;
+}
+
+export async function queryReviews() {
+  const reviews = [];
+
+  const result = await Client().query(
+    Prismic.Predicates.at("document.type", "reviews")
+  );
+
+  result.results[0]?.data?.reviews?.map((post) => {
+    reviews.push(Review(post));
+  });
+
+  return reviews;
 }
