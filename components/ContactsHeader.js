@@ -13,7 +13,6 @@ import {
   useDisclosure,
   List,
   ListItem,
-  DrawerHeader,
   Wrap,
   WrapItem,
   Image,
@@ -87,7 +86,7 @@ const ContactsHeader = () => {
 
               <WrapItem>
                 <PhoneLink phoneNumber="+996700005151">
-                  +996 700 005 151
+                  +996 700 00 51 51
                 </PhoneLink>
               </WrapItem>
               <WrapItem>
@@ -97,7 +96,7 @@ const ContactsHeader = () => {
               </WrapItem>
               <WrapItem>
                 <PhoneLink phoneNumber="+996558005353">
-                  +996 558 00 53 53{" "}
+                  +996 558 00 53 53
                 </PhoneLink>
               </WrapItem>
             </Wrap>
@@ -142,36 +141,6 @@ const ContactsHeader = () => {
               <DrawerOverlay>
                 <DrawerContent>
                   <DrawerCloseButton />
-                  <DrawerHeader>
-                    <Flex>
-                      <Link>
-                        <Icon
-                          as={FaInstagram}
-                          _hover={{ color: "jashyl" }}
-                          color="#444D49"
-                          boxSize={4}
-                          mr="5"
-                        />
-                      </Link>
-                      <Link>
-                        <Icon
-                          _hover={{ color: "jashyl" }}
-                          as={FaFacebookSquare}
-                          color="#444D49"
-                          boxSize={4}
-                          mr="5"
-                        />
-                      </Link>
-                      <Link>
-                        <Icon
-                          as={MdEmail}
-                          _hover={{ color: "jashyl" }}
-                          color="#444D49"
-                          boxSize={4}
-                        />
-                      </Link>
-                    </Flex>
-                  </DrawerHeader>
                   <DrawerBody display="flex">
                     <List spacing="8" my="auto">
                       {pages.map(({ title, pathname }, index) => (
@@ -188,31 +157,8 @@ const ContactsHeader = () => {
                   </DrawerBody>
 
                   <DrawerFooter>
-                    <Wrap>
-                      <WrapItem>
-                        <Text fontSize="xs">
-                          Бишкек ш., Чүй/ Кулиева, БЦ “Жан-Сали”, 5-кабат.
-                        </Text>
-                      </WrapItem>
-                    </Wrap>
-                    {/* <Wrap>
-                        <WrapItem>
-                          <Link fontSize="xs" href={"tel:+996700005151"}>
-                            +996 700 005 151
-                          </Link>
-                        </WrapItem>
-                        <WrapItem>
-                          <Link fontSize="xs" href={"tel:+996700005151"}>
-                            +996 700 005 151
-                          </Link>
-                        </WrapItem>
-                        <WrapItem>
-                          <Link fontSize="xs" href={"tel:+996700005151"}>
-                            +996 700 005 151
-                          </Link>
-                        </WrapItem>
-                      </Wrap> */}
-                    {/* <Flex align="center">
+                    <Stack>
+                      <Flex align="center">
                         <Icon
                           as={MdLocationCity}
                           boxSize={4}
@@ -223,7 +169,7 @@ const ContactsHeader = () => {
                           }}
                         />
                         <Text
-                          fontSize="sm"
+                          fontSize="xs"
                           fontWeight="semibold"
                           color="#444D4A"
                           _hover={{
@@ -232,17 +178,47 @@ const ContactsHeader = () => {
                         >
                           Бишкек ш., Чүй/ Кулиева, БЦ “Жан-Сали”, 5-кабат.
                         </Text>
-                      </Flex> */}
+                      </Flex>
 
-                    {/* <PhoneLink phoneNumber="+996700005151">
-                        +996 700 005 151
+                      <PhoneLink phoneNumber="+996700005151" textSize="xs">
+                        +996 700 00 51 51
                       </PhoneLink>
-                      <PhoneLink phoneNumber="+996778005151">
+                      <PhoneLink phoneNumber="+996778005151" textSize="xs">
                         +996 778 00 51 51
                       </PhoneLink>
-                      <PhoneLink phoneNumber="+996558005353">
-                        +996 558 00 53 53{" "}
-                      </PhoneLink> */}
+                      <PhoneLink phoneNumber="+996558005353" textSize="xs">
+                        +996 558 00 53 53
+                      </PhoneLink>
+
+                      <Flex>
+                        <Link>
+                          <Icon
+                            as={FaInstagram}
+                            _hover={{ color: "jashyl" }}
+                            color="#444D49"
+                            boxSize={4}
+                            mr="5"
+                          />
+                        </Link>
+                        <Link>
+                          <Icon
+                            _hover={{ color: "jashyl" }}
+                            as={FaFacebookSquare}
+                            color="#444D49"
+                            boxSize={4}
+                            mr="5"
+                          />
+                        </Link>
+                        <Link>
+                          <Icon
+                            as={MdEmail}
+                            _hover={{ color: "jashyl" }}
+                            color="#444D49"
+                            boxSize={4}
+                          />
+                        </Link>
+                      </Flex>
+                    </Stack>
                   </DrawerFooter>
                 </DrawerContent>
               </DrawerOverlay>
@@ -254,7 +230,7 @@ const ContactsHeader = () => {
   );
 };
 
-const PhoneLink = ({ phoneNumber, children }) => {
+const PhoneLink = ({ phoneNumber, children, textSize = "sm" }) => {
   return (
     <Link href={"tel:" + phoneNumber}>
       <Flex align="center">
@@ -268,7 +244,7 @@ const PhoneLink = ({ phoneNumber, children }) => {
           }}
         />
         <Text
-          fontSize="sm"
+          fontSize={textSize}
           fontWeight="semibold"
           color="#444D4A"
           _hover={{
