@@ -61,6 +61,7 @@ const AnimatingHeading = ({ title, subtitle, sx, subsx }) => {
         ref={ref}
         variants={sentence}
         animate={animation}
+        initial="hidden"
         color="saryy"
         letterSpacing="widest"
         fontSize="sm"
@@ -79,6 +80,7 @@ const AnimatingHeading = ({ title, subtitle, sx, subsx }) => {
       <MotionHeading
         variants={titleVariants}
         animate={animation}
+        initial="hidden"
         color="jashyl"
         fontWeight="500"
         size="xl"
