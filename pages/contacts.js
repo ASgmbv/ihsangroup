@@ -8,71 +8,79 @@ import {
   Stack,
   Button,
   Image,
+  AspectRatio,
+  Skeleton,
+  SkeletonText,
 } from "@chakra-ui/react";
 import SectionHeader from "@/components/SectionHeader";
+import { useEffect, useState } from "react";
+import { queryOffices } from "@/utils/queries";
+import LoadingError from "@/components/LoadingError";
 
-const branches = [
-  {
-    image: "/building.png",
-    title: "БЦ Жан-Сали",
-    address: "Бишкек ш., Чүй/ Кулиева, БЦ “Жан-Сали”, 5-кабат.",
-    email: "info@ihsan.kg",
-    phoneNumbers: [
-      "+996(700) 00 51 51",
-      "+996(707) 00 51 51",
-      "+996(558) 00 53 53",
-      "+996(778) 00 51 51",
-    ],
-  },
-  {
-    image: "/building.png",
-    title: "БЦ “Альтаир",
-    address: "Бишкек ш., Ж. Бөкөмбаев көч. 113, БЦ “Альтаир”, 5-кабат.",
-    email: "info@ihsan.kg",
-    phoneNumbers: ["+996 701 100 200", "+996 701 100 200", "+996 701 100 200"],
-  },
+const useOfficesApi = () => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
-  {
-    image: "/building.png",
-    title: "ТЦ Глобус",
-    address:
-      'Ош ш., А. Шакиров көч., 275/364. ( Болжол "Нурзаман",ТЦ "Глобус")',
-    email: "info@ihsan.kg",
-    phoneNumbers: [
-      "+996(553) 02 09 68",
-      "+996(707) 31 61 72",
-      "+996(700) 00 51 50",
-      "+996(500) 00 51 50",
-      "+996(222) 00 51 50",
-    ],
-  },
-  {
-    image: "/building.png",
-    title: "БЦ Plaza",
-    address: 'Жалал-Абад ш., Токтогул көч., 34, БЦ "Plaza"',
-    email: "info@ihsan.kg",
-    phoneNumbers: [],
-  },
-];
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsError(false);
+      setIsLoading(true);
+      try {
+        const res = await queryOffices();
+        setData(res);
+      } catch (error) {
+        console.log({ error });
+        setIsError(true);
+      }
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  return { data, isLoading, isError };
+};
+
+const SkeletonOffice = () => (
+  <Flex width="full">
+    <AspectRatio width={["100%", null, null, "30%"]} ratio={3 / 2} mr="8">
+      <Skeleton />
+    </AspectRatio>
+    <SkeletonText
+      noOfLines={6}
+      spacing="6"
+      width="70%"
+      display={["none", null, null, "block"]}
+    />
+  </Flex>
+);
 
 const Contacts = () => {
+  const { data: offices, isLoading, isError } = useOfficesApi();
+
   return (
     <Layout title="Контакты">
       <SectionHeader>Контакты</SectionHeader>
       {/**---------------------- */}
       <Container maxW="container.xl" py={["50px", null, "100px"]}>
-        <Stack spacing="10">
-          {branches.map(({ title, image, address, email, phoneNumbers }) => (
-            <Card
-              key={address}
-              image={image}
-              title={title}
-              address={address}
-              email={email}
-              phoneNumbers={phoneNumbers}
-            />
-          ))}
-        </Stack>
+        {isError ? (
+          <LoadingError />
+        ) : (
+          <Stack spacing="10">
+            {isLoading
+              ? [0, 1].map((el) => <SkeletonOffice key={"office-" + el} />)
+              : offices.map((el) => (
+                  <Card
+                    key={el.name}
+                    image={el.image}
+                    title={el.name}
+                    address={el.address}
+                    email={el.email}
+                    phoneNumbers={el.phones?.split("\n") || []}
+                  />
+                ))}
+          </Stack>
+        )}
       </Container>
     </Layout>
   );
@@ -108,7 +116,7 @@ const Card = ({ image, title, address, email, phoneNumbers }) => {
           <Stack>
             <Text color="saryy">Телефон:</Text>
             {phoneNumbers.map((pn, idx) => (
-              <Text key={"pn-" + idx}>{pn} </Text>
+              <Text key={pn + idx}>{pn} </Text>
             ))}
           </Stack>
           <Stack>
@@ -118,32 +126,6 @@ const Card = ({ image, title, address, email, phoneNumbers }) => {
         </Grid>
       </Flex>
     </Flex>
-  );
-};
-
-const CustomButton = ({ children }) => {
-  return (
-    <Button
-      size="lg"
-      w="fit-content"
-      lineHeight="1.2"
-      borderRadius="0"
-      fontSize="14px"
-      fontWeight="semibold"
-      bg="transparent"
-      color="saryy"
-      border="1px"
-      borderColor="#D5A022"
-      _hover={{
-        bg: "#D5A022",
-        color: "white",
-      }}
-      _active={{
-        borderColor: "currentColor",
-      }}
-    >
-      {children}
-    </Button>
   );
 };
 

@@ -59,6 +59,17 @@ const Review = (post) => {
   };
 };
 
+const Office = (post) => {
+  if (!post) return {};
+  return {
+    image: post.image?.url,
+    phones: post.phones,
+    name: post.name,
+    address: post.address,
+    email: post.email,
+  };
+};
+
 export async function queryNews() {
   let response;
   let posts = [];
@@ -174,4 +185,18 @@ export async function queryReviews() {
   });
 
   return reviews;
+}
+
+export async function queryOffices() {
+  const offices = [];
+
+  const result = await Client().query(
+    Prismic.Predicates.at("document.type", "offices")
+  );
+
+  result.results[0]?.data?.offices?.map((post) => {
+    offices.push(Office(post));
+  });
+
+  return offices;
 }
