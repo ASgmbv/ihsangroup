@@ -157,12 +157,7 @@ const Guarantees = () => {
           </Grid>
         </Container>
       </Box>
-      {/**---------------------- */}
-      <Box py={["50px", null, "100px"]}>
-        <Container maxW="container.lg2">
-          <Callback />
-        </Container>
-      </Box>
+
       {/**---------------------- */}
     </Layout>
   );

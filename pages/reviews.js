@@ -176,12 +176,6 @@ const Reviews = () => {
           </Flex>
         </Container>
       </Box>
-      {/**---------------------- */}
-      <Box pb="100px">
-        <Container maxW="container.lg2">
-          <Callback />
-        </Container>
-      </Box>
     </Layout>
   );
 };

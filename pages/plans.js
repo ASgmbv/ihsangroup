@@ -116,12 +116,6 @@ const Plans = () => {
           </Flex>
         </Container>
       </Box>
-      {/**---------------------- */}
-      <Box py="100px">
-        <Container maxW="container.xl">
-          <Callback />
-        </Container>
-      </Box>
     </Layout>
   );
 };

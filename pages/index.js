@@ -1,8 +1,6 @@
 import Calculator from "@/components/Calculator";
 import Layout from "@/components/Layout";
-import { Container, Box } from "@chakra-ui/react";
-
-import Callback from "@/components/Callback";
+import { Container } from "@chakra-ui/react";
 import Slider from "../components/Slider";
 import Mission from "../components/Mission";
 import PlansTabs from "../components/PlansTabs";
@@ -40,12 +38,6 @@ export default function Home() {
         <PlansTabs />
 
         <GuarantessGrid />
-
-        <Box>
-          <Container maxW="container.lg2" pb="100px">
-            <Callback />
-          </Container>
-        </Box>
       </Layout>
     </>
   );

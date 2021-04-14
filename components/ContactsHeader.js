@@ -18,6 +18,8 @@ import {
   Image,
   DrawerFooter,
   Stack,
+  DrawerHeader,
+  Button,
 } from "@chakra-ui/react";
 import { MdLocationCity, MdEmail } from "react-icons/md";
 import {
@@ -141,6 +143,11 @@ const ContactsHeader = () => {
               <DrawerOverlay>
                 <DrawerContent>
                   <DrawerCloseButton />
+
+                  <DrawerHeader>
+                    <CustomButton as="link">Личный кабинет</CustomButton>
+                  </DrawerHeader>
+
                   <DrawerBody display="flex">
                     <List spacing="8" my="auto">
                       {pages.map(({ title, pathname }, index) => (
@@ -227,6 +234,31 @@ const ContactsHeader = () => {
         </Flex>
       </Container>
     </Box>
+  );
+};
+
+const CustomButton = ({ children }) => {
+  return (
+    <Button
+      lineHeight="1.2"
+      borderRadius="0"
+      fontSize="14px"
+      fontWeight="semibold"
+      bg="#D5A022"
+      color="white"
+      border="1px"
+      borderColor="#D5A022"
+      _hover={{
+        bg: "white",
+        color: "#D5A022",
+      }}
+      _active={{
+        // transform: "scale(0.98)",
+        borderColor: "currentColor",
+      }}
+    >
+      {children}
+    </Button>
   );
 };
 

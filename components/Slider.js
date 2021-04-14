@@ -14,7 +14,6 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { GoTriangleLeft, GoTriangleRight } from "react-icons/go";
 
-const MotionImage = motion(Image);
 const MotionFlex = motion(Flex);
 
 export const wrap = (min, max, v) => {
