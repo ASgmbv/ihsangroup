@@ -145,7 +145,9 @@ const ContactsHeader = () => {
                   <DrawerCloseButton />
 
                   <DrawerHeader>
-                    <CustomButton as="link">Личный кабинет</CustomButton>
+                    <Link isExternal href="http://lk.ihsan.kg">
+                      <CustomButton as="link">Личный кабинет</CustomButton>
+                    </Link>
                   </DrawerHeader>
 
                   <DrawerBody display="flex">
