@@ -140,7 +140,10 @@ const News = () => {
               <AspectRatio ratio={3 / 2} width={["100%", null, "100%"]}>
                 <Img src={image} objectFit="cover" />
               </AspectRatio>
-              <RichText render={text} htmlSerializer={htmlSerializer} />
+              <RichText
+                render={text}
+                // htmlSerializer={htmlSerializer}
+              />
             </Stack>
           )}
           <Box>
