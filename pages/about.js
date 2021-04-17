@@ -1,4 +1,3 @@
-import Callback from "@/components/Callback";
 import Layout from "@/components/Layout";
 import {
   Box,
@@ -23,8 +22,9 @@ import { FaCaretRight } from "react-icons/fa";
 import { MdCheck } from "react-icons/md";
 import SectionHeader from "@/components/SectionHeader";
 import { useEffect, useState } from "react";
-import { queryTeamMembers } from "@/queries";
+import { queryMission, queryTeamMembers } from "@/queries";
 import AnimatingHeading from "@/components/AnimatingHeading";
+import LoadingError from "@/components/LoadingError";
 
 const useMembersApi = () => {
   const [data, setData] = useState([]);
@@ -50,6 +50,80 @@ const useMembersApi = () => {
   return { data, isLoading, isError };
 };
 
+const useMissionApi = () => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsError(false);
+      setIsLoading(true);
+      try {
+        const res = await queryMission();
+        setData(res);
+      } catch (error) {
+        console.log({ error });
+        setIsError(true);
+      }
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  return { data, isLoading, isError };
+};
+
+const Mission = () => {
+  const { data: mission, isMissionLoading, isMissionError } = useMissionApi();
+
+  if (isMissionError) {
+    return <LoadingError />;
+  }
+
+  return (
+    <Grid
+      templateColumns={["1fr", null, null, "1fr 1fr"]}
+      gap={[0, null, null, 20]}
+    >
+      <AspectRatio ratio={3 / 2} display={["none", null, null, "block"]}>
+        {isMissionLoading ? (
+          <Skeleton width="100%" />
+        ) : (
+          <Image
+            src={mission.photo}
+            alt="Ихсан Групп"
+            objectFit="cover"
+            width="100%"
+          />
+        )}
+      </AspectRatio>
+      <Stack direction="column" spacing="6">
+        <Text color="saryy" letterSpacing="widest" fontSize="sm">
+          МИССИЯ КООПЕРАТИВА
+        </Text>
+        <Heading color="jashyl" fontWeight="500" size="xl">
+          {isMissionLoading ? (
+            <Stack>
+              <Skeleton height="20px" />
+              <Skeleton height="20px" />
+            </Stack>
+          ) : (
+            mission.title
+          )}
+        </Heading>
+        <Text lineHeight="tall">
+          {isMissionLoading ? (
+            <SkeletonText noOfLines={11} spacing="4" />
+          ) : (
+            mission.description
+          )}
+        </Text>
+      </Stack>
+    </Grid>
+  );
+};
+
 const Plans = () => {
   const { data: teamMembers, isLoading, isError } = useMembersApi();
 
@@ -59,41 +133,7 @@ const Plans = () => {
       {/**---------------------- */}
       <Flex py={["50px", null, null, "100px"]}>
         <Container maxW="container.lg2">
-          <Grid
-            templateColumns={["1fr", null, null, "1fr 1fr"]}
-            gap={[0, null, null, 20]}
-          >
-            <Flex>
-              <Image
-                src="/gl.jpeg"
-                alt="Ихсан Групп"
-                objectFit="cover"
-                w="full"
-                display={["none", null, null, "block"]}
-              />
-            </Flex>
-            <Stack direction="column" spacing="6">
-              <Text color="saryy" letterSpacing="widest" fontSize="sm">
-                МИССИЯ КООПЕРАТИВА
-              </Text>
-              <Heading color="jashyl" fontWeight="500" size="xl">
-                Ихсан Групп — доступное <br /> жилье для каждого!
-              </Heading>
-              <Text lineHeight="tall">
-                Мен Ташматов Эрмат камчыбекович Ихсан групп ЛТД кооперативинин
-                жетекчиси. Көкүрөк көөдөнүмдө кайнаган арманым, бул-кыргыз эли
-                Кыргызстандан үй ала албай чет жерлерде иштеп жүргөн
-                мигранттардын күнүмдүк жашоосу жана Кыргызстанда жанын аябай
-                иштеп жатса да үй алам деген кыялдары оорундалбай жаткандыгы.
-                Мына ошол жүрөктү өйүткөн арманды кандайдыр бир деңгээлде
-                жараткандын жардамы менен чечүү үчүн дал ушул Ихсан кооперативин
-                жетектеп келем. Албетте ар бир кыргыз жигити потриот, мекенчил,
-                элин сүйгөн жерин сүйгөн намыскөй атуул болуш керек. Мен дагы
-                элим үчүн күйгөн инсан катары, ак кызматымды адал ишимди ар
-                мүнөт сайын аткарууга милдеттүүмүн жана болгон күчүмдү жумшайм.
-              </Text>
-            </Stack>
-          </Grid>
+          <Mission />
         </Container>
       </Flex>
       {/**---------------------- */}
@@ -101,7 +141,7 @@ const Plans = () => {
         <Container maxW="container.lg2" d="flex" justifyContent="center">
           <ReactPlayer
             url="https://www.youtube.com/watch?v=J1A35wtWBac&ab_channel=IHSANGroupLtd%D0%9D%D0%96%D0%9A"
-            width="50%"
+            width="80%"
             height="500px"
           />
         </Container>

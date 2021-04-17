@@ -70,6 +70,15 @@ const Office = (post) => {
   };
 };
 
+const Mission = (post) => {
+  if (!post) return {};
+  return {
+    photo: post.photo?.url,
+    title: post.title,
+    description: post.description,
+  };
+};
+
 export async function queryNews() {
   let response;
   let posts = [];
@@ -199,4 +208,12 @@ export async function queryOffices() {
   });
 
   return offices;
+}
+
+export async function queryMission() {
+  const result = await Client().query(
+    Prismic.Predicates.at("document.type", "mission")
+  );
+
+  return Mission(result.results[0]?.data);
 }
