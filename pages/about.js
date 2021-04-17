@@ -75,7 +75,11 @@ const useMissionApi = () => {
 };
 
 const Mission = () => {
-  const { data: mission, isMissionLoading, isMissionError } = useMissionApi();
+  const {
+    data: mission,
+    isLoading: isMissionLoading,
+    isError: isMissionError,
+  } = useMissionApi();
 
   if (isMissionError) {
     return <LoadingError />;
@@ -112,13 +116,11 @@ const Mission = () => {
             mission.title
           )}
         </Heading>
-        <Text lineHeight="tall">
-          {isMissionLoading ? (
-            <SkeletonText noOfLines={11} spacing="4" />
-          ) : (
-            mission.description
-          )}
-        </Text>
+        {isMissionLoading ? (
+          <SkeletonText noOfLines={11} spacing="4" />
+        ) : (
+          <Text lineHeight="tall">{mission.description}</Text>
+        )}
       </Stack>
     </Grid>
   );
