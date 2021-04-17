@@ -76,6 +76,17 @@ const Mission = (post) => {
     photo: post.photo?.url,
     title: post.title,
     description: post.description,
+    name: post.name,
+  };
+};
+
+const ExpertOpinion = (post) => {
+  if (!post) return {};
+  return {
+    photo: post.photo?.url,
+    title: post.title,
+    description: post.description,
+    name: post.name,
   };
 };
 
@@ -216,4 +227,12 @@ export async function queryMission() {
   );
 
   return Mission(result.results[0]?.data);
+}
+
+export async function queryExpertOpinion() {
+  const result = await Client().query(
+    Prismic.Predicates.at("document.type", "expert_opinion")
+  );
+
+  return ExpertOpinion(result.results[0]?.data);
 }

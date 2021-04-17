@@ -1,8 +1,12 @@
 import AnimatingHeading from "@/components/AnimatingHeading";
-import Callback from "@/components/Callback";
 import Layout from "@/components/Layout";
 import LoadingError from "@/components/LoadingError";
-import { queryFAQs, queryGuarantees } from "@/utils/queries";
+import SpeechBlock from "@/components/SpeechBlock";
+import {
+  queryExpertOpinion,
+  queryFAQs,
+  queryGuarantees,
+} from "@/utils/queries";
 import {
   Box,
   Image,
@@ -11,7 +15,6 @@ import {
   Flex,
   Heading,
   Grid,
-  Stack,
   Icon,
   Accordion,
   AccordionItem,
@@ -34,69 +37,51 @@ import { useEffect, useState } from "react";
 import { BsQuestionCircleFill } from "react-icons/bs";
 import SectionHeader from "../components/SectionHeader";
 
+const useQueryOpinionApi = () => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsError(false);
+      setIsLoading(true);
+      try {
+        const res = await queryExpertOpinion();
+        setData(res);
+      } catch (error) {
+        console.log({ error });
+        setIsError(true);
+      }
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  return { data, isLoading, isError };
+};
+
 const Guarantees = () => {
+  const {
+    data: expertOpinion,
+    isLoading: isExpertOpinionLoading,
+    isError: isExpertOpinionError,
+  } = useQueryOpinionApi();
+
   return (
     <Layout title="Гарантии">
       <SectionHeader>Гарантии</SectionHeader>
       {/**---------------------- */}
       <Flex py={["50px", null, "100px"]}>
         <Container maxW="container.lg2">
-          <Grid
-            templateColumns={["1fr", null, null, "1fr 1fr"]}
-            gap={[0, null, null, "20"]}
-          >
-            <Flex>
-              <Image
-                src="/gl2.jpeg"
-                alt="Ихсан Групп"
-                objectFit="cover"
-                w="full"
-                display={["none", null, null, "block"]}
-              />
-            </Flex>
-            <Stack direction="column" spacing="6">
-              <Text color="saryy" letterSpacing="widest" fontSize="sm">
-                МНЕНИЕ ЭКСПЕРТА
-              </Text>
-              <Heading color="jashyl" fontWeight="500" size="xl">
-                Ихсан Групп меняет представление о покупке недвижимости
-              </Heading>
-              <Text lineHeight="taller">
-                Рынок ипотеки становится все более цивилизованным, а нынешние
-                клиенты — потенциальные заемщики — это уже не те физические
-                лица, которые приходили за кредитом на недвижимость года 2
-                назад.
-              </Text>
-              <Text lineHeight="taller">
-                И данная ситуация меняется на глазах — наши дети уже с
-                младенчества привыкают к терминам «ипотека» и «аннуитет», а
-                также учатся планировать свой бюджет с учетом ежемесячных
-                платежей. Считаю, что финансовая грамотность не может не иметь
-                четких границ в своем развитии.
-              </Text>
-              <Text
-                textAlign="end"
-                fontWeight="semibold"
-                fontSize="lg"
-                color="#DAAC3D"
-                mb="4"
-              >
-                Динара Заирова, Финансовый Директор
-              </Text>
-              <Box
-                bg="#EFF1ED"
-                borderLeft="3px solid"
-                borderColor="saryy"
-                px="8"
-                py="3"
-                color="#444D4A"
-                fontWeight="semibold"
-                fontSize="lg"
-              >
-                Связаться для консультации +996 700 005 151
-              </Box>
-            </Stack>
-          </Grid>
+          <SpeechBlock
+            isError={isExpertOpinionError}
+            isLoading={isExpertOpinionLoading}
+            description={expertOpinion.description}
+            title={expertOpinion.title}
+            photo={expertOpinion.photo}
+            name={expertOpinion.name}
+          />
         </Container>
       </Flex>
       {/**---------------------- */}

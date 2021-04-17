@@ -25,6 +25,7 @@ import { useEffect, useState } from "react";
 import { queryMission, queryTeamMembers } from "@/queries";
 import AnimatingHeading from "@/components/AnimatingHeading";
 import LoadingError from "@/components/LoadingError";
+import SpeechBlock from "@/components/SpeechBlock";
 
 const useMembersApi = () => {
   const [data, setData] = useState([]);
@@ -74,60 +75,13 @@ const useMissionApi = () => {
   return { data, isLoading, isError };
 };
 
-const Mission = () => {
+const Plans = () => {
+  const { data: teamMembers, isLoading, isError } = useMembersApi();
   const {
     data: mission,
     isLoading: isMissionLoading,
     isError: isMissionError,
   } = useMissionApi();
-
-  if (isMissionError) {
-    return <LoadingError />;
-  }
-
-  return (
-    <Grid
-      templateColumns={["1fr", null, null, "1fr 1fr"]}
-      gap={[0, null, null, 20]}
-    >
-      <AspectRatio ratio={3 / 2} display={["none", null, null, "block"]}>
-        {isMissionLoading ? (
-          <Skeleton width="100%" />
-        ) : (
-          <Image
-            src={mission.photo}
-            alt="Ихсан Групп"
-            objectFit="cover"
-            width="100%"
-          />
-        )}
-      </AspectRatio>
-      <Stack direction="column" spacing="6">
-        <Text color="saryy" letterSpacing="widest" fontSize="sm">
-          МИССИЯ КООПЕРАТИВА
-        </Text>
-        <Heading color="jashyl" fontWeight="500" size="xl">
-          {isMissionLoading ? (
-            <Stack>
-              <Skeleton height="20px" />
-              <Skeleton height="20px" />
-            </Stack>
-          ) : (
-            mission.title
-          )}
-        </Heading>
-        {isMissionLoading ? (
-          <SkeletonText noOfLines={11} spacing="4" />
-        ) : (
-          <Text lineHeight="tall">{mission.description}</Text>
-        )}
-      </Stack>
-    </Grid>
-  );
-};
-
-const Plans = () => {
-  const { data: teamMembers, isLoading, isError } = useMembersApi();
 
   return (
     <Layout title="Об Ихсан Групп">
@@ -135,7 +89,14 @@ const Plans = () => {
       {/**---------------------- */}
       <Flex py={["50px", null, null, "100px"]}>
         <Container maxW="container.lg2">
-          <Mission />
+          <SpeechBlock
+            isLoading={isMissionLoading}
+            isError={isMissionError}
+            description={mission.description}
+            photo={mission.photo}
+            title={mission.title}
+            name={mission.name}
+          />
         </Container>
       </Flex>
       {/**---------------------- */}
