@@ -81,7 +81,7 @@ const Plans = () => {
               templateColumns={["repeat(1, 1fr)", null, "repeat(2, 1fr)"]}
               gap={[10, null, 16]}
             >
-              {!isQualitiesLoading ? (
+              {isQualitiesLoading ? (
                 <Text>Загрузка...</Text>
               ) : (
                 qualities.map((quality, idx) => {
