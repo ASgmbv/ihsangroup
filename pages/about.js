@@ -27,7 +27,7 @@ import { useQuery } from "react-query";
 
 const Plans = () => {
   const {
-    data: mission,
+    data: mission = {},
     isLoading: isMissionLoading,
     isError: isMissionError,
   } = useQuery("mission", queryMission);

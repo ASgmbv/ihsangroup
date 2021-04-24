@@ -39,7 +39,7 @@ import SectionHeader from "../components/SectionHeader";
 
 const Guarantees = () => {
   const {
-    data: expertOpinion,
+    data: expertOpinion = {},
     isLoading: isExpertOpinionLoading,
     isError: isExpertOpinionError,
   } = useQuery("expertOpinion", queryExpertOpinion);

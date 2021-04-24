@@ -226,6 +226,8 @@ export async function queryMission() {
     Prismic.Predicates.at("document.type", "mission")
   );
 
+  console.log("mission", result);
+
   return Mission(result.results[0]?.data);
 }
 
@@ -233,6 +235,8 @@ export async function queryExpertOpinion() {
   const result = await Client().query(
     Prismic.Predicates.at("document.type", "expert_opinion")
   );
+
+  console.log("expert opinion", result);
 
   return ExpertOpinion(result.results[0]?.data);
 }

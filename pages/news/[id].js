@@ -28,16 +28,16 @@ const News = () => {
   const { id } = router.query;
 
   const {
-    data: post,
+    data: post = {},
     isLoading: postFetching,
     isError: postError,
-  } = useQuery("programs", () => queryNewsById(id));
+  } = useQuery("newsPost", () => queryNewsById(id));
 
   const {
     data: newsPosts,
     isLoading: newsFetching,
     isError: newsError,
-  } = useQuery("newsPosts", () => queryNews(id));
+  } = useQuery("newsPosts", queryNews);
 
   const { date, title, image, text } = post;
 
