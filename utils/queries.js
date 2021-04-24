@@ -90,6 +90,14 @@ const ExpertOpinion = (post) => {
   };
 };
 
+const Quality = (post) => {
+  if (!post) return {};
+  return {
+    title: post.title,
+    qualities: post.quality,
+  };
+};
+
 export async function queryNews() {
   let response;
   let posts = [];
@@ -226,8 +234,6 @@ export async function queryMission() {
     Prismic.Predicates.at("document.type", "mission")
   );
 
-  console.log("mission", result);
-
   return Mission(result.results[0]?.data);
 }
 
@@ -236,7 +242,19 @@ export async function queryExpertOpinion() {
     Prismic.Predicates.at("document.type", "expert_opinion")
   );
 
-  console.log("expert opinion", result);
-
   return ExpertOpinion(result.results[0]?.data);
+}
+
+export async function queryQualities() {
+  const result = await Client().query(
+    Prismic.Predicates.at("document.type", "qualities")
+  );
+
+  const qualities = [];
+
+  result.results[0]?.data?.qualities?.map((post) => {
+    qualities.push(Quality(post));
+  });
+
+  return qualities;
 }

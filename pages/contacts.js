@@ -67,12 +67,13 @@ const Contacts = () => {
 const Card = ({ image, title, address, email, phoneNumbers }) => {
   return (
     <Flex flexDir={["column", null, "row"]}>
-      <Image
-        src={image}
-        w="30%"
-        objectFit="cover"
-        display={["none", null, null, "block"]}
-      />
+      <AspectRatio w="30%" ratio={1}>
+        <Image
+          src={image}
+          objectFit="cover"
+          display={["none", null, null, "block"]}
+        />
+      </AspectRatio>
       <Flex flex="1" bg="boz" flexDir="column" padding={[4, null, 6]}>
         <Heading
           mb="4"

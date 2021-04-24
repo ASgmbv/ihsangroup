@@ -20,7 +20,7 @@ import ReactPlayer from "react-player";
 import { FaCaretRight } from "react-icons/fa";
 import { MdCheck } from "react-icons/md";
 import SectionHeader from "@/components/SectionHeader";
-import { queryMission, queryTeamMembers } from "@/queries";
+import { queryMission, queryQualities, queryTeamMembers } from "@/queries";
 import AnimatingHeading from "@/components/AnimatingHeading";
 import SpeechBlock from "@/components/SpeechBlock";
 import { useQuery } from "react-query";
@@ -36,6 +36,12 @@ const Plans = () => {
     "teamMembers",
     queryTeamMembers
   );
+
+  const {
+    data: qualities = [],
+    isLoading: isQualitiesLoading,
+    isError: isQualitiesError,
+  } = useQuery("qualities", queryQualities);
 
   return (
     <Layout title="Об Ихсан Групп">
@@ -58,7 +64,7 @@ const Plans = () => {
         <Container maxW="container.lg2" d="flex" justifyContent="center">
           <ReactPlayer
             url="https://www.youtube.com/watch?v=J1A35wtWBac&ab_channel=IHSANGroupLtd%D0%9D%D0%96%D0%9A"
-            width="80%"
+            width="90%"
             height="500px"
           />
         </Container>
@@ -71,62 +77,27 @@ const Plans = () => {
               subtitle="НАШИ ПРОГРАММЫ"
               title={<>Все что нужно знать о нас</>}
             />
-
             <Grid
               templateColumns={["repeat(1, 1fr)", null, "repeat(2, 1fr)"]}
               gap={[10, null, 16]}
             >
-              <List spacing="5">
-                <ListItem fontSize="xl" fontWeight="500" color="saryy">
-                  <ListIcon as={MdCheck} color="saryy" boxSize="7" />
-                  Выгодные условия
-                </ListItem>
-                <GridItem>рассрочка на 10 лет с 0% на покупку жилья</GridItem>
-                <GridItem>самый минимальный первоначальный взнос 5%</GridItem>
-                <GridItem>самый минимальный паевый взнос 25%</GridItem>
-                <GridItem>
-                  после погашения основного долга, членский взнос погашается
-                </GridItem>
-              </List>
-              <List spacing="5">
-                <ListItem fontSize="xl" fontWeight="500" color="saryy">
-                  <ListIcon as={MdCheck} color="saryy" boxSize="7" />
-                  Гарантированная безопасность
-                </ListItem>
-                <GridItem>
-                  финансовая гарантия государственная и юридическая защита
-                </GridItem>
-                <GridItem>согласованное управление</GridItem>
-                <GridItem>фиксированный курс</GridItem>
-                <GridItem>страхование документов</GridItem>
-              </List>
-              <List spacing="5">
-                <ListItem fontSize="xl" fontWeight="500" color="saryy">
-                  <ListIcon as={MdCheck} color="saryy" boxSize="7" />
-                  Полный спектр услуг
-                </ListItem>
-                <GridItem>минимальный пакет документов</GridItem>
-                <GridItem>легкие этапы приобретения</GridItem>
-                <GridItem>лучшие программы только для вас</GridItem>
-                <GridItem>
-                  гибкая система графика оплаты и специальные акции
-                </GridItem>
-                <GridItem>бесплатная юридическая поддержка</GridItem>
-              </List>
-              <List spacing="5">
-                <ListItem fontSize="xl" fontWeight="500" color="saryy">
-                  <ListIcon as={MdCheck} color="saryy" boxSize="7" />
-                  Уникальные возможности
-                </ListItem>
-                <GridItem>
-                  сотрудничество со строительной компанией Эмаком
-                </GridItem>
-                <GridItem>бартерная форма расчета</GridItem>
-                <GridItem>
-                  после паевого взноса, максимум 4 месяца на приобретение
-                  квартиры
-                </GridItem>
-              </List>
+              {!isQualitiesLoading ? (
+                <Text>Загрузка...</Text>
+              ) : (
+                qualities.map((quality, idx) => {
+                  return (
+                    <List spacing="5" key={idx}>
+                      <ListItem fontSize="xl" fontWeight="500" color="saryy">
+                        <ListIcon as={MdCheck} color="saryy" boxSize="7" />
+                        {quality.title}
+                      </ListItem>
+                      {quality?.qualities?.split("\n")?.map((quality) => (
+                        <GridItem key={quality}>{quality}</GridItem>
+                      ))}
+                    </List>
+                  );
+                })
+              )}
             </Grid>
           </Flex>
         </Container>
@@ -186,10 +157,10 @@ const Plans = () => {
 
 const Member = ({ photo, name, description }) => (
   <Flex flexDirection="column">
-    <AspectRatio ratio={3 / 2} w="full">
+    <AspectRatio ratio={3 / 2} width="100%">
       <Image src={photo} />
     </AspectRatio>
-    <Flex flexDirection="column" p="4" bg="jashyl">
+    <Flex flexDirection="column" p="4" bg="jashyl" flex="1">
       <Heading color="white" fontWeight="semibold" size="md">
         {name}
       </Heading>
