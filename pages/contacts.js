@@ -6,40 +6,15 @@ import {
   Heading,
   Grid,
   Stack,
-  Button,
   Image,
   AspectRatio,
   Skeleton,
   SkeletonText,
 } from "@chakra-ui/react";
 import SectionHeader from "@/components/SectionHeader";
-import { useEffect, useState } from "react";
 import { queryOffices } from "@/utils/queries";
 import LoadingError from "@/components/LoadingError";
-
-const useOfficesApi = () => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        const res = await queryOffices();
-        setData(res);
-      } catch (error) {
-        console.log({ error });
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  return { data, isLoading, isError };
-};
+import { useQuery } from "react-query";
 
 const SkeletonOffice = () => (
   <Flex width="full">
@@ -56,7 +31,10 @@ const SkeletonOffice = () => (
 );
 
 const Contacts = () => {
-  const { data: offices, isLoading, isError } = useOfficesApi();
+  const { data: offices, isLoading, isError } = useQuery(
+    "offices",
+    queryOffices
+  );
 
   return (
     <Layout title="Контакты">

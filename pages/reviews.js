@@ -1,12 +1,9 @@
-import Callback from "@/components/Callback";
 import Layout from "@/components/Layout";
 import {
   Box,
   Container,
   Flex,
   Grid,
-  Heading,
-  Text,
   Image,
   Modal,
   ModalOverlay,
@@ -25,34 +22,11 @@ import SectionHeader from "../components/SectionHeader";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { queryReviews } from "@/utils/queries";
 import LoadingError from "@/components/LoadingError";
 import AnimatingHeading from "@/components/AnimatingHeading";
-
-const useReviewsApi = () => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        const res = await queryReviews();
-        setData(res);
-      } catch (error) {
-        console.log({ error });
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  return { data, isLoading, isError };
-};
+import { useQuery } from "react-query";
 
 const Review = ({ image, title }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -129,7 +103,10 @@ const ReviewsSlider = ({ reviews = [] }) => {
 };
 
 const Reviews = () => {
-  const { data: reviews, isLoading, isError } = useReviewsApi();
+  const { data: reviews, isLoading, isError } = useQuery(
+    "reviews",
+    queryReviews
+  );
 
   return (
     <Layout title="Отзывы">

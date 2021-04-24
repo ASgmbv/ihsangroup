@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import { MdCheck } from "react-icons/md";
 import LinkIcon from "../assets/icons/LinkIcon";
-import AnimatingHeading from "@/components/AnimatingHeading";
 
 const Quality = ({ title, ...props }) => {
   return (

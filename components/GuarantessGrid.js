@@ -11,34 +11,10 @@ import {
   Skeleton,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { useEffect, useState } from "react";
 import { queryGuarantees } from "@/utils/queries";
 import LoadingError from "@/components/LoadingError";
 import AnimatingHeading from "@/components/AnimatingHeading";
-
-const useGuaranteesApi = () => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        const res = await queryGuarantees();
-        setData(res);
-      } catch (error) {
-        console.log({ error });
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  return { data, isLoading, isError };
-};
+import { useQuery } from "react-query";
 
 const GuarantessCard = () => {
   return (
@@ -86,7 +62,10 @@ const CustomButtonGreen = ({ children, ...props }) => {
 };
 
 const CustomGrid = (props) => {
-  const { data: guarantees, isLoading, isError } = useGuaranteesApi();
+  const { data: guarantees, isLoading, isError } = useQuery(
+    "guarantees",
+    queryGuarantees
+  );
 
   if (isError) {
     return <LoadingError mb="50px" />;

@@ -23,9 +23,9 @@ import {
 } from "react-icons/fa";
 import { MdChevronRight } from "react-icons/md";
 import NextLink from "next/link";
-import { useEffect, useState } from "react";
 import { queryLastTwoNews } from "@/queries";
 import { format } from "date-fns";
+import { useQuery } from "react-query";
 
 const FooterLink = ({ children, href = "/" }) => {
   return (
@@ -74,32 +74,11 @@ const Post = ({ id, date, title, image }) => {
   );
 };
 
-const useDataApi = () => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        const res = await queryLastTwoNews();
-        setData(res);
-      } catch (error) {
-        console.log({ error });
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  return { data, isLoading, isError };
-};
-
 const Footer = () => {
-  const { data: posts, isLoading, isError } = useDataApi();
+  const { data: posts, isLoading, isError } = useQuery(
+    "lastTwoNewsPosts",
+    queryLastTwoNews
+  );
 
   return (
     <>

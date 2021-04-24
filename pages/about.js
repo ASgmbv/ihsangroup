@@ -7,7 +7,6 @@ import {
   Flex,
   Heading,
   Grid,
-  Stack,
   List,
   ListItem,
   ListIcon,
@@ -21,67 +20,22 @@ import ReactPlayer from "react-player";
 import { FaCaretRight } from "react-icons/fa";
 import { MdCheck } from "react-icons/md";
 import SectionHeader from "@/components/SectionHeader";
-import { useEffect, useState } from "react";
 import { queryMission, queryTeamMembers } from "@/queries";
 import AnimatingHeading from "@/components/AnimatingHeading";
-import LoadingError from "@/components/LoadingError";
 import SpeechBlock from "@/components/SpeechBlock";
-
-const useMembersApi = () => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        const res = await queryTeamMembers();
-        setData(res);
-      } catch (error) {
-        console.log({ error });
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  return { data, isLoading, isError };
-};
-
-const useMissionApi = () => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        const res = await queryMission();
-        setData(res);
-      } catch (error) {
-        console.log({ error });
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  return { data, isLoading, isError };
-};
+import { useQuery } from "react-query";
 
 const Plans = () => {
-  const { data: teamMembers, isLoading, isError } = useMembersApi();
   const {
     data: mission,
     isLoading: isMissionLoading,
     isError: isMissionError,
-  } = useMissionApi();
+  } = useQuery("mission", queryMission);
+
+  const { data: teamMembers, isLoading, isError } = useQuery(
+    "teamMembers",
+    queryTeamMembers
+  );
 
   return (
     <Layout title="Об Ихсан Групп">

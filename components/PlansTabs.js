@@ -19,34 +19,10 @@ import {
   Alert,
   AlertIcon,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import { FaCaretRight } from "react-icons/fa";
 import { queryPrograms } from "@/queries";
 import AnimatingHeading from "@/components/AnimatingHeading";
-
-const useProgramsApi = () => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        const res = await queryPrograms();
-        setData(res);
-      } catch (error) {
-        console.log({ error });
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  return { data, isLoading, isError };
-};
+import { useQuery } from "react-query";
 
 const PlansTabs = () => {
   return (
@@ -70,7 +46,10 @@ const PlansTabs = () => {
 
 const CustomTabs = () => {
   const variant = useBreakpointValue({ base: "horizontal", md: "vertical" });
-  const { data: programs, isLoading, isError } = useProgramsApi();
+  const { data: programs, isLoading, isError } = useQuery(
+    "programs",
+    queryPrograms
+  );
 
   if (isError) {
     return (
@@ -103,28 +82,23 @@ const CustomTabs = () => {
             <List spacing="5">
               <ListItem fontSize="lg">
                 <ListIcon as={FaCaretRight} color="jashyl" />
-                {/* Варианты недвижимости – Квартиры, частные дома строительство, авто */}
                 {"Варианты недвижимости – " + program.realEstateTypes}
               </ListItem>
               <ListItem fontSize="lg">
                 <ListIcon as={FaCaretRight} color="jashyl" />
-                {/* Сумма финансирования – До 3 000 000 */}
                 {"Сумма финансирования – " + program.fundingAmount}
               </ListItem>
               <ListItem fontSize="lg">
                 <ListIcon as={FaCaretRight} color="jashyl" />
-                {/* Срок финансирования – 5 или 10 лет */}
-                {"Срок финансирования – " + program.financingPeriod}
+                {"Срок рассрочки – " + program.financingPeriod}
               </ListItem>
               <ListItem fontSize="lg">
                 <ListIcon as={FaCaretRight} color="jashyl" />
-                {/* Вступительный взнос – 4% от стоимости недвижимости */}
-                {"Вступительный взнос – " + program.deposit}
+                {"Единоразовая коммисия – " + program.deposit}
               </ListItem>
               <ListItem fontSize="lg">
                 <ListIcon as={FaCaretRight} color="jashyl" />
-                {/* Паевый взнос – 35% от стоимости недвижимости */}
-                {"Паевый взнос – " + program.fee}
+                {"Первоначальный взнос – " + program.fee}
               </ListItem>
             </List>
           </TabPanel>

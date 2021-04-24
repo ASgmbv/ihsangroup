@@ -33,40 +33,16 @@ import {
   Skeleton,
   Spinner,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import { BsQuestionCircleFill } from "react-icons/bs";
+import { useQuery } from "react-query";
 import SectionHeader from "../components/SectionHeader";
-
-const useQueryOpinionApi = () => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        const res = await queryExpertOpinion();
-        setData(res);
-      } catch (error) {
-        console.log({ error });
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  return { data, isLoading, isError };
-};
 
 const Guarantees = () => {
   const {
     data: expertOpinion,
     isLoading: isExpertOpinionLoading,
     isError: isExpertOpinionError,
-  } = useQueryOpinionApi();
+  } = useQuery("expertOpinion", queryExpertOpinion);
 
   return (
     <Layout title="Гарантии">
@@ -148,32 +124,8 @@ const Guarantees = () => {
   );
 };
 
-const useFAQsApi = () => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        const res = await queryFAQs();
-        setData(res);
-      } catch (error) {
-        console.log({ error });
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  return { data, isLoading, isError };
-};
-
 const FAQs = () => {
-  const { data: faqs, isError, isLoading } = useFAQsApi();
+  const { data: faqs, isLoading, isError } = useQuery("faqs", queryFAQs);
 
   if (isError) {
     return <LoadingError />;
@@ -283,32 +235,11 @@ const Card = ({ icon, title, content, ...props }) => {
   );
 };
 
-const useGuaranteesApi = () => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        const res = await queryGuarantees();
-        setData(res);
-      } catch (error) {
-        console.log({ error });
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  return { data, isLoading, isError };
-};
-
 const CustomGrid = (props) => {
-  const { data: guarantees, isError, isLoading } = useGuaranteesApi();
+  const { data: guarantees, isLoading, isError } = useQuery(
+    "guarantees",
+    queryGuarantees
+  );
 
   if (isError) {
     return <LoadingError mb="50px" />;

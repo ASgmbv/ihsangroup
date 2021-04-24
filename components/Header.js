@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import NextLink from "next/link";
 import { pages } from "@/utils/website-config";
 import PageLink from "@/components/PageLink";
+import Logo from "@/icons/Logo";
 
 const Header = () => {
   const router = useRouter();
@@ -35,12 +36,13 @@ const Header = () => {
           <Flex justify="space-between" align="center" h="100%">
             <NextLink href={"/"}>
               <a>
-                <Image
+                {/* <Image
                   src="/logo.svg"
                   alt="Логотип компании"
                   width="80px"
                   height="50px"
-                />
+                /> */}
+                <Logo />
               </a>
             </NextLink>
             <HStack align="center" spacing="6">

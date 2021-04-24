@@ -1,4 +1,3 @@
-import Callback from "@/components/Callback";
 import Layout from "@/components/Layout";
 import {
   Box,
@@ -6,7 +5,6 @@ import {
   Container,
   Text,
   Flex,
-  Heading,
   Grid,
   Table,
   Thead,
@@ -19,34 +17,10 @@ import {
   AlertIcon,
   Spinner,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import SectionHeader from "../components/SectionHeader";
 import { queryPrograms } from "@/queries";
 import AnimatingHeading from "@/components/AnimatingHeading";
-
-const useProgramsApi = () => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        const res = await queryPrograms();
-        setData(res);
-      } catch (error) {
-        console.log({ error });
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  return { data, isLoading, isError };
-};
+import { useQuery } from "react-query";
 
 const Plans = () => {
   return (
@@ -139,7 +113,10 @@ const Card = ({ title, image, content, ...props }) => {
 };
 
 const ProgramsTable = () => {
-  const { data: programs, isLoading, isError } = useProgramsApi();
+  const { data: programs, isLoading, isError } = useQuery(
+    "programs",
+    queryPrograms
+  );
 
   if (isError) {
     return (
@@ -195,7 +172,7 @@ const ProgramsTable = () => {
       <Tbody>
         <Tr>
           <Td bg="#F6F8F6" color="jashyl" fontWeight="500">
-            Вступительный взнос
+            Единоразовая коммисия
           </Td>
           {programs.map((program) => (
             <Td bg="#F6F8F6" key={program.name}>
@@ -205,7 +182,7 @@ const ProgramsTable = () => {
         </Tr>
         <Tr>
           <Td bg="#F6F8F6" color="jashyl" fontWeight="500">
-            Паевый взнос
+            Первоначальный взнос
           </Td>
           {programs.map((program) => (
             <Td bg="#F6F8F6" key={program.name}>
@@ -235,7 +212,7 @@ const ProgramsTable = () => {
         </Tr>
         <Tr>
           <Td bg="#F6F8F6" color="jashyl" fontWeight="500">
-            Срок ожидания
+            Срок наступления очереди
           </Td>
           {programs.map((program) => (
             <Td bg="#F6F8F6" key={program.name}>
@@ -245,7 +222,7 @@ const ProgramsTable = () => {
         </Tr>
         <Tr>
           <Td bg="#F6F8F6" color="jashyl" fontWeight="500">
-            Срок финансирования
+            Срок рассрочки
           </Td>
           {programs.map((program) => (
             <Td bg="#F6F8F6" key={program.name}>

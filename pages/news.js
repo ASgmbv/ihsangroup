@@ -12,7 +12,7 @@ import {
   SkeletonText,
 } from "@chakra-ui/react";
 import Post from "@/components/Post";
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 
 const SkeletonPost = () => (
   <Flex flexDir="column">
@@ -23,32 +23,8 @@ const SkeletonPost = () => (
   </Flex>
 );
 
-const useDataApi = () => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        const res = await queryNews();
-        setData(res);
-      } catch (error) {
-        console.log({ error });
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  return { data, isLoading, isError };
-};
-
 const News = () => {
-  const { data: posts, isLoading, isError } = useDataApi();
+  const { data: posts, isLoading, isError } = useQuery("newsPosts", queryNews);
 
   return (
     <Layout title="Новости">
