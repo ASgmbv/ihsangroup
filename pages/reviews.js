@@ -33,7 +33,13 @@ const Review = ({ image, title }) => {
 
   return (
     <Box className="keen-slider__slide">
-      <Image src={image} objectFit="cover" onClick={onOpen} alt={title} />
+      <Image
+        src={image}
+        maxH="400px"
+        objectFit="cover"
+        onClick={onOpen}
+        alt={title}
+      />
       <Modal
         isOpen={isOpen}
         onClose={onClose}
@@ -69,10 +75,12 @@ const ReviewsSlider = ({ reviews = [] }) => {
   }, [reviews, slider]);
 
   return (
-    <Flex bg="boz" p="10" width="100%" ref={sliderRef} className="keen-slider">
-      {reviews.map(({ image, description }, index) => (
-        <Review image={image} title={description} key={"review-" + index} />
-      ))}
+    <Flex bg="boz" p="10" width="100%" position="relative">
+      <Flex ref={sliderRef} className="keen-slider">
+        {reviews.map(({ image, description }, index) => (
+          <Review image={image} title={description} key={"review-" + index} />
+        ))}
+      </Flex>
 
       <IconButton
         position="absolute"

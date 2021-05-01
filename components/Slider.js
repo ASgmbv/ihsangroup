@@ -4,17 +4,17 @@ import {
   Flex,
   Heading,
   Text,
-  Image,
   IconButton,
   Icon,
   ButtonGroup,
   Stack,
 } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { GoTriangleLeft, GoTriangleRight } from "react-icons/go";
 
 const MotionFlex = motion(Flex);
+const MotionBox = motion(Box);
 
 export const wrap = (min, max, v) => {
   const rangeSize = max - min;
@@ -73,34 +73,35 @@ const Slider = () => {
       position="relative"
       overflow="hidden"
     >
-      <MotionFlex
-        // objectFit="cover"
-        width="100%"
-        position="relative"
-        key={slides[slideIndex].image}
-        // src={slides[slideIndex].image}
-        initial={{
-          opacity: 0.5,
-        }}
-        animate={{
-          opacity: 1,
-          scale: 1.1,
-        }}
-        transition={{
-          opacity: { duration: 0.7 },
-          scale: { duration: 10 },
-        }}
-      >
-        <Image objectFit="cover" src={slides[slideIndex].image} w="full" />
-      </MotionFlex>
-      <Box
-        height="full"
-        width="full"
-        background="rgba(1, 87, 71,0.7)"
-        position="absolute"
-        top="0"
-        left="0"
-      >
+      <AnimatePresence>
+        <MotionBox
+          key={"slide-" + page}
+          bg={`url(${slides[slideIndex].image})`}
+          backgroundSize="cover"
+          backgroundPosition="center"
+          position="absolute"
+          top="0"
+          bottom="0"
+          left="0"
+          right="0"
+          zIndex="-1"
+          animate={{
+            scale: 1.1,
+            opacity: 1,
+            transition: {
+              scale: { duration: 8 },
+            },
+          }}
+          _after={{
+            content: '""',
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            bg: "rgba(1, 87, 71,0.7)",
+          }}
+        />
+      </AnimatePresence>
+      <Box height="full" width="full" position="absolute" top="0" left="0">
         <Container
           maxW="container.lg2"
           height="full"
