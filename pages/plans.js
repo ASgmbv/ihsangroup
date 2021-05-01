@@ -18,11 +18,16 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import SectionHeader from "../components/SectionHeader";
-import { queryPrograms } from "@/queries";
+import { queryPrograms, querySteps } from "@/queries";
 import AnimatingHeading from "@/components/AnimatingHeading";
 import { useQuery } from "react-query";
 
 const Plans = () => {
+  const { data: steps, isLoadingSteps, isErrorSteps } = useQuery(
+    "steps",
+    querySteps
+  );
+
   return (
     <Layout title="Программы">
       <SectionHeader>Программы</SectionHeader>
@@ -52,41 +57,23 @@ const Plans = () => {
               subtitle="ЭТАПЫ ПОКУПКИ"
               title={<>Всего 5 шагов к мечте!</>}
             />
-            <Grid
-              templateColumns={[
-                "repeat(1, 1fr)",
-                null,
-                "repeat(2, 1fr)",
-                "repeat(3, 1fr)",
-              ]}
-              gap="10"
-            >
-              <Card
-                title="Заключение договора"
-                content="Менеджер отправляет Вам готовый договор для ознакомления и согласования."
-                image="16.png"
-              />
-              <Card
-                title="Оплата договора"
-                content="После согласования договора, менеджер отправляет Вам реквизиты для его оплаты."
-                image="17.png"
-              />
-              <Card
-                title="Выбор объекта"
-                content="Вам необходимо отправить паспортные данные вашему менеджеру для дальнейшего рассмотрения."
-                image="18.png"
-              />
-              <Card
-                title="Ожидания финансирования"
-                content="Вам необходимо отправить паспортные данные вашему менеджеру для дальнейшего рассмотрения."
-                image="19.png"
-              />
-              <Card
-                title="Государственная регистрация"
-                content="Оформления и переучет в собственность клиенту."
-                image="20.png"
-              />
-            </Grid>
+            {isLoadingSteps ? (
+              <Spinner />
+            ) : (
+              <Grid
+                templateColumns={[
+                  "repeat(1, 1fr)",
+                  null,
+                  "repeat(2, 1fr)",
+                  "repeat(3, 1fr)",
+                ]}
+                gap="10"
+              >
+                {steps?.map(({ title, description }, idx) => (
+                  <Card key={title + idx} title={title} content={description} />
+                ))}
+              </Grid>
+            )}
           </Flex>
         </Container>
       </Box>

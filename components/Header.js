@@ -1,12 +1,4 @@
-import {
-  Box,
-  Container,
-  Flex,
-  Link,
-  Image,
-  Button,
-  HStack,
-} from "@chakra-ui/react";
+import { Box, Container, Flex, Link, Button, HStack } from "@chakra-ui/react";
 
 import { useRouter } from "next/router";
 import NextLink from "next/link";
@@ -36,12 +28,6 @@ const Header = () => {
           <Flex justify="space-between" align="center" h="100%">
             <NextLink href={"/"}>
               <a>
-                {/* <Image
-                  src="/logo.svg"
-                  alt="Логотип компании"
-                  width="80px"
-                  height="50px"
-                /> */}
                 <Logo />
               </a>
             </NextLink>

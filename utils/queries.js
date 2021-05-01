@@ -98,6 +98,14 @@ const Quality = (post) => {
   };
 };
 
+const Step = (post) => {
+  if (!post) return {};
+  return {
+    title: post.title,
+    description: post.description,
+  };
+};
+
 export async function queryNews() {
   let response;
   let posts = [];
@@ -257,4 +265,20 @@ export async function queryQualities() {
   });
 
   return qualities;
+}
+
+export async function querySteps() {
+  const result = await Client().query(
+    Prismic.Predicates.at("document.type", "steps")
+  );
+
+  const steps = [];
+
+  console.log({ result });
+
+  result.results[0]?.data?.steps?.map((post) => {
+    steps.push(Step(post));
+  });
+
+  return steps;
 }
