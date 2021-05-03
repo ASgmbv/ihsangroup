@@ -13,8 +13,6 @@ import {
   useDisclosure,
   List,
   ListItem,
-  Wrap,
-  WrapItem,
   Image,
   DrawerFooter,
   Stack,
@@ -78,7 +76,7 @@ const ContactsHeader = () => {
                     Бишкек, Раззакова / Боконбаева 113, БЦ “Альтаир”, 5-этаж.
                   </option>
                   <option>
-                    Бишкек ш., Чүй/ Кулиева, БЦ “Жан-Сали”, 5-кабат.
+                    Бишкек ш., Чүй / Кулиева, БЦ “Жан-Сали”, 5-кабат.
                   </option>
                 </Select>
               </Flex>
@@ -160,7 +158,7 @@ const ContactsHeader = () => {
                   </DrawerBody>
 
                   <DrawerFooter>
-                    <Stack>
+                    <Stack spacing="3">
                       <Flex align="center">
                         <Icon
                           as={MdLocationCity}
@@ -181,6 +179,28 @@ const ContactsHeader = () => {
                         >
                           Бишкек, Раззакова / Боконбаева 113, БЦ “Альтаир”,
                           5-этаж.
+                        </Text>
+                        {/* Бишкек ш., Чүй / Кулиева, БЦ “Жан-Сали”, 5-кабат. */}
+                      </Flex>
+                      <Flex align="center">
+                        <Icon
+                          as={MdLocationCity}
+                          boxSize={4}
+                          color="#444D4A"
+                          mr="2"
+                          _hover={{
+                            color: "jashyl",
+                          }}
+                        />
+                        <Text
+                          fontSize="xs"
+                          fontWeight="semibold"
+                          color="#444D4A"
+                          _hover={{
+                            color: "jashyl",
+                          }}
+                        >
+                          Бишкек ш., Чүй / Кулиева, БЦ “Жан-Сали”, 5-кабат.
                         </Text>
                       </Flex>
 

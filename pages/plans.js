@@ -50,7 +50,7 @@ const Plans = () => {
             <ProgramsTable />
 
             <NextLink href="/#calculator" passHref>
-              <ChakraLink my="10" alignSelf="start">
+              <ChakraLink my="10" alignSelf="start" textDecoration="underline">
                 Посчитайте на нашем удобном калькуляторе
               </ChakraLink>
             </NextLink>

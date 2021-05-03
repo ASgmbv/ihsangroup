@@ -156,7 +156,10 @@ const Footer = () => {
             flexDir={["column", null, "row"]}
           >
             <Stack direction="row" spacing="6" my="2">
-              <Link isExternal>
+              <Link
+                href="https://www.facebook.com/ZhoomartTaalaibekov"
+                isExternal
+              >
                 <Flex
                   borderRadius="5000px"
                   bg="white"
@@ -167,18 +170,7 @@ const Footer = () => {
                   <Icon as={FaFacebookF} boxSize={4} color="#007361" />
                 </Flex>
               </Link>
-              <Link>
-                <Flex
-                  borderRadius="5000px"
-                  bg="white"
-                  boxSize={7}
-                  justifyContent="center"
-                  alignItems="center"
-                >
-                  <Icon as={FaTwitter} boxSize={4} color="#007361" />
-                </Flex>
-              </Link>
-              <Link>
+              <Link href="https://www.instagram.com/ihsangroup.kg" isExternal>
                 <Flex
                   borderRadius="5000px"
                   bg="white"
@@ -187,17 +179,6 @@ const Footer = () => {
                   alignItems="center"
                 >
                   <Icon as={FaInstagram} boxSize={4} color="#007361" />
-                </Flex>
-              </Link>
-              <Link>
-                <Flex
-                  borderRadius="5000px"
-                  bg="white"
-                  boxSize={7}
-                  justifyContent="center"
-                  alignItems="center"
-                >
-                  <Icon as={FaLinkedin} boxSize={4} color="#007361" />
                 </Flex>
               </Link>
             </Stack>
