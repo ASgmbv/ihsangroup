@@ -16,11 +16,13 @@ import {
   Alert,
   AlertIcon,
   Spinner,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import SectionHeader from "../components/SectionHeader";
 import { queryPrograms, querySteps } from "@/queries";
 import AnimatingHeading from "@/components/AnimatingHeading";
 import { useQuery } from "react-query";
+import NextLink from "next/link";
 
 const Plans = () => {
   const { data: steps, isLoadingSteps, isErrorSteps } = useQuery(
@@ -46,6 +48,12 @@ const Plans = () => {
             />
 
             <ProgramsTable />
+
+            <NextLink href="/#calculator" passHref>
+              <ChakraLink my="10" alignSelf="start">
+                Посчитайте на нашем удобном калькуляторе
+              </ChakraLink>
+            </NextLink>
           </Flex>
         </Container>
       </Box>

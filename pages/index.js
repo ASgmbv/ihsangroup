@@ -29,7 +29,11 @@ export default function Home() {
 
         <Slider />
 
-        <Container maxW="container.lg2" py={["50px", null, "100px"]}>
+        <Container
+          maxW="container.lg2"
+          py={["50px", null, "100px"]}
+          id="calculator"
+        >
           <Calculator />
         </Container>
 
