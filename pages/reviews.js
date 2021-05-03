@@ -23,7 +23,7 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useEffect } from "react";
-import { queryReviews } from "@/utils/queries";
+import { queryReviews, queryVideos } from "@/utils/queries";
 import LoadingError from "@/components/LoadingError";
 import AnimatingHeading from "@/components/AnimatingHeading";
 import { useQuery } from "react-query";
@@ -65,7 +65,7 @@ const ReviewsSlider = ({ reviews = [] }) => {
 
   const [sliderRef, slider] = useKeenSlider({
     slidesPerView: slidesCount,
-    spacing: 20,
+    spacing: 50,
   });
 
   useEffect(() => {
@@ -116,6 +116,8 @@ const Reviews = () => {
     queryReviews
   );
 
+  const { data: videos } = useQuery("videos", queryVideos);
+
   return (
     <Layout title="Отзывы">
       <SectionHeader>Отзывы</SectionHeader>
@@ -142,21 +144,19 @@ const Reviews = () => {
               <ReviewsSlider reviews={reviews} />
             )}
             <Grid
-              mt="10"
-              templateColumns={["repeat(1, 1fr)", null, "repeat(2, 1fr)"]}
-              w="full"
+              my="20"
+              templateColumns={[
+                "repeat(1, 1fr)",
+                null,
+                "repeat(2, 1fr)",
+                "repeat(3, 1fr)",
+              ]}
+              width="100%"
               gap="10"
-              bg="boz"
-              p="10"
             >
-              <ReactPlayer
-                url="https://www.youtube.com/watch?v=IOhrlY525Z4&ab_channel=IHSANGroupLtd%D0%9D%D0%96%D0%9A"
-                width="100%"
-              />
-              <ReactPlayer
-                url="https://www.youtube.com/watch?v=En2H5sHEn0o&ab_channel=IHSANGroupLtd%D0%9D%D0%96%D0%9A"
-                width="100%"
-              />
+              {videos?.map((video, idx) => (
+                <ReactPlayer key={"video" + idx} width="100%" url={video.url} />
+              ))}
             </Grid>
           </Flex>
         </Container>

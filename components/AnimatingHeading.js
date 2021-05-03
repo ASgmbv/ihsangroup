@@ -50,8 +50,6 @@ const AnimatingHeading = ({ title, subtitle, sx, subsx }) => {
   useEffect(() => {
     if (inView) {
       animation.start("visible");
-    } else {
-      animation.start("hidden");
     }
   }, [animation, inView]);
 

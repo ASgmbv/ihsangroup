@@ -106,6 +106,13 @@ const Step = (post) => {
   };
 };
 
+const Video = (post) => {
+  if (!post) return {};
+  return {
+    url: post.video.url,
+  };
+};
+
 export async function queryNews() {
   let response;
   let posts = [];
@@ -274,11 +281,23 @@ export async function querySteps() {
 
   const steps = [];
 
-  console.log({ result });
-
   result.results[0]?.data?.steps?.map((post) => {
     steps.push(Step(post));
   });
 
   return steps;
+}
+
+export async function queryVideos() {
+  const result = await Client().query(
+    Prismic.Predicates.at("document.type", "videos")
+  );
+
+  const videos = [];
+
+  result.results[0]?.data?.videos?.map((post) => {
+    videos.push(Video(post));
+  });
+
+  return videos;
 }
