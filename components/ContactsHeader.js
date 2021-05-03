@@ -20,8 +20,9 @@ import {
   Stack,
   DrawerHeader,
   Button,
+  Select,
 } from "@chakra-ui/react";
-import { MdLocationCity, MdEmail } from "react-icons/md";
+import { MdLocationCity } from "react-icons/md";
 import {
   FaPhoneAlt,
   FaInstagram,
@@ -40,7 +41,7 @@ const ContactsHeader = () => {
 
   return (
     <Box bg="#EFF1ED" pos="relative">
-      <Container maxW="container.lg2" py="3">
+      <Container maxW="container.lg2" py="1">
         <Flex w="full" justifyContent="space-between" alignItems="center">
           <NextLink href="/">
             <a>
@@ -55,56 +56,53 @@ const ContactsHeader = () => {
           </NextLink>
 
           <Flex
-            justify="space-between"
-            align="flex-start"
+            justifyContent="space-between"
+            alignItems="center"
             h="full"
             w="full"
             display={["none", null, null, "flex"]}
           >
-            <Wrap align="flex-start" spacing={[2, null, 4]}>
-              <WrapItem>
-                <Flex align="center">
-                  <Icon
-                    as={MdLocationCity}
-                    boxSize={4}
-                    color="#444D4A"
-                    mr="2"
-                    _hover={{
-                      color: "jashyl",
-                    }}
-                  />
-                  <Text
-                    fontSize="sm"
-                    fontWeight="semibold"
-                    color="#444D4A"
-                    _hover={{
-                      color: "jashyl",
-                    }}
-                  >
+            <Flex align="flex-start">
+              <Flex alignItems="center" mr="4">
+                <Icon
+                  as={MdLocationCity}
+                  boxSize={4}
+                  color="#444D4A"
+                  mr="2"
+                  _hover={{
+                    color: "jashyl",
+                  }}
+                />
+                <Select variant="unstyled" width="fit-content" size="sm">
+                  <option>
+                    Бишкек, Раззакова / Боконбаева 113, БЦ “Альтаир”, 5-этаж.
+                  </option>
+                  <option>
                     Бишкек ш., Чүй/ Кулиева, БЦ “Жан-Сали”, 5-кабат.
-                  </Text>
-                </Flex>
-              </WrapItem>
+                  </option>
+                </Select>
+              </Flex>
 
-              <WrapItem>
-                <PhoneLink phoneNumber="+996700005151">
-                  +996 700 00 51 51
-                </PhoneLink>
-              </WrapItem>
-              <WrapItem>
-                <PhoneLink phoneNumber="+996778005151">
-                  +996 778 00 51 51
-                </PhoneLink>
-              </WrapItem>
-              <WrapItem>
-                <PhoneLink phoneNumber="+996558005353">
-                  +996 558 00 53 53
-                </PhoneLink>
-              </WrapItem>
-            </Wrap>
+              <Flex alignItems="center">
+                <Icon
+                  as={FaPhoneAlt}
+                  boxSize={3}
+                  color="#444D4A"
+                  mr="2"
+                  _hover={{
+                    color: "jashyl",
+                  }}
+                />
+                <Select variant="unstyled" width="fit-content" size="sm">
+                  <option>+996 700 00 51 51</option>
+                  <option>+996 778 00 51 51</option>
+                  <option>+996 559 00 51 51</option>
+                </Select>
+              </Flex>
+            </Flex>
 
-            <Flex display={["none", null, null, "flex"]}>
-              <Link>
+            <Flex display={["none", null, null, "flex"]} alignItems="center">
+              <Link href="https://www.instagram.com/ihsangroup.kg" isExternal>
                 <Icon
                   as={FaInstagram}
                   _hover={{ color: "jashyl" }}
@@ -113,7 +111,10 @@ const ContactsHeader = () => {
                   mr="5"
                 />
               </Link>
-              <Link>
+              <Link
+                href="https://www.facebook.com/ZhoomartTaalaibekov"
+                isExternal
+              >
                 <Icon
                   _hover={{ color: "jashyl" }}
                   as={FaFacebookSquare}
@@ -122,14 +123,7 @@ const ContactsHeader = () => {
                   mr="5"
                 />
               </Link>
-              <Link>
-                <Icon
-                  as={MdEmail}
-                  _hover={{ color: "jashyl" }}
-                  color="#444D49"
-                  boxSize={4}
-                />
-              </Link>
+              <Text fontSize="sm">ihsangroupltd@gmail.com</Text>
             </Flex>
           </Flex>
           <Box display={["block", null, null, "none"]}>
@@ -185,7 +179,8 @@ const ContactsHeader = () => {
                             color: "jashyl",
                           }}
                         >
-                          Бишкек ш., Чүй/ Кулиева, БЦ “Жан-Сали”, 5-кабат.
+                          Бишкек, Раззакова / Боконбаева 113, БЦ “Альтаир”,
+                          5-этаж.
                         </Text>
                       </Flex>
 
@@ -196,11 +191,14 @@ const ContactsHeader = () => {
                         +996 778 00 51 51
                       </PhoneLink>
                       <PhoneLink phoneNumber="+996558005353" textSize="xs">
-                        +996 558 00 53 53
+                        +996 (559) 00 51 51
                       </PhoneLink>
 
-                      <Flex>
-                        <Link>
+                      <Flex alignItems="center">
+                        <Link
+                          href="https://www.instagram.com/ihsangroup.kg"
+                          isExternal
+                        >
                           <Icon
                             as={FaInstagram}
                             _hover={{ color: "jashyl" }}
@@ -209,7 +207,10 @@ const ContactsHeader = () => {
                             mr="5"
                           />
                         </Link>
-                        <Link>
+                        <Link
+                          href="https://www.facebook.com/ZhoomartTaalaibekov"
+                          isExternal
+                        >
                           <Icon
                             _hover={{ color: "jashyl" }}
                             as={FaFacebookSquare}
@@ -218,14 +219,7 @@ const ContactsHeader = () => {
                             mr="5"
                           />
                         </Link>
-                        <Link>
-                          <Icon
-                            as={MdEmail}
-                            _hover={{ color: "jashyl" }}
-                            color="#444D49"
-                            boxSize={4}
-                          />
-                        </Link>
+                        <Text fontSize="sm">ihsangroupltd@gmail.com</Text>
                       </Flex>
                     </Stack>
                   </DrawerFooter>

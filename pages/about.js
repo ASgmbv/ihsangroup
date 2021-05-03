@@ -61,12 +61,26 @@ const Plans = () => {
       </Flex>
       {/**---------------------- */}
       <Box pb={["50px", null, "100px"]}>
-        <Container maxW="container.lg2" d="flex" justifyContent="center">
-          <ReactPlayer
-            url="https://www.youtube.com/watch?v=J1A35wtWBac&ab_channel=IHSANGroupLtd%D0%9D%D0%96%D0%9A"
-            width="90%"
-            height="500px"
-          />
+        <Container
+          maxW="container.lg2"
+          d="flex"
+          justifyContent="center"
+          width="100%"
+        >
+          <Grid
+            templateColumns={["repeat(1, 1fr)", null, "repeat(2, 1fr)"]}
+            width="100%"
+            gap="10"
+          >
+            <ReactPlayer
+              url="https://www.youtube.com/watch?v=J1A35wtWBac&ab_channel=IHSANGroupLtd%D0%9D%D0%96%D0%9A"
+              width="100%"
+            />
+            <ReactPlayer
+              url="https://www.youtube.com/watch?v=poTw1-1QdzU&feature=share&ab_channel=SUPERTV"
+              width="100%"
+            />
+          </Grid>
         </Container>
       </Box>
       {/**---------------------- */}
