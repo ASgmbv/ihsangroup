@@ -75,12 +75,17 @@ const ReviewsSlider = ({ reviews = [] }) => {
   }, [reviews, slider]);
 
   return (
-    <Flex bg="boz" p="10" width="100%" position="relative">
-      <Flex ref={sliderRef} className="keen-slider">
-        {reviews.map(({ image, description }, index) => (
-          <Review image={image} title={description} key={"review-" + index} />
-        ))}
-      </Flex>
+    <Flex
+      bg="boz"
+      p="10"
+      width="100%"
+      position="relative"
+      ref={sliderRef}
+      className="keen-slider"
+    >
+      {reviews.map(({ image, description }, index) => (
+        <Review image={image} title={description} key={"review-" + index} />
+      ))}
 
       <IconButton
         position="absolute"
@@ -127,12 +132,8 @@ const Reviews = () => {
         <Container maxW="container.lg2">
           <Flex flexDir="column" alignItems="center">
             <AnimatingHeading
-              subtitle="НАШИ ПРОГРАММЫ"
-              title={
-                <>
-                  Мы подберем программу, <br /> которая подойдет именно для вас
-                </>
-              }
+              subtitle="НАШИ ОТЗЫВЫ"
+              title={<>Отзывы наших клиентов</>}
             />
             {isError ? (
               <LoadingError />

@@ -88,7 +88,7 @@ const Plans = () => {
         <Container maxW="container.lg2">
           <Flex flexDir="column" alignItems="center">
             <AnimatingHeading
-              subtitle="НАШИ ПРОГРАММЫ"
+              subtitle="О НАС"
               title={<>Все что нужно знать о нас</>}
             />
             <Grid

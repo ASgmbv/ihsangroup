@@ -77,7 +77,7 @@ const Guarantees = () => {
         <Container maxW="container.lg2" py={["50px", null, "100px"]}>
           <Flex flexDir="column" alignItems="center">
             <AnimatingHeading
-              subtitle="ГАРАНТИИ"
+              subtitle="ВОПРОСЫ И ОТВЕТЫ"
               title={
                 <>
                   С нами вы инвестируете с свою <br /> финансовую безопасность

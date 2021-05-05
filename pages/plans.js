@@ -62,8 +62,8 @@ const Plans = () => {
         <Container maxW="container.xl">
           <Flex flexDir="column" alignItems="center">
             <AnimatingHeading
-              subtitle="ЭТАПЫ ПОКУПКИ"
-              title={<>Всего 5 шагов к мечте!</>}
+              subtitle="ЭТАПЫ ПРИОБРЕТЕНИЯ ИМУЩЕСТВА"
+              title={<>Ваши шаги к мечте!</>}
             />
             {isLoadingSteps ? (
               <Spinner />
