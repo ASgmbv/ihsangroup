@@ -31,7 +31,7 @@ const News = () => {
     data: post = {},
     isLoading: postFetching,
     isError: postError,
-  } = useQuery("newsPost", () => queryNewsById(id));
+  } = useQuery(["newsPost", router.asPath], () => queryNewsById(id));
 
   const {
     data: newsPosts,
@@ -42,7 +42,7 @@ const News = () => {
   const { date, title, image, text } = post;
 
   return (
-    <Layout>
+    <Layout title={title || "Новости"}>
       <SectionHeader>Новости</SectionHeader>
       <Container maxW="container.lg2">
         <Grid
@@ -66,7 +66,7 @@ const News = () => {
                 {title}
               </Heading>
               <AspectRatio ratio={3 / 2} width={["100%", null, "100%"]}>
-                <Img src={image} objectFit="cover" />
+                <Img src={image} objectFit="contain" />
               </AspectRatio>
               <RichText
                 render={text}
