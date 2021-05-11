@@ -57,6 +57,7 @@ const Guarantees = () => {
             title={expertOpinion.title}
             photo={expertOpinion.photo}
             name={expertOpinion.name}
+            subtitle={"МНЕНИЕ ЭКСПЕРТА"}
           />
         </Container>
       </Flex>

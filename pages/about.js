@@ -56,6 +56,7 @@ const Plans = () => {
             photo={mission.photo}
             title={mission.title}
             name={mission.name}
+            subtitle={"МИССИЯ КООПЕРАТИВА"}
           />
         </Container>
       </Flex>

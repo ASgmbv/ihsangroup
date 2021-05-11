@@ -17,6 +17,7 @@ const SpeechBlock = ({
   title,
   description,
   name,
+  subtitle,
 }) => {
   if (isError) {
     return <LoadingError />;
@@ -27,7 +28,7 @@ const SpeechBlock = ({
       templateColumns={["1fr", null, null, "1fr 1fr"]}
       gap={[0, null, null, 20]}
     >
-      <AspectRatio ratio={3 / 2} display={["none", null, null, "block"]}>
+      <AspectRatio ratio={3 / 2} mb="10">
         {isLoading ? (
           <Skeleton width="100%" />
         ) : (
@@ -36,7 +37,7 @@ const SpeechBlock = ({
       </AspectRatio>
       <Stack direction="column" spacing="6">
         <Text color="saryy" letterSpacing="widest" fontSize="sm">
-          МИССИЯ КООПЕРАТИВА
+          {subtitle}
         </Text>
         <Heading color="jashyl" fontWeight="500" size="xl">
           {isLoading ? (
