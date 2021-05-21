@@ -244,12 +244,18 @@ export async function queryOffices() {
   return offices;
 }
 
-export async function queryMission() {
+export async function queryMissions() {
+  const speeches = [];
+
   const result = await Client().query(
-    Prismic.Predicates.at("document.type", "mission")
+    Prismic.Predicates.at("document.type", "managers")
   );
 
-  return Mission(result.results[0]?.data);
+  result.results[0]?.data?.managers?.map((post) => {
+    speeches.push(Mission(post));
+  });
+
+  return speeches;
 }
 
 export async function queryExpertOpinion() {

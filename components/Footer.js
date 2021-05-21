@@ -15,12 +15,7 @@ import {
   AlertIcon,
   Spinner,
 } from "@chakra-ui/react";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedin,
-  FaTwitter,
-} from "react-icons/fa";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { MdChevronRight } from "react-icons/md";
 import NextLink from "next/link";
 import { queryLastTwoNews } from "@/queries";
@@ -140,10 +135,9 @@ const Footer = () => {
                 Наши Услуги
               </ListItem>
               <FooterLink href="/plans">Программы</FooterLink>
-              <FooterLink href="/guarantess">Гарантии</FooterLink>
+              <FooterLink href="/guarantees">Гарантии</FooterLink>
               <FooterLink href="/about">Преимущества</FooterLink>
               <FooterLink href="/plans">Условия</FooterLink>
-              <FooterLink href="/guarantess">Частые Вопросы</FooterLink>
             </List>
           </Flex>
         </Container>

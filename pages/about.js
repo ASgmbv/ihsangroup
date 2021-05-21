@@ -15,22 +15,23 @@ import {
   SkeletonText,
   Alert,
   AlertIcon,
+  Stack,
 } from "@chakra-ui/react";
 import ReactPlayer from "react-player";
 import { FaCaretRight } from "react-icons/fa";
 import { MdCheck } from "react-icons/md";
 import SectionHeader from "@/components/SectionHeader";
-import { queryMission, queryQualities, queryTeamMembers } from "@/queries";
+import { queryMissions, queryQualities, queryTeamMembers } from "@/queries";
 import AnimatingHeading from "@/components/AnimatingHeading";
 import SpeechBlock from "@/components/SpeechBlock";
 import { useQuery } from "react-query";
 
 const Plans = () => {
   const {
-    data: mission = {},
+    data: missions = [],
     isLoading: isMissionLoading,
     isError: isMissionError,
-  } = useQuery("mission", queryMission);
+  } = useQuery("missions", queryMissions);
 
   const { data: teamMembers, isLoading, isError } = useQuery(
     "teamMembers",
@@ -49,15 +50,20 @@ const Plans = () => {
       {/**---------------------- */}
       <Flex py={["50px", null, null, "100px"]}>
         <Container maxW="container.lg2">
-          <SpeechBlock
-            isLoading={isMissionLoading}
-            isError={isMissionError}
-            description={mission.description}
-            photo={mission.photo}
-            title={mission.title}
-            name={mission.name}
-            subtitle={"МИССИЯ КООПЕРАТИВА"}
-          />
+          <Stack spacing={20}>
+            {missions.map((mission, idx) => (
+              <SpeechBlock
+                key={idx}
+                isLoading={isMissionLoading}
+                isError={isMissionError}
+                description={mission.description}
+                photo={mission.photo}
+                title={mission.title}
+                name={mission.name}
+                subtitle={"МИССИЯ КООПЕРАТИВА"}
+              />
+            ))}
+          </Stack>
         </Container>
       </Flex>
       {/**---------------------- */}
