@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <Layout title="Ихсан Груп">
-        <NextHead>
+        {/* <NextHead>
           <script
             dangerouslySetInnerHTML={{
               __html: `
@@ -25,7 +25,7 @@ export default function Home() {
           `,
             }}
           />
-        </NextHead>
+        </NextHead> */}
 
         <Slider />
 
