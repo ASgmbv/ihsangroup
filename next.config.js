@@ -1,10 +1,10 @@
-const nextTranslate = require("next-translate");
+// const nextTranslate = require("next-translate");
 
-module.exports = {
-   trailingSlash: true,
-   ...nextTranslate(),
-   i18n: undefined,
-};
+// module.exports = {
+//    trailingSlash: true,
+//    ...nextTranslate(),
+//    i18n: undefined,
+// };
 
 // const nextTranslate = require("next-translate");
 
