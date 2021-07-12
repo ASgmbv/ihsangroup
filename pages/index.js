@@ -1,21 +1,16 @@
 import Calculator from "@/components/Calculator";
 import Layout from "@/components/Layout";
-import { Center, Container, Stack, StatArrow } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 import Slider from "../components/Slider";
 import Mission from "../components/Mission";
 import PlansTabs from "../components/PlansTabs";
 import GuarantessGrid from "../components/GuarantessGrid";
 import NextHead from "next/head";
-import useTranslation from "next-translate/useTranslation";
-import NextLink from "next/link";
-import setLanguage from "next-translate/setLanguage";
 
 export default function Home() {
-   const { t, lang } = useTranslation("home");
-
    return (
       <>
-         <Layout title={t("title")}>
+         <Layout title="">
             <NextHead>
                <script
                   dangerouslySetInnerHTML={{
@@ -47,20 +42,6 @@ export default function Home() {
             <PlansTabs />
 
             <GuarantessGrid />
-
-            <Center width="100%">
-               <Stack direction="row" spacing="10">
-                  <button onClick={async () => await setLanguage("en")}>
-                     EN
-                  </button>
-                  <button onClick={async () => await setLanguage("kg")}>
-                     KG
-                  </button>
-                  <button onClick={async () => await setLanguage("ru")}>
-                     RU
-                  </button>
-               </Stack>
-            </Center>
          </Layout>
       </>
    );
