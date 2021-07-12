@@ -46,11 +46,11 @@ const Partners = () => {
             Партнеры
          </Heading>
          <Grid
-            templateColumns={["repeat(1, 1fr)", null, null, "repeat(3, 1fr)"]}
+            templateColumns={["repeat(2, 1fr)", null, "repeat(3, 1fr)"]}
             bg="#EFF1ED"
-            columnGap={28}
-            rowGap={20}
-            p={20}
+            columnGap={[10, null, 28]}
+            rowGap={[10, null, 20]}
+            p={[6, null, 20]}
          >
             {isLoading
                ? [0, 1, 2].map((el) => (
@@ -111,23 +111,15 @@ const Description = () => {
                alignItems="center"
             >
                {isLoading ? (
-                  <>
-                     <Box alignSelf="flex-start">
-                        <SkeletonText noOfLines={6} spacing={6} />
-                     </Box>
-
-                     <AspectRatio ratio={3 / 2}>
-                        <Skeleton width="100%" height="100%" />
-                     </AspectRatio>
-                  </>
+                  <Box>
+                     <SkeletonText noOfLines={6} spacing={6} />
+                  </Box>
                ) : (
-                  <>
-                     <Text lineHeight="taller" fontSize="md">
-                        {bonusCardDescription?.description}
-                     </Text>
-                     <Image src="/bonus_card.png" />
-                  </>
+                  <Text lineHeight="taller" fontSize="md">
+                     {bonusCardDescription?.description}
+                  </Text>
                )}
+               <Image src="/bonus_card.png" />
             </Grid>
          </Flex>
       </Box>
