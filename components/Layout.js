@@ -15,7 +15,10 @@ const Layout = ({ title = "", children }) => {
 			<Header />
 			{children}
 			<Footer />
-			<Link href="api.whatsapp.com/send?phone=+996700005151" isExternal>
+			<Link
+				href="https://api.whatsapp.com/send?phone=+996700005151"
+				isExternal
+			>
 				<Icon
 					as={IoLogoWhatsapp}
 					position="fixed"

@@ -1,7 +1,10 @@
 // const nextTranslate = require("next-translate");
 
 module.exports = {
-   trailingSlash: true,
+	trailingSlash: true,
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
 };
 
 // const nextTranslate = require("next-translate");
